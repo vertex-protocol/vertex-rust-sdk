@@ -36,7 +36,7 @@ pub async fn execute_sanity_check() -> Result<()> {
 
 async fn deposit(client: &VertexClient) {
     let product_id = 0;
-    let amount = 1000;
+    let amount = 100000;
     client
         .deposit_collateral_builder()
         .product_id(product_id)
@@ -53,7 +53,7 @@ async fn place_orders(client: &VertexClient) {
         .place_order_builder()
         .product_id(product_id)
         .price_x18(to_i128_x18(34000))
-        .amount(f64_to_x18(0.01))
+        .amount(f64_to_x18(0.05))
         .execute()
         .await
         .unwrap()
@@ -87,7 +87,7 @@ async fn place_orders(client: &VertexClient) {
         .place_order_builder()
         .product_id(2)
         .price_x18(to_i128_x18(34000))
-        .amount(f64_to_x18(0.01))
+        .amount(f64_to_x18(0.05))
         .execute()
         .await
         .unwrap()
@@ -111,7 +111,7 @@ async fn place_orders(client: &VertexClient) {
         .place_order_builder()
         .product_id(2)
         .price_x18(to_i128_x18(34000))
-        .amount(f64_to_x18(0.01))
+        .amount(f64_to_x18(0.05))
         .execute()
         .await
         .unwrap()
@@ -129,7 +129,7 @@ async fn place_orders(client: &VertexClient) {
         .place_order_builder()
         .product_id(2)
         .price_x18(to_i128_x18(35000))
-        .amount(f64_to_x18(0.01))
+        .amount(f64_to_x18(0.05))
         .build()
         .unwrap();
 
