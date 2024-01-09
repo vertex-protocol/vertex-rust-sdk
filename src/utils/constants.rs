@@ -1,0 +1,4 @@
+pub const SLOW_MODE_FEE: u128 = 1000000; // $1
+
+pub const DEFAULT_RISK_CHECK_SLEEP_SECS: u64 = 0;
+pub const DEFAULT_SLOW_MODE_SLEEP_SECS: u64 = 10;
