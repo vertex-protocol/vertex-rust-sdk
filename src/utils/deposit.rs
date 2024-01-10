@@ -3,7 +3,8 @@ use crate::bindings::mock_erc20::MockERC20;
 use crate::builders::execute::deposit_collateral::DepositCollateralParams;
 use crate::core::execute::VertexExecute;
 use crate::provider::VertexProvider;
-use ethers::prelude::TxHash;
+use crate::utils::constants::DEFAULT_PENDING_TX_RETIRES;
+use ethers_core::types::TransactionReceipt;
 use ethers_middleware::SignerMiddleware;
 use ethers_providers::Provider;
 use eyre::Result;
@@ -13,7 +14,7 @@ use std::time::Duration;
 pub async fn deposit_collateral<V: VertexExecute + Sync>(
     vertex: &V,
     deposit_collateral_params: DepositCollateralParams,
-) -> Result<TxHash> {
+) -> Result<Option<TransactionReceipt>> {
     let amount = deposit_collateral_params.deposit_collateral_call.amount;
     let product_id = deposit_collateral_params.deposit_collateral_call.product_id;
 
@@ -29,7 +30,6 @@ pub async fn deposit_collateral<V: VertexExecute + Sync>(
 }
 
 pub fn provider_with_signer<V: VertexExecute>(vertex: &V) -> Result<Arc<VertexProvider>> {
-    println!("node url: {}", vertex.node_url());
     let provider = Provider::new_client(&vertex.node_url(), 15, 500)?;
     let wallet = vertex.wallet()?.clone();
     Ok(Arc::new(SignerMiddleware::new(
@@ -51,7 +51,7 @@ pub async fn erc20_client<V: VertexExecute + Sync>(
 pub async fn endpoint_deposit_call<V: VertexExecute>(
     vertex: &V,
     deposit_collateral_params: &DepositCollateralParams,
-) -> Result<TxHash> {
+) -> Result<Option<TransactionReceipt>> {
     let product_id = deposit_collateral_params.deposit_collateral_call.product_id;
     let amount = deposit_collateral_params.deposit_collateral_call.amount;
     let subaccount_name = deposit_collateral_params
@@ -69,6 +69,11 @@ pub async fn endpoint_deposit_call<V: VertexExecute>(
     } else {
         endpoint.deposit_collateral(subaccount_name, product_id, amount)
     };
-    let tx_hash = tx.send().await?.tx_hash();
-    Ok(tx_hash)
+    let tx_receipt = tx
+        .send()
+        .await?
+        .retries(DEFAULT_PENDING_TX_RETIRES)
+        .log_msg("pending tx")
+        .await?;
+    Ok(tx_receipt)
 }

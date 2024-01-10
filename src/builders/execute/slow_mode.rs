@@ -9,7 +9,7 @@ use crate::utils::client_error::none_error;
 use crate::utils::constants::DEFAULT_SLOW_MODE_SLEEP_SECS;
 use crate::{build_and_call, fields_to_vars, vertex_builder};
 use ethers::abi::AbiEncode;
-use ethers::prelude::TxHash;
+use ethers::types::TransactionReceipt;
 
 vertex_builder!(
     SubmitSlowModeTxBuilder,
@@ -19,13 +19,13 @@ vertex_builder!(
     approves_fee: bool,
     sleep_secs: u64;
 
-    pub async fn execute_and_sleep(&self) -> Result<TxHash> {
+    pub async fn execute_and_sleep(&self) -> Result<Option<TransactionReceipt>> {
         let tx_hash = self.execute().await?;
         self.sleep().await;
         Ok(tx_hash)
     }
 
-    build_and_call!(self, execute, submit_slow_mode_tx => TxHash);
+    build_and_call!(self, execute, submit_slow_mode_tx => Option<TransactionReceipt>);
 
     async fn sleep(&self) {
         let sleep_secs = self.sleep_secs.unwrap_or(DEFAULT_SLOW_MODE_SLEEP_SECS);

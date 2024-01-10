@@ -1,7 +1,7 @@
 use async_trait::async_trait;
 use ethers::core::k256::ecdsa::SigningKey;
-use ethers::prelude::TxHash;
 use ethers::types::{H160, U256};
+use ethers_core::types::TransactionReceipt;
 use ethers_signers::Wallet;
 use eyre::eyre;
 use eyre::Result;
@@ -154,7 +154,10 @@ impl VertexExecute for VertexClient {
         Ok(())
     }
 
-    async fn submit_slow_mode_tx(&self, params: SubmitSlowModeTxParams) -> Result<TxHash> {
+    async fn submit_slow_mode_tx(
+        &self,
+        params: SubmitSlowModeTxParams,
+    ) -> Result<Option<TransactionReceipt>> {
         if params.mints_fee {
             self.mint_mock_erc20(0, SLOW_MODE_FEE).await?;
         }
@@ -163,14 +166,14 @@ impl VertexExecute for VertexClient {
         }
         let endpoint = self.endpoint()?;
         let tx = endpoint.submit_slow_mode_transaction(params.tx);
-        let tx_hash = tx.send().await?.tx_hash();
-        Ok(tx_hash)
+        let tx_receipt = tx.send().await?.log_msg("pending tx").await?;
+        Ok(tx_receipt)
     }
 
     async fn deposit_collateral(
         &self,
         deposit_collateral_params: DepositCollateralParams,
-    ) -> Result<TxHash> {
+    ) -> Result<Option<TransactionReceipt>> {
         deposit_collateral(self, deposit_collateral_params).await
     }
 }

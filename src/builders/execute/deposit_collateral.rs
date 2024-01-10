@@ -1,6 +1,6 @@
 use crate::core::execute::VertexExecute;
 use crate::{build_and_call, fields_to_vars, vertex_builder};
-use ethers::prelude::TxHash;
+use ethers::types::TransactionReceipt;
 use eyre::Result;
 use std::time::Duration;
 
@@ -18,19 +18,19 @@ vertex_builder!(
     approves_allowance: bool,
     risk_check_sleep_secs: u64;
 
-    build_and_call!(self, execute, deposit_collateral => TxHash);
+    build_and_call!(self, execute, deposit_collateral => Option<TransactionReceipt>);
 
-    pub async fn deposit_and_await_balance(&self) -> Result<TxHash> {
+    pub async fn deposit_and_await_balance(&self) -> Result<Option<TransactionReceipt>> {
         let params = self.build()?;
         let product_id = params.deposit_collateral_call.product_id;
         let expected_balance = self.calculate_expected_balance(&params).await?;
 
-        let tx_hash = self.vertex.deposit_collateral(params).await?;
+        let receipt = self.vertex.deposit_collateral(params).await?;
 
         self.await_expected_balance(expected_balance, product_id).await?;
         self.sleep_for_risk_check().await;
 
-        Ok(tx_hash)
+        Ok(receipt)
     }
 
     async fn sleep_for_risk_check(&self) {

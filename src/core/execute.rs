@@ -1,6 +1,6 @@
 use async_trait::async_trait;
-use ethers::prelude::{TxHash, U256};
-use ethers_core::types::Bytes;
+use ethers::prelude::U256;
+use ethers_core::types::{Bytes, TransactionReceipt};
 use ethers_signers::Signer;
 use eyre::{eyre, Result};
 
@@ -40,7 +40,10 @@ pub trait VertexExecute: VertexQuery {
 
     async fn execute_trigger(&self, execute: trigger::Execute) -> Result<()>;
 
-    async fn submit_slow_mode_tx(&self, params: SubmitSlowModeTxParams) -> Result<TxHash>;
+    async fn submit_slow_mode_tx(
+        &self,
+        params: SubmitSlowModeTxParams,
+    ) -> Result<Option<TransactionReceipt>>;
 
     async fn place_order(&self, place_order: PlaceOrder) -> Result<Option<PlaceOrderResponse>> {
         let execute = Execute::PlaceOrder(place_order);
@@ -156,14 +159,18 @@ pub trait VertexExecute: VertexQuery {
     async fn deposit_collateral(
         &self,
         deposit_collateral_params: DepositCollateralParams,
-    ) -> Result<TxHash>;
+    ) -> Result<Option<TransactionReceipt>>;
 
-    async fn approve_allowance(&self, product_id: u32, amount: u128) -> Result<TxHash> {
+    async fn approve_allowance(
+        &self,
+        product_id: u32,
+        amount: u128,
+    ) -> Result<Option<TransactionReceipt>> {
         let erc20_client = erc20_client(self, product_id).await?;
         let tx = erc20_client.approve(self.endpoint_addr(), U256::from(amount));
-        let tx_hash = tx.send().await?.tx_hash();
+        let tx_receipt = tx.send().await?.await?;
         println!("approved: {amount} of product id: {product_id}");
-        Ok(tx_hash)
+        Ok(tx_receipt)
     }
 
     async fn get_token_allowance(&self, product_id: u32) -> Result<U256> {
@@ -185,12 +192,16 @@ pub trait VertexExecute: VertexQuery {
         Ok(balance)
     }
 
-    async fn mint_mock_erc20(&self, product_id: u32, amount: u128) -> Result<TxHash> {
+    async fn mint_mock_erc20(
+        &self,
+        product_id: u32,
+        amount: u128,
+    ) -> Result<Option<TransactionReceipt>> {
         let erc20_client = erc20_client(self, product_id).await?;
         let tx = erc20_client.mint(self.wallet()?.address(), U256::from(amount));
-        let tx_hash = tx.send().await?.tx_hash();
+        let tx_receipt = tx.send().await?.await?;
         println!("minted: {amount} of product id: {product_id}");
-        Ok(tx_hash)
+        Ok(tx_receipt)
     }
 
     fn endpoint(&self) -> Result<Endpoint<VertexProvider>> {

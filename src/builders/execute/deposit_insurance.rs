@@ -1,8 +1,8 @@
 use std::time::Duration;
 
 use ethers::abi::AbiEncode;
-use ethers::prelude::TxHash;
 use ethers::types::Bytes;
+use ethers::types::TransactionReceipt;
 use eyre::Result;
 
 use crate::bindings::endpoint::endpoint;
@@ -22,7 +22,7 @@ vertex_builder!(
     mints_tokens: bool,
     approves_allowance: bool;
 
-    pub async fn deposit_and_await_balance(&self) -> Result<TxHash> {
+    pub async fn deposit_and_await_balance(&self) -> Result<Option<TransactionReceipt>> {
         let expected_balance = self.calculate_expected_balance().await?;
         if self.vertex.is_rest_client() {
             self.handle_erc20().await?;
@@ -63,7 +63,7 @@ vertex_builder!(
         }
     }
 
-    build_and_call!(self, execute, submit_slow_mode_tx => TxHash);
+    build_and_call!(self, execute, submit_slow_mode_tx => Option<TransactionReceipt>);
 
     pub fn build(&self) -> Result<SubmitSlowModeTxParams> {
         fields_to_vars!(self, amount);

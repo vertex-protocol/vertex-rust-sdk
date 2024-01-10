@@ -1,8 +1,9 @@
 # Vertex Protocol Rust SDK
+[![Crates.io][crates-img]][crates-url]
 
 This is the Rust SDK for the [Vertex Protocol API](https://vertex-protocol.gitbook.io/docs/developer-resources/api).
 
-[Documentation](link to docs.rs)
+[Documentation](https://docs.rs/vertex-sdk/latest/vertex_sdk/)
 ## Installation
 
 Add the following line to your Cargo.toml file:
@@ -21,5 +22,7 @@ See the [examples](https://github.com/vertex-protocol/vertex-rust-sdk/tree/main/
 - `cargo run -- --query-sanity`: runs sanity checks for engine queries.
 - `cargo run -- --indexer-sanity`: runs sanity checks for indexer queries.
 
+[crates-img]: https://img.shields.io/crates/v/vertex-sdk
+[crates-url]: https://crates.io/crates/vertex-sdk
 
 
