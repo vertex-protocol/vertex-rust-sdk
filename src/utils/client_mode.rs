@@ -50,7 +50,10 @@ impl ClientMode {
 
     pub fn deployment(&self) -> Deployment {
         let network = self.vertex_envtag();
-        let deployment = format!("src/vertex_utils/configs/{network}/deployment.json",);
+        let package_dir = env!("CARGO_MANIFEST_DIR");
+        let vertex_utils_relative = "src/vertex_utils";
+        let deployment =
+            format!("{package_dir}/{vertex_utils_relative}/configs/{network}/deployment.json");
         let deployment = fs::read_to_string(deployment).unwrap();
         let deployment: Deployment = serde_json::from_str(&deployment).unwrap();
         deployment

@@ -137,6 +137,7 @@ impl PlaceTriggerOrder {
             signature: self.signature.to_vec(),
             product_id: self.product_id,
             digest: None,
+            id: None,
             spot_leverage: self.spot_leverage,
         }
     }

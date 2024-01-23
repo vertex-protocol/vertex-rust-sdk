@@ -27,7 +27,8 @@ vertex_builder!(
     nonce: u64,
     recv_time: u64,
     spot_leverage: bool,
-    mock_digest_and_signature: bool;
+    mock_digest_and_signature: bool,
+    id: u64;
 
 
     build_and_call!(self, execute, place_order => Option<PlaceOrderResponse>);
@@ -39,7 +40,7 @@ vertex_builder!(
     pub fn build(&self) -> Result<PlaceOrder> {
         self.assert_trigger_unset()?;
         let order = self.order()?;
-
+        let id = self.id;
         let signature = self.get_signature(self.get_product_id()?, &order)?;
         let digest = self.get_digest(&order)?;
 
@@ -48,6 +49,7 @@ vertex_builder!(
             signature,
             product_id: self.get_product_id()?,
             digest: Some(digest),
+            id,
             spot_leverage: self.spot_leverage,
         })
     }
