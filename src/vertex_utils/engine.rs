@@ -41,7 +41,7 @@ pub enum Txn {
     ApplyDelta(spot_engine::ProductDelta),
 }
 
-#[derive(Archive, RkyvDeserialize, RkyvSerialize, Serialize, Deserialize, Debug)]
+#[derive(Archive, RkyvDeserialize, RkyvSerialize, Serialize, Deserialize, Debug, Clone)]
 #[archive(check_bytes)]
 #[serde(rename_all = "snake_case")]
 #[serde(tag = "type")]
@@ -211,6 +211,10 @@ pub struct PlaceOrder {
     )]
     #[serde(default)]
     pub digest: Option<[u8; 32]>,
+    // serde ignore if none
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    pub id: Option<u64>,
     pub spot_leverage: Option<bool>,
 }
 
@@ -1290,6 +1294,9 @@ pub struct ExecuteResponse {
     #[serde(default)]
     pub signature: Option<Vec<u8>>,
     #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    pub id: Option<u64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub data: Option<ExecuteResponseData>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub error_code: Option<i32>,
@@ -1341,7 +1348,7 @@ pub enum WsResponse {
     Execute(ExecuteResponse),
 }
 
-#[derive(Archive, RkyvDeserialize, RkyvSerialize, Serialize, Deserialize, Debug)]
+#[derive(Archive, RkyvDeserialize, RkyvSerialize, Serialize, Deserialize, Debug, Clone)]
 #[archive(check_bytes)]
 #[serde(rename_all = "snake_case")]
 // #[ts(export)]
