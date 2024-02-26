@@ -7,9 +7,6 @@ use crate::serialize_utils::{
     serialize_vec_bytes32,
 };
 use ethers::prelude::*;
-// use ethers::types::transaction::eip712::Eip712;
-// use ethers::*;
-// use eyre::Result;
 use rkyv::{Archive, Deserialize as RkyvDeserialize, Serialize as RkyvSerialize};
 use serde::{Deserialize, Serialize};
 use std::fmt;
