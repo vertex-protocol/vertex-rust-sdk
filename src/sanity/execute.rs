@@ -10,7 +10,7 @@ use crate::utils::private_key::private_key;
 
 pub async fn execute_sanity_check() -> Result<()> {
     println!("setting up vertex client...");
-    let client = VertexClient::new(ClientMode::Prod)
+    let client = VertexClient::new(ClientMode::Local)
         .with_signer(private_key())
         .await
         .unwrap();
