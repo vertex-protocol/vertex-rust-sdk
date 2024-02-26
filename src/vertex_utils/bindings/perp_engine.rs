@@ -5185,6 +5185,7 @@ pub mod perp_engine {
         Eq,
         Hash,
     )]
+    #[archive(check_bytes)]
     pub struct Balance {
         #[serde(
             serialize_with = "serialize_i128",
@@ -5218,6 +5219,7 @@ pub mod perp_engine {
         Eq,
         Hash,
     )]
+    #[archive(check_bytes)]
     pub struct LpBalance {
         #[serde(
             serialize_with = "serialize_i128",
@@ -5246,6 +5248,7 @@ pub mod perp_engine {
         Eq,
         Hash,
     )]
+    #[archive(check_bytes)]
     pub struct LpState {
         #[serde(
             serialize_with = "serialize_i128",
@@ -5289,6 +5292,7 @@ pub mod perp_engine {
         Eq,
         Hash,
     )]
+    #[archive(check_bytes)]
     pub struct State {
         #[serde(
             serialize_with = "serialize_i128",

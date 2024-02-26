@@ -2302,6 +2302,7 @@ pub mod querier {
         Eq,
         Hash,
     )]
+    #[archive(check_bytes)]
     pub struct BookInfo {
         #[serde(
             serialize_with = "serialize_i128",
@@ -2345,6 +2346,7 @@ pub mod querier {
         Eq,
         Hash,
     )]
+    #[archive(check_bytes)]
     pub struct HealthInfo {
         #[serde(
             serialize_with = "serialize_i128",
@@ -2378,6 +2380,7 @@ pub mod querier {
         Eq,
         Hash,
     )]
+    #[archive(check_bytes)]
     pub struct PerpBalance {
         pub product_id: u32,
         pub lp_balance: crate::vertex_utils::bindings::perp_engine::LpBalance,
@@ -2399,6 +2402,7 @@ pub mod querier {
         Eq,
         Hash,
     )]
+    #[archive(check_bytes)]
     pub struct PerpProduct {
         pub product_id: u32,
         #[serde(
@@ -2444,6 +2448,7 @@ pub mod querier {
         Eq,
         Hash,
     )]
+    #[archive(check_bytes)]
     pub struct SpotBalance {
         pub product_id: u32,
         pub lp_balance: crate::vertex_utils::bindings::spot_engine::LpBalance,
@@ -2792,6 +2797,7 @@ pub mod querier {
         Eq,
         Hash,
     )]
+    #[archive(check_bytes)]
     pub struct Risk {
         #[serde(
             serialize_with = "serialize_i128",
