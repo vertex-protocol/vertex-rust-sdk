@@ -21,7 +21,7 @@ async fn main() {
         .deposit_collateral_builder()
         .product_id(USDC)
         .amount(to_u128_x6(1000)) // scale by token decimals (USDC has 6 decimals)
-        // .mints_tokens(true) // testnet only (mints specified amount of token before depositing)
+        .mints_tokens(true) // testnet only (mints specified amount of token before depositing)
         .deposit_and_await_balance() // waits for change in balance
         .await
         .unwrap();
@@ -57,7 +57,6 @@ async fn main() {
         .await
         .unwrap();
 
-    println!("order placed");
     // withdraw 100 USDC
     client
         .withdraw_collateral_builder()
