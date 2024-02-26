@@ -4,7 +4,7 @@ use vertex_sdk::prelude::*;
 #[tokio::main]
 async fn main() {
     // a client without a signer can make queries
-    let client = VertexClient::new(ClientMode::SepoliaTest);
+    let client = VertexClient::new(ClientMode::Prod);
 
     const ARB_PERP: u32 = 6;
     let depth = 10;

@@ -9,7 +9,7 @@ use crate::utils::private_key::private_key;
 use crate::vertex_client::VertexClient;
 
 pub async fn query_sanity_check() -> Result<()> {
-    let client = VertexClient::new(ClientMode::Local)
+    let client = VertexClient::new(ClientMode::Prod)
         .with_signer(private_key())
         .await?;
 

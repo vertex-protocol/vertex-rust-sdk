@@ -9,7 +9,7 @@ use ethers::prelude::H160;
 use eyre::Result;
 
 pub async fn indexer_sanity_check() -> Result<()> {
-    let client = VertexClient::new(ClientMode::Local)
+    let client = VertexClient::new(ClientMode::Prod)
         .with_signer(private_key())
         .await?;
     let funding_rate = client.get_funding_rate(1).await?;

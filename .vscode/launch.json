@@ -1,0 +1,221 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug unit tests in library 'vertex-sdk'",
+      "cargo": {
+        "args": ["test", "--no-run", "--lib", "--package=vertex-sdk"],
+        "filter": {
+          "name": "vertex-sdk",
+          "kind": "lib"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug executable 'vertex-sdk'",
+      "cargo": {
+        "args": ["build", "--bin=vertex-sdk", "--package=vertex-sdk"],
+        "filter": {
+          "name": "vertex-sdk",
+          "kind": "bin"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug unit tests in executable 'vertex-sdk'",
+      "cargo": {
+        "args": ["test", "--no-run", "--bin=vertex-sdk", "--package=vertex-sdk"],
+        "filter": {
+          "name": "vertex-sdk",
+          "kind": "bin"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug example 'basic_usage'",
+      "cargo": {
+        "args": ["build", "--example=basic_usage", "--package=vertex-sdk"],
+        "filter": {
+          "name": "basic_usage",
+          "kind": "example"
+        }
+      },
+      "args": [],
+      "env": {
+        "RUST_SDK_PRIVATE_KEY": "0000000000000000000000000000000000000000000000000000000000000001"
+      },
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug unit tests in example 'basic_usage'",
+      "cargo": {
+        "args": ["test", "--no-run", "--example=basic_usage", "--package=vertex-sdk"],
+        "filter": {
+          "name": "basic_usage",
+          "kind": "example"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug example 'digest'",
+      "cargo": {
+        "args": ["build", "--example=digest", "--package=vertex-sdk"],
+        "filter": {
+          "name": "digest",
+          "kind": "example"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug unit tests in example 'digest'",
+      "cargo": {
+        "args": ["test", "--no-run", "--example=digest", "--package=vertex-sdk"],
+        "filter": {
+          "name": "digest",
+          "kind": "example"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug example 'place_and_cancel'",
+      "cargo": {
+        "args": ["build", "--example=place_and_cancel", "--package=vertex-sdk"],
+        "filter": {
+          "name": "place_and_cancel",
+          "kind": "example"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug unit tests in example 'place_and_cancel'",
+      "cargo": {
+        "args": ["test", "--no-run", "--example=place_and_cancel", "--package=vertex-sdk"],
+        "filter": {
+          "name": "place_and_cancel",
+          "kind": "example"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug example 'no_signer'",
+      "cargo": {
+        "args": ["build", "--example=no_signer", "--package=vertex-sdk"],
+        "filter": {
+          "name": "no_signer",
+          "kind": "example"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug unit tests in example 'no_signer'",
+      "cargo": {
+        "args": ["test", "--no-run", "--example=no_signer", "--package=vertex-sdk"],
+        "filter": {
+          "name": "no_signer",
+          "kind": "example"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug example 'client_config'",
+      "cargo": {
+        "args": ["build", "--example=client_config", "--package=vertex-sdk"],
+        "filter": {
+          "name": "client_config",
+          "kind": "example"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug unit tests in example 'client_config'",
+      "cargo": {
+        "args": ["test", "--no-run", "--example=client_config", "--package=vertex-sdk"],
+        "filter": {
+          "name": "client_config",
+          "kind": "example"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug example 'orders'",
+      "cargo": {
+        "args": ["build", "--example=orders", "--package=vertex-sdk"],
+        "filter": {
+          "name": "orders",
+          "kind": "example"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug unit tests in example 'orders'",
+      "cargo": {
+        "args": ["test", "--no-run", "--example=orders", "--package=vertex-sdk"],
+        "filter": {
+          "name": "orders",
+          "kind": "example"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}

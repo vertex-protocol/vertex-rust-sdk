@@ -10,13 +10,13 @@ use crate::utils::private_key::private_key;
 
 pub async fn execute_sanity_check() -> Result<()> {
     println!("setting up vertex client...");
-    let client = VertexClient::new(ClientMode::Local)
+    let client = VertexClient::new(ClientMode::Prod)
         .with_signer(private_key())
         .await
         .unwrap();
 
     println!("depositing collateral...");
-    deposit(&client).await;
+    // deposit(&client).await;
 
     println!("placing and cancelling orders...");
     place_orders(&client).await;

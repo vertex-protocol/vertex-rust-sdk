@@ -15,13 +15,13 @@ pub mod perp_engine {
     #![allow(dead_code)]
     #![allow(clippy::type_complexity)]
     #![allow(unused_imports)]
-    use rkyv::{Archive, Deserialize as RkyvDeserialize, Serialize as RkyvSerialize};
     use super::super::super::serialize_utils::{
         deserialize_bytes32, deserialize_i128, deserialize_i256, deserialize_nested_vec_i128,
         deserialize_u128, deserialize_u256, deserialize_vec_i128, serialize_bytes32,
         serialize_i128, serialize_i256, serialize_nested_vec_i128, serialize_u128, serialize_u256,
         serialize_vec_i128,
     };
+    use rkyv::{Archive, Deserialize as RkyvDeserialize, Serialize as RkyvSerialize};
     use serde::{Deserialize, Serialize};
 
     #[allow(deprecated)]
@@ -2475,6 +2475,8 @@ pub mod perp_engine {
     }
     ///Custom Error type `PRBMathSD59x18__SqrtNegativeInput` with signature `PRBMathSD59x18__SqrtNegativeInput(int256)` and selector `0xc11907fe`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthError,
         ::ethers::contract::EthDisplay,
@@ -2489,10 +2491,16 @@ pub mod perp_engine {
         abi = "PRBMathSD59x18__SqrtNegativeInput(int256)"
     )]
     pub struct PRBMathSD59x18__SqrtNegativeInput {
+        #[serde(
+            serialize_with = "serialize_i256",
+            deserialize_with = "deserialize_i256"
+        )]
         pub x: ::ethers::core::types::I256,
     }
     ///Custom Error type `PRBMathSD59x18__SqrtOverflow` with signature `PRBMathSD59x18__SqrtOverflow(int256)` and selector `0x2c482c39`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthError,
         ::ethers::contract::EthDisplay,
@@ -2507,6 +2515,10 @@ pub mod perp_engine {
         abi = "PRBMathSD59x18__SqrtOverflow(int256)"
     )]
     pub struct PRBMathSD59x18__SqrtOverflow {
+        #[serde(
+            serialize_with = "serialize_i256",
+            deserialize_with = "deserialize_i256"
+        )]
         pub x: ::ethers::core::types::I256,
     }
     ///Container type for all of the contract's custom errors
@@ -2599,6 +2611,8 @@ pub mod perp_engine {
         }
     }
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthEvent,
         ::ethers::contract::EthDisplay,
@@ -2613,6 +2627,8 @@ pub mod perp_engine {
         pub product_id: u32,
     }
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthEvent,
         ::ethers::contract::EthDisplay,
@@ -2625,9 +2641,15 @@ pub mod perp_engine {
     #[ethevent(name = "BalanceUpdate", abi = "BalanceUpdate(uint32,bytes32)")]
     pub struct BalanceUpdateFilter {
         pub product_id: u32,
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
         pub subaccount: [u8; 32],
     }
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthEvent,
         ::ethers::contract::EthDisplay,
@@ -2642,6 +2664,8 @@ pub mod perp_engine {
         pub version: u8,
     }
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthEvent,
         ::ethers::contract::EthDisplay,
@@ -2662,6 +2686,8 @@ pub mod perp_engine {
         pub new_owner: ::ethers::core::types::Address,
     }
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthEvent,
         ::ethers::contract::EthDisplay,
@@ -2744,6 +2770,8 @@ pub mod perp_engine {
     }
     ///Container type for all input parameters for the `addProduct` function with signature `addProduct(uint32,address,int128,int128,int128,int128,(int32,int32,int32,int32,int32))` and selector `0x367bc290`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -2760,14 +2788,32 @@ pub mod perp_engine {
     pub struct AddProductCall {
         pub health_group: u32,
         pub book: ::ethers::core::types::Address,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub size_increment: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub price_increment_x18: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub min_size: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub lp_spread_x18: i128,
         pub risk_store: RiskStore,
     }
     ///Container type for all input parameters for the `applyDeltas` function with signature `applyDeltas((uint32,bytes32,int128,int128)[])` and selector `0x6c9a2ce3`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -2786,6 +2832,8 @@ pub mod perp_engine {
     }
     ///Container type for all input parameters for the `balances` function with signature `balances(uint32,bytes32)` and selector `0xbf4c8f5f`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -2799,6 +2847,8 @@ pub mod perp_engine {
     pub struct BalancesCall(pub u32, pub [u8; 32]);
     ///Container type for all input parameters for the `burnLp` function with signature `burnLp(uint32,bytes32,int128)` and selector `0xd98752ec`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -2811,11 +2861,21 @@ pub mod perp_engine {
     #[ethcall(name = "burnLp", abi = "burnLp(uint32,bytes32,int128)")]
     pub struct BurnLpCall {
         pub product_id: u32,
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
         pub subaccount: [u8; 32],
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub amount_lp: i128,
     }
     ///Container type for all input parameters for the `decomposeLps` function with signature `decomposeLps(bytes32,bytes32,address)` and selector `0x011a447a`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -2827,12 +2887,22 @@ pub mod perp_engine {
     )]
     #[ethcall(name = "decomposeLps", abi = "decomposeLps(bytes32,bytes32,address)")]
     pub struct DecomposeLpsCall {
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
         pub liquidatee: [u8; 32],
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
         pub liquidator: [u8; 32],
         pub fee_calculator: ::ethers::core::types::Address,
     }
     ///Container type for all input parameters for the `getAvailableSettle` function with signature `getAvailableSettle(uint32)` and selector `0x3056f78f`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -2848,6 +2918,8 @@ pub mod perp_engine {
     }
     ///Container type for all input parameters for the `getBalance` function with signature `getBalance(uint32,bytes32)` and selector `0x7c1e1487`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -2860,10 +2932,16 @@ pub mod perp_engine {
     #[ethcall(name = "getBalance", abi = "getBalance(uint32,bytes32)")]
     pub struct GetBalanceCall {
         pub product_id: u32,
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
         pub subaccount: [u8; 32],
     }
     ///Container type for all input parameters for the `getBalanceAmount` function with signature `getBalanceAmount(uint32,bytes32)` and selector `0xe039bfa9`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -2876,10 +2954,16 @@ pub mod perp_engine {
     #[ethcall(name = "getBalanceAmount", abi = "getBalanceAmount(uint32,bytes32)")]
     pub struct GetBalanceAmountCall {
         pub product_id: u32,
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
         pub subaccount: [u8; 32],
     }
     ///Container type for all input parameters for the `getBalances` function with signature `getBalances(uint32,bytes32)` and selector `0x6aca31a3`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -2892,10 +2976,16 @@ pub mod perp_engine {
     #[ethcall(name = "getBalances", abi = "getBalances(uint32,bytes32)")]
     pub struct GetBalancesCall {
         pub product_id: u32,
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
         pub subaccount: [u8; 32],
     }
     ///Container type for all input parameters for the `getClearinghouse` function with signature `getClearinghouse()` and selector `0xb1cb0f42`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -2909,6 +2999,8 @@ pub mod perp_engine {
     pub struct GetClearinghouseCall;
     ///Container type for all input parameters for the `getEndpoint` function with signature `getEndpoint()` and selector `0xaed8e967`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -2922,6 +3014,8 @@ pub mod perp_engine {
     pub struct GetEndpointCall;
     ///Container type for all input parameters for the `getEngineType` function with signature `getEngineType()` and selector `0x4604d19b`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -2935,6 +3029,8 @@ pub mod perp_engine {
     pub struct GetEngineTypeCall;
     ///Container type for all input parameters for the `getLpState` function with signature `getLpState(uint32)` and selector `0x3f857d5a`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -2950,6 +3046,8 @@ pub mod perp_engine {
     }
     ///Container type for all input parameters for the `getOraclePriceX18` function with signature `getOraclePriceX18(uint32)` and selector `0x2f8f1fb0`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -2965,6 +3063,8 @@ pub mod perp_engine {
     }
     ///Container type for all input parameters for the `getOraclePricesX18` function with signature `getOraclePricesX18(uint32)` and selector `0xd3d660cb`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -2980,6 +3080,8 @@ pub mod perp_engine {
     }
     ///Container type for all input parameters for the `getOrderbook` function with signature `getOrderbook(uint32)` and selector `0x4427952d`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -2995,6 +3097,8 @@ pub mod perp_engine {
     }
     ///Container type for all input parameters for the `getPoolState` function with signature `getPoolState(uint32)` and selector `0x8af6426a`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3010,6 +3114,8 @@ pub mod perp_engine {
     }
     ///Container type for all input parameters for the `getPositionPnl` function with signature `getPositionPnl(uint32,bytes32)` and selector `0x1769225f`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3022,10 +3128,16 @@ pub mod perp_engine {
     #[ethcall(name = "getPositionPnl", abi = "getPositionPnl(uint32,bytes32)")]
     pub struct GetPositionPnlCall {
         pub product_id: u32,
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
         pub subaccount: [u8; 32],
     }
     ///Container type for all input parameters for the `getProductIds` function with signature `getProductIds()` and selector `0x47428e7b`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3039,6 +3151,8 @@ pub mod perp_engine {
     pub struct GetProductIdsCall;
     ///Container type for all input parameters for the `getRawBalance` function with signature `getRawBalance(uint32,bytes32)` and selector `0xedf02653`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3051,10 +3165,16 @@ pub mod perp_engine {
     #[ethcall(name = "getRawBalance", abi = "getRawBalance(uint32,bytes32)")]
     pub struct GetRawBalanceCall {
         pub product_id: u32,
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
         pub subaccount: [u8; 32],
     }
     ///Container type for all input parameters for the `getRawLpBalance` function with signature `getRawLpBalance(uint32,bytes32)` and selector `0x6f27be34`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3067,10 +3187,16 @@ pub mod perp_engine {
     #[ethcall(name = "getRawLpBalance", abi = "getRawLpBalance(uint32,bytes32)")]
     pub struct GetRawLpBalanceCall {
         pub product_id: u32,
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
         pub subaccount: [u8; 32],
     }
     ///Container type for all input parameters for the `getRawLpState` function with signature `getRawLpState(uint32)` and selector `0xc721bd65`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3086,6 +3212,8 @@ pub mod perp_engine {
     }
     ///Container type for all input parameters for the `getRawState` function with signature `getRawState(uint32)` and selector `0xec7a79c9`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3101,6 +3229,8 @@ pub mod perp_engine {
     }
     ///Container type for all input parameters for the `getSettlementState` function with signature `getSettlementState(uint32,bytes32)` and selector `0x388927b8`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3116,10 +3246,16 @@ pub mod perp_engine {
     )]
     pub struct GetSettlementStateCall {
         pub product_id: u32,
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
         pub subaccount: [u8; 32],
     }
     ///Container type for all input parameters for the `getStateAndBalance` function with signature `getStateAndBalance(uint32,bytes32)` and selector `0xe334be33`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3135,10 +3271,16 @@ pub mod perp_engine {
     )]
     pub struct GetStateAndBalanceCall {
         pub product_id: u32,
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
         pub subaccount: [u8; 32],
     }
     ///Container type for all input parameters for the `getStatesAndBalances` function with signature `getStatesAndBalances(uint32,bytes32)` and selector `0x3d5cc9dc`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3154,10 +3296,16 @@ pub mod perp_engine {
     )]
     pub struct GetStatesAndBalancesCall {
         pub product_id: u32,
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
         pub subaccount: [u8; 32],
     }
     ///Container type for all input parameters for the `getVersion` function with signature `getVersion()` and selector `0x0d8e6e2c`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3171,6 +3319,8 @@ pub mod perp_engine {
     pub struct GetVersionCall;
     ///Container type for all input parameters for the `hasBalance` function with signature `hasBalance(uint32,bytes32)` and selector `0xde7ebc91`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3183,10 +3333,16 @@ pub mod perp_engine {
     #[ethcall(name = "hasBalance", abi = "hasBalance(uint32,bytes32)")]
     pub struct HasBalanceCall {
         pub product_id: u32,
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
         pub subaccount: [u8; 32],
     }
     ///Container type for all input parameters for the `initialize` function with signature `initialize(address,address,address,address,address)` and selector `0x1459457a`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3209,6 +3365,8 @@ pub mod perp_engine {
     }
     ///Container type for all input parameters for the `lpBalances` function with signature `lpBalances(uint32,bytes32)` and selector `0x08ed83c1`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3222,6 +3380,8 @@ pub mod perp_engine {
     pub struct LpBalancesCall(pub u32, pub [u8; 32]);
     ///Container type for all input parameters for the `lpStates` function with signature `lpStates(uint32)` and selector `0x042508e6`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3235,6 +3395,8 @@ pub mod perp_engine {
     pub struct LpStatesCall(pub u32);
     ///Container type for all input parameters for the `manualAssert` function with signature `manualAssert(int128[])` and selector `0x9b6f762b`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3246,10 +3408,16 @@ pub mod perp_engine {
     )]
     #[ethcall(name = "manualAssert", abi = "manualAssert(int128[])")]
     pub struct ManualAssertCall {
+        #[serde(
+            serialize_with = "serialize_vec_i128",
+            deserialize_with = "deserialize_vec_i128"
+        )]
         pub open_interests: ::std::vec::Vec<i128>,
     }
     ///Container type for all input parameters for the `markets` function with signature `markets(uint32)` and selector `0xece91e35`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3263,6 +3431,8 @@ pub mod perp_engine {
     pub struct MarketsCall(pub u32);
     ///Container type for all input parameters for the `mintLp` function with signature `mintLp(uint32,bytes32,int128,int128,int128)` and selector `0x98de72fe`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3275,13 +3445,31 @@ pub mod perp_engine {
     #[ethcall(name = "mintLp", abi = "mintLp(uint32,bytes32,int128,int128,int128)")]
     pub struct MintLpCall {
         pub product_id: u32,
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
         pub subaccount: [u8; 32],
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub amount_base: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub quote_amount_low: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub quote_amount_high: i128,
     }
     ///Container type for all input parameters for the `owner` function with signature `owner()` and selector `0x8da5cb5b`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3295,6 +3483,8 @@ pub mod perp_engine {
     pub struct OwnerCall;
     ///Container type for all input parameters for the `perpPositionClosed` function with signature `perpPositionClosed(uint32,bytes32)` and selector `0x64c42cc2`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3310,10 +3500,16 @@ pub mod perp_engine {
     )]
     pub struct PerpPositionClosedCall {
         pub product_id: u32,
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
         pub subaccount: [u8; 32],
     }
     ///Container type for all input parameters for the `renounceOwnership` function with signature `renounceOwnership()` and selector `0x715018a6`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3327,6 +3523,8 @@ pub mod perp_engine {
     pub struct RenounceOwnershipCall;
     ///Container type for all input parameters for the `setBalance` function with signature `setBalance(uint32,bytes32,(int128,int128,int128))` and selector `0x385de9c3`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3342,11 +3540,17 @@ pub mod perp_engine {
     )]
     pub struct SetBalanceCall {
         pub product_id: u32,
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
         pub subaccount: [u8; 32],
         pub balance: Balance,
     }
     ///Container type for all input parameters for the `setEndpoint` function with signature `setEndpoint(address)` and selector `0xdbbb4155`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3362,6 +3566,8 @@ pub mod perp_engine {
     }
     ///Container type for all input parameters for the `setLpBalance` function with signature `setLpBalance(uint32,bytes32,(int128,int128))` and selector `0x3025586a`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3377,11 +3583,17 @@ pub mod perp_engine {
     )]
     pub struct SetLpBalanceCall {
         pub product_id: u32,
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
         pub subaccount: [u8; 32],
         pub lp_balance: LpBalance,
     }
     ///Container type for all input parameters for the `setLpState` function with signature `setLpState(uint32,(int128,int128,int128,int128,int128))` and selector `0x26fa00ac`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3401,6 +3613,8 @@ pub mod perp_engine {
     }
     ///Container type for all input parameters for the `setState` function with signature `setState(uint32,(int128,int128,int128,int128))` and selector `0x7fa29d49`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3420,6 +3634,8 @@ pub mod perp_engine {
     }
     ///Container type for all input parameters for the `settlePnl` function with signature `settlePnl(bytes32,uint256)` and selector `0xd6b0e0b5`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3431,11 +3647,21 @@ pub mod perp_engine {
     )]
     #[ethcall(name = "settlePnl", abi = "settlePnl(bytes32,uint256)")]
     pub struct SettlePnlCall {
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
         pub subaccount: [u8; 32],
+        #[serde(
+            serialize_with = "serialize_u256",
+            deserialize_with = "deserialize_u256"
+        )]
         pub product_ids: ::ethers::core::types::U256,
     }
     ///Container type for all input parameters for the `socializeSubaccount` function with signature `socializeSubaccount(bytes32,int128)` and selector `0xb1cd4b8f`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3450,11 +3676,21 @@ pub mod perp_engine {
         abi = "socializeSubaccount(bytes32,int128)"
     )]
     pub struct SocializeSubaccountCall {
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
         pub subaccount: [u8; 32],
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub insurance: i128,
     }
     ///Container type for all input parameters for the `states` function with signature `states(uint32)` and selector `0x7f17baad`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3468,6 +3704,8 @@ pub mod perp_engine {
     pub struct StatesCall(pub u32);
     ///Container type for all input parameters for the `swapLp` function with signature `swapLp(uint32,int128,int128)` and selector `0xc7167cf5`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3480,11 +3718,21 @@ pub mod perp_engine {
     #[ethcall(name = "swapLp", abi = "swapLp(uint32,int128,int128)")]
     pub struct SwapLpCall {
         pub product_id: u32,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub base_delta: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub quote_delta: i128,
     }
     ///Container type for all input parameters for the `swapLp` function with signature `swapLp(uint32,int128,int128,int128,int128)` and selector `0xd952f2a3`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3497,13 +3745,31 @@ pub mod perp_engine {
     #[ethcall(name = "swapLp", abi = "swapLp(uint32,int128,int128,int128,int128)")]
     pub struct SwapLpWithProductIdAndAmountAndPriceX18Call {
         pub product_id: u32,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub amount: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub price_x18: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub size_increment: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub lp_spread_x18: i128,
     }
     ///Container type for all input parameters for the `transferOwnership` function with signature `transferOwnership(address)` and selector `0xf2fde38b`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3519,6 +3785,8 @@ pub mod perp_engine {
     }
     ///Container type for all input parameters for the `unsignedUpdateProductTx` function with signature `unsignedUpdateProductTx((uint32,int128,int128,int128,int128,(int32,int32,int32,int32,int32)))` and selector `0x3ec8c7da`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3537,6 +3805,8 @@ pub mod perp_engine {
     }
     ///Container type for all input parameters for the `updateProduct` function with signature `updateProduct(bytes)` and selector `0xc9fe9ac3`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3552,6 +3822,8 @@ pub mod perp_engine {
     }
     ///Container type for all input parameters for the `updateStates` function with signature `updateStates(uint128,int128[])` and selector `0x6736f5da`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthCall,
         ::ethers::contract::EthDisplay,
@@ -3563,7 +3835,15 @@ pub mod perp_engine {
     )]
     #[ethcall(name = "updateStates", abi = "updateStates(uint128,int128[])")]
     pub struct UpdateStatesCall {
+        #[serde(
+            serialize_with = "serialize_u128",
+            deserialize_with = "deserialize_u128"
+        )]
         pub dt: u128,
+        #[serde(
+            serialize_with = "serialize_vec_i128",
+            deserialize_with = "deserialize_vec_i128"
+        )]
         pub avg_price_diffs: ::std::vec::Vec<i128>,
     }
     ///Container type for all of the contract's call
@@ -4216,6 +4496,8 @@ pub mod perp_engine {
     }
     ///Container type for all return fields from the `balances` function with signature `balances(uint32,bytes32)` and selector `0xbf4c8f5f`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4226,12 +4508,26 @@ pub mod perp_engine {
         Hash,
     )]
     pub struct BalancesReturn {
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub amount: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub v_quote_balance: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub last_cumulative_funding_x18: i128,
     }
     ///Container type for all return fields from the `burnLp` function with signature `burnLp(uint32,bytes32,int128)` and selector `0xd98752ec`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4242,11 +4538,21 @@ pub mod perp_engine {
         Hash,
     )]
     pub struct BurnLpReturn {
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub amount_base: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub amount_quote: i128,
     }
     ///Container type for all return fields from the `decomposeLps` function with signature `decomposeLps(bytes32,bytes32,address)` and selector `0x011a447a`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4257,10 +4563,16 @@ pub mod perp_engine {
         Hash,
     )]
     pub struct DecomposeLpsReturn {
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub liquidation_fees: i128,
     }
     ///Container type for all return fields from the `getAvailableSettle` function with signature `getAvailableSettle(uint32)` and selector `0x3056f78f`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4273,6 +4585,8 @@ pub mod perp_engine {
     pub struct GetAvailableSettleReturn(pub i128);
     ///Container type for all return fields from the `getBalance` function with signature `getBalance(uint32,bytes32)` and selector `0x7c1e1487`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4285,6 +4599,8 @@ pub mod perp_engine {
     pub struct GetBalanceReturn(pub Balance);
     ///Container type for all return fields from the `getBalanceAmount` function with signature `getBalanceAmount(uint32,bytes32)` and selector `0xe039bfa9`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4297,6 +4613,8 @@ pub mod perp_engine {
     pub struct GetBalanceAmountReturn(pub i128);
     ///Container type for all return fields from the `getBalances` function with signature `getBalances(uint32,bytes32)` and selector `0x6aca31a3`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4309,6 +4627,8 @@ pub mod perp_engine {
     pub struct GetBalancesReturn(pub LpBalance, pub Balance);
     ///Container type for all return fields from the `getClearinghouse` function with signature `getClearinghouse()` and selector `0xb1cb0f42`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4321,6 +4641,8 @@ pub mod perp_engine {
     pub struct GetClearinghouseReturn(pub ::ethers::core::types::Address);
     ///Container type for all return fields from the `getEndpoint` function with signature `getEndpoint()` and selector `0xaed8e967`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4333,6 +4655,8 @@ pub mod perp_engine {
     pub struct GetEndpointReturn(pub ::ethers::core::types::Address);
     ///Container type for all return fields from the `getEngineType` function with signature `getEngineType()` and selector `0x4604d19b`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4345,6 +4669,8 @@ pub mod perp_engine {
     pub struct GetEngineTypeReturn(pub u8);
     ///Container type for all return fields from the `getLpState` function with signature `getLpState(uint32)` and selector `0x3f857d5a`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4357,6 +4683,8 @@ pub mod perp_engine {
     pub struct GetLpStateReturn(pub LpState);
     ///Container type for all return fields from the `getOraclePriceX18` function with signature `getOraclePriceX18(uint32)` and selector `0x2f8f1fb0`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4369,6 +4697,8 @@ pub mod perp_engine {
     pub struct GetOraclePriceX18Return(pub i128);
     ///Container type for all return fields from the `getOraclePricesX18` function with signature `getOraclePricesX18(uint32)` and selector `0xd3d660cb`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4381,6 +4711,8 @@ pub mod perp_engine {
     pub struct GetOraclePricesX18Return(pub Prices);
     ///Container type for all return fields from the `getOrderbook` function with signature `getOrderbook(uint32)` and selector `0x4427952d`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4393,6 +4725,8 @@ pub mod perp_engine {
     pub struct GetOrderbookReturn(pub ::ethers::core::types::Address);
     ///Container type for all return fields from the `getPoolState` function with signature `getPoolState(uint32)` and selector `0x8af6426a`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4405,6 +4739,8 @@ pub mod perp_engine {
     pub struct GetPoolStateReturn(pub i128, pub i128);
     ///Container type for all return fields from the `getPositionPnl` function with signature `getPositionPnl(uint32,bytes32)` and selector `0x1769225f`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4417,6 +4753,8 @@ pub mod perp_engine {
     pub struct GetPositionPnlReturn(pub i128);
     ///Container type for all return fields from the `getProductIds` function with signature `getProductIds()` and selector `0x47428e7b`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4429,6 +4767,8 @@ pub mod perp_engine {
     pub struct GetProductIdsReturn(pub ::std::vec::Vec<u32>);
     ///Container type for all return fields from the `getRawBalance` function with signature `getRawBalance(uint32,bytes32)` and selector `0xedf02653`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4441,6 +4781,8 @@ pub mod perp_engine {
     pub struct GetRawBalanceReturn(pub Balance);
     ///Container type for all return fields from the `getRawLpBalance` function with signature `getRawLpBalance(uint32,bytes32)` and selector `0x6f27be34`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4453,6 +4795,8 @@ pub mod perp_engine {
     pub struct GetRawLpBalanceReturn(pub LpBalance);
     ///Container type for all return fields from the `getRawLpState` function with signature `getRawLpState(uint32)` and selector `0xc721bd65`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4465,6 +4809,8 @@ pub mod perp_engine {
     pub struct GetRawLpStateReturn(pub LpState);
     ///Container type for all return fields from the `getRawState` function with signature `getRawState(uint32)` and selector `0xec7a79c9`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4477,6 +4823,8 @@ pub mod perp_engine {
     pub struct GetRawStateReturn(pub State);
     ///Container type for all return fields from the `getSettlementState` function with signature `getSettlementState(uint32,bytes32)` and selector `0x388927b8`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4487,6 +4835,10 @@ pub mod perp_engine {
         Hash,
     )]
     pub struct GetSettlementStateReturn {
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub available_settle: i128,
         pub lp_state: LpState,
         pub lp_balance: LpBalance,
@@ -4495,6 +4847,8 @@ pub mod perp_engine {
     }
     ///Container type for all return fields from the `getStateAndBalance` function with signature `getStateAndBalance(uint32,bytes32)` and selector `0xe334be33`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4507,6 +4861,8 @@ pub mod perp_engine {
     pub struct GetStateAndBalanceReturn(pub State, pub Balance);
     ///Container type for all return fields from the `getStatesAndBalances` function with signature `getStatesAndBalances(uint32,bytes32)` and selector `0x3d5cc9dc`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4519,6 +4875,8 @@ pub mod perp_engine {
     pub struct GetStatesAndBalancesReturn(pub LpState, pub LpBalance, pub State, pub Balance);
     ///Container type for all return fields from the `getVersion` function with signature `getVersion()` and selector `0x0d8e6e2c`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4531,6 +4889,8 @@ pub mod perp_engine {
     pub struct GetVersionReturn(pub u64);
     ///Container type for all return fields from the `hasBalance` function with signature `hasBalance(uint32,bytes32)` and selector `0xde7ebc91`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4543,6 +4903,8 @@ pub mod perp_engine {
     pub struct HasBalanceReturn(pub bool);
     ///Container type for all return fields from the `lpBalances` function with signature `lpBalances(uint32,bytes32)` and selector `0x08ed83c1`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4553,11 +4915,21 @@ pub mod perp_engine {
         Hash,
     )]
     pub struct LpBalancesReturn {
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub amount: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub last_cumulative_funding_x18: i128,
     }
     ///Container type for all return fields from the `lpStates` function with signature `lpStates(uint32)` and selector `0x042508e6`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4568,14 +4940,36 @@ pub mod perp_engine {
         Hash,
     )]
     pub struct LpStatesReturn {
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub supply: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub last_cumulative_funding_x18: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub cumulative_funding_per_lp_x18: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub base: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub quote: i128,
     }
     ///Container type for all return fields from the `markets` function with signature `markets(uint32)` and selector `0xece91e35`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4588,6 +4982,8 @@ pub mod perp_engine {
     pub struct MarketsReturn(pub ::ethers::core::types::Address);
     ///Container type for all return fields from the `owner` function with signature `owner()` and selector `0x8da5cb5b`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4600,6 +4996,8 @@ pub mod perp_engine {
     pub struct OwnerReturn(pub ::ethers::core::types::Address);
     ///Container type for all return fields from the `perpPositionClosed` function with signature `perpPositionClosed(uint32,bytes32)` and selector `0x64c42cc2`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4612,6 +5010,8 @@ pub mod perp_engine {
     pub struct PerpPositionClosedReturn(pub bool);
     ///Container type for all return fields from the `settlePnl` function with signature `settlePnl(bytes32,uint256)` and selector `0xd6b0e0b5`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4624,6 +5024,8 @@ pub mod perp_engine {
     pub struct SettlePnlReturn(pub i128);
     ///Container type for all return fields from the `socializeSubaccount` function with signature `socializeSubaccount(bytes32,int128)` and selector `0xb1cd4b8f`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4636,6 +5038,8 @@ pub mod perp_engine {
     pub struct SocializeSubaccountReturn(pub i128);
     ///Container type for all return fields from the `states` function with signature `states(uint32)` and selector `0x7f17baad`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4646,13 +5050,31 @@ pub mod perp_engine {
         Hash,
     )]
     pub struct StatesReturn {
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub cumulative_funding_long_x18: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub cumulative_funding_short_x18: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub available_settle: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub open_interest: i128,
     }
     ///Container type for all return fields from the `swapLp` function with signature `swapLp(uint32,int128,int128)` and selector `0xc7167cf5`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4665,6 +5087,8 @@ pub mod perp_engine {
     pub struct SwapLpReturn(pub i128, pub i128);
     ///Container type for all return fields from the `swapLp` function with signature `swapLp(uint32,int128,int128,int128,int128)` and selector `0xd952f2a3`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4675,11 +5099,21 @@ pub mod perp_engine {
         Hash,
     )]
     pub struct SwapLpWithProductIdAndAmountAndPriceX18Return {
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub base_swapped: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub quote_swapped: i128,
     }
     ///Container type for all return fields from the `unsignedUpdateProductTx` function with signature `unsignedUpdateProductTx((uint32,int128,int128,int128,int128,(int32,int32,int32,int32,int32)))` and selector `0x3ec8c7da`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4692,6 +5126,8 @@ pub mod perp_engine {
     pub struct UnsignedUpdateProductTxReturn(pub UpdateProductTx);
     ///`RiskStore(int32,int32,int32,int32,int32)`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4710,6 +5146,8 @@ pub mod perp_engine {
     }
     ///`Prices(int128,int128)`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4720,7 +5158,15 @@ pub mod perp_engine {
         Hash,
     )]
     pub struct Prices {
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub spot_price_x18: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub perp_price_x18: i128,
     }
     ///`Balance(int128,int128,int128)`
@@ -4740,8 +5186,20 @@ pub mod perp_engine {
         Hash,
     )]
     pub struct Balance {
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub amount: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub v_quote_balance: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub last_cumulative_funding_x18: i128,
     }
     ///`LpBalance(int128,int128)`
@@ -4761,7 +5219,15 @@ pub mod perp_engine {
         Hash,
     )]
     pub struct LpBalance {
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub amount: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub last_cumulative_funding_x18: i128,
     }
     ///`LpState(int128,int128,int128,int128,int128)`
@@ -4781,10 +5247,30 @@ pub mod perp_engine {
         Hash,
     )]
     pub struct LpState {
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub supply: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub last_cumulative_funding_x18: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub cumulative_funding_per_lp_x18: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub base: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub quote: i128,
     }
     ///`State(int128,int128,int128,int128)`
@@ -4804,13 +5290,31 @@ pub mod perp_engine {
         Hash,
     )]
     pub struct State {
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub cumulative_funding_long_x18: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub cumulative_funding_short_x18: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub available_settle: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub open_interest: i128,
     }
     ///`UpdateProductTx(uint32,int128,int128,int128,int128,(int32,int32,int32,int32,int32))`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4822,14 +5326,32 @@ pub mod perp_engine {
     )]
     pub struct UpdateProductTx {
         pub product_id: u32,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub size_increment: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub price_increment_x18: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub min_size: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub lp_spread_x18: i128,
         pub risk_store: RiskStore,
     }
     ///`ProductDelta(uint32,bytes32,int128,int128)`
     #[derive(
+        Serialize,
+        Deserialize,
         Clone,
         ::ethers::contract::EthAbiType,
         ::ethers::contract::EthAbiCodec,
@@ -4841,8 +5363,20 @@ pub mod perp_engine {
     )]
     pub struct ProductDelta {
         pub product_id: u32,
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
         pub subaccount: [u8; 32],
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub amount_delta: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
         pub v_quote_delta: i128,
     }
 }
