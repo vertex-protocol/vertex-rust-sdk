@@ -16,7 +16,7 @@ pub async fn execute_sanity_check() -> Result<()> {
         .unwrap();
 
     println!("depositing collateral...");
-    // deposit(&client).await;
+    deposit(&client).await;
 
     println!("placing and cancelling orders...");
     place_orders(&client).await;

@@ -97,10 +97,7 @@ impl<'a, V: VertexBase> VertexSigner<'a, V> {
         domain: EIP712Domain,
     ) -> Result<Signature> {
         let encoded = get_eip712_digest(payload, &domain);
-        match self.vertex.wallet()?.sign_hash(encoded) {
-            Ok(signature) => Ok(signature),
-            Err(e) => Err(e.into()),
-        }
+        Ok(self.vertex.wallet()?.sign_hash(encoded)?)
     }
 
     fn endpoint_domain(&self) -> Result<EIP712Domain> {
