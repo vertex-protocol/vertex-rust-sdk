@@ -8,7 +8,7 @@ async fn main() {
     // paste private key or set RUST_SDK_PRIVATE_KEY in .env file
     let private_key = private_key();
 
-    let client = VertexClient::new(ClientMode::Prod)
+    let client = VertexClient::new(ClientMode::Local)
         .with_signer(private_key)
         .await
         .unwrap();
