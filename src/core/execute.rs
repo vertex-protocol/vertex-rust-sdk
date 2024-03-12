@@ -156,6 +156,12 @@ pub trait VertexExecute: VertexQuery {
         Ok(())
     }
 
+    async fn submit_private_batch(&self, orders: Vec<[PlaceOrder; 2]>) -> Result<()> {
+        let execute = Execute::SubmitPrivateBatch { orders };
+        self.execute(execute).await?;
+        Ok(())
+    }
+
     async fn deposit_collateral(
         &self,
         deposit_collateral_params: DepositCollateralParams,

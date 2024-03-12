@@ -26,11 +26,11 @@ vertex_builder!(
         let product_ids = wrapped_option_vec_u32(self.product_ids.clone());
 
         Ok(indexer::Query::Events {
-            subaccount: wrapped_option_bytes32(self.subaccount.clone()),
+            subaccount: wrapped_option_bytes32(self.subaccount),
             product_ids,
             max_time: wrapped_option_u64(self.max_time),
             limit: self.limit.clone(),
-            idx: wrapped_option_u64(self.idx.clone()),
+            idx: wrapped_option_u64(self.idx),
             event_types: self.event_types.clone(),
             desc: self.desc,
         })

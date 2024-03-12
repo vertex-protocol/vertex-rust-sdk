@@ -1,5 +1,5 @@
 use ethers::prelude::H256;
-use tokio;
+
 use vertex_sdk::math::{f64_to_x18, to_i128_x18};
 use vertex_sdk::prelude::*;
 use vertex_sdk::utils::private_key::private_key;
@@ -23,7 +23,7 @@ async fn main() {
         .build()
         .unwrap();
 
-    let digest = place_order.digest.unwrap().clone();
+    let digest = place_order.digest.unwrap();
 
     println!("digest: {:#x}", H256::from(digest));
 

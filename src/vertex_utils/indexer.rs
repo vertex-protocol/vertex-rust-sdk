@@ -22,7 +22,7 @@ impl TimestampOrTimestamps {
     pub fn timestamps(&self) -> Vec<u64> {
         match self {
             TimestampOrTimestamps::Timestamp(ts) => vec![ts.0],
-            TimestampOrTimestamps::Timestamps(ts) => ts.into_iter().map(|t| t.0).collect(),
+            TimestampOrTimestamps::Timestamps(ts) => ts.iter().map(|t| t.0).collect(),
         }
     }
 }
@@ -183,6 +183,12 @@ pub enum Query {
 
     Signatures {
         digests: Vec<WrappedBytes32>,
+    },
+
+    TakerRewards {
+        address: H160,
+        start: Option<WrappedU32>,
+        limit: Option<WrappedU32>,
     },
 }
 
@@ -534,6 +540,26 @@ pub type RewardResponse = Reward;
 #[derive(Serialize, Deserialize, Debug)]
 pub struct RewardsResponse {
     pub rewards: Vec<RewardResponse>,
+    #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
+    pub update_time: u64,
+    #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
+    pub total_referrals: u64,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct TakerReward {
+    pub epoch: u32,
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub taker_tokens: f64,
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub taker_referral_tokens: f64,
+}
+
+pub type TakerRewardResponse = TakerReward;
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct TakerRewardsResponse {
+    pub taker_rewards: Vec<TakerRewardResponse>,
     #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
     pub update_time: u64,
     #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]

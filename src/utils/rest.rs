@@ -10,6 +10,12 @@ pub struct RestClient {
     client: Client,
 }
 
+impl Default for RestClient {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl RestClient {
     pub fn new() -> Self {
         Self {

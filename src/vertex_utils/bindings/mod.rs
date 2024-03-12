@@ -2,14 +2,14 @@ pub mod arb_gas_info;
 pub mod clearinghouse;
 pub mod clearinghouse_liq;
 pub mod endpoint;
-pub mod fee_calculator;
 pub mod mock_erc20;
-pub mod mock_feed_contract;
-pub mod offchain_book;
+pub mod offchain_exchange;
 pub mod perp_engine;
 pub mod querier;
 pub mod spot_engine;
 pub mod token;
+
+pub mod verifier;
 
 use ethers_contract::Abigen;
 
@@ -39,15 +39,13 @@ impl BindingGenerator {
 
 pub fn create_bindings(source_dir: String, output_dir: String) {
     let generator = BindingGenerator::new(&source_dir, &output_dir);
-    generator.generate("FeeCalculator", "FeeCalculator.json", "fee_calculator.rs");
     generator.generate("MockERC20", "MockERC20.json", "mock_erc20.rs");
     generator.generate("ArbGasInfo", "ArbGasInfo.json", "arb_gas_info.rs");
     generator.generate(
-        "MockFeedContract",
-        "MockFeedContract.json",
-        "mock_feed_contract.rs",
+        "OffchainExchange",
+        "FOffchainExchange.json",
+        "offchain_exchange.rs",
     );
-    generator.generate("OffchainBook", "FOffchainBook.json", "offchain_book.rs");
     generator.generate("PerpEngine", "FPerpEngine.json", "perp_engine.rs");
     generator.generate("SpotEngine", "FSpotEngine.json", "spot_engine.rs");
     generator.generate("Clearinghouse", "FClearinghouse.json", "clearinghouse.rs");
@@ -57,7 +55,7 @@ pub fn create_bindings(source_dir: String, output_dir: String) {
         "clearinghouse_liq.rs",
     );
     generator.generate("Endpoint", "FEndpoint.json", "endpoint.rs");
-
+    generator.generate("Verifier", "Verifier.json", "verifier.rs");
     generator.generate("Querier", "FQuerier.json", "querier.rs");
 
     // EngineToken because there is a collision with Token

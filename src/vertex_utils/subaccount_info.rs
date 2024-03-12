@@ -92,10 +92,8 @@ impl SubaccountInfoResponse {
         Ok(ret)
     }
 
-    pub fn with_corrected_fees(&mut self, mut all_products: AllProductsResponse) -> Self {
+    pub fn with_corrected_fees(&mut self, all_products: AllProductsResponse) -> Self {
         let mut subaccount_info = self.clone();
-        let quote = all_products.spot_products.remove(0);
-        all_products.spot_products.push(quote);
 
         let mut spot_products_without_collected_fees = all_products.spot_products.clone();
         let mut perp_products_without_collected_fees = all_products.perp_products.clone();
@@ -105,12 +103,22 @@ impl SubaccountInfoResponse {
         for perp_product in &mut perp_products_without_collected_fees {
             perp_product.book_info.collected_fees = 0;
         }
+
+        let mut subaccount_info_clone = subaccount_info.clone();
+
+        for spot_product in subaccount_info_clone.spot_products.iter_mut() {
+            spot_product.book_info.price_increment_x18 = 0;
+        }
+        for perp_product in subaccount_info_clone.perp_products.iter_mut() {
+            perp_product.book_info.price_increment_x18 = 0;
+        }
+
         assert_eq!(
-            subaccount_info.spot_products,
+            subaccount_info_clone.spot_products,
             spot_products_without_collected_fees
         );
         assert_eq!(
-            subaccount_info.perp_products,
+            subaccount_info_clone.perp_products,
             perp_products_without_collected_fees
         );
         subaccount_info.spot_products = all_products.spot_products;
@@ -123,6 +131,7 @@ impl SubaccountInfoResponse {
         for perp_product in self.perp_products.iter() {
             if perp_product.book_info.size_increment == 0
                 && perp_product.risk.long_weight_initial_x18 == 0
+                && perp_product.oracle_price_x18 == 0
             {
                 // placeholder product
                 continue;

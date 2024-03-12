@@ -9,8 +9,8 @@ vertex_builder!(
     LiquidateSubaccountBuilder,
     VertexExecute,
     liquidatee: [u8; 32],
-    mode: u8,
-    health_group: u32,
+    product_id: u32,
+    is_encoded_spread: bool,
     amount: i128,
     nonce: u64;
 
@@ -23,13 +23,13 @@ vertex_builder!(
             .nonce
             .unwrap_or(self.vertex.next_tx_nonce(address).await?);
 
-        fields_to_vars!(self, liquidatee, mode, health_group, amount);
+        fields_to_vars!(self, liquidatee, product_id, is_encoded_spread, amount);
 
         Ok(eip712_structs::LiquidateSubaccount {
             sender,
             liquidatee,
-            mode,
-            healthGroup: health_group,
+            productId: product_id,
+            isEncodedSpread: is_encoded_spread,
             amount,
             nonce,
         })

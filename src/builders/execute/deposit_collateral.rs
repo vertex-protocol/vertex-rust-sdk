@@ -4,7 +4,6 @@ use ethers::types::TransactionReceipt;
 use eyre::Result;
 use std::time::Duration;
 
-use crate::bindings::endpoint::DepositCollateralCall;
 use crate::utils::client_error::none_error;
 use crate::utils::constants::DEFAULT_RISK_CHECK_SLEEP_SECS;
 
@@ -16,20 +15,20 @@ vertex_builder!(
     referral_code: String,
     mints_tokens: bool,
     approves_allowance: bool,
+    on_behalf_of: [u8; 32],
     risk_check_sleep_secs: u64;
 
     build_and_call!(self, execute, deposit_collateral => Option<TransactionReceipt>);
 
     pub async fn deposit_and_await_balance(&self) -> Result<Option<TransactionReceipt>> {
         let params = self.build()?;
-        let product_id = params.deposit_collateral_call.product_id;
+        let product_id = params.product_id;
         let expected_balance = self.calculate_expected_balance(&params).await?;
 
         let receipt = self.vertex.deposit_collateral(params).await?;
 
         self.await_expected_balance(expected_balance, product_id).await?;
         self.sleep_for_risk_check().await;
-
         Ok(receipt)
     }
 
@@ -41,9 +40,8 @@ vertex_builder!(
     }
 
     async fn calculate_expected_balance(&self, params: &DepositCollateralParams) -> Result<i128> {
-        let deposit_call = &params.deposit_collateral_call;
-        let pre_balance = self.spot_balance(deposit_call.product_id).await?;
-        Ok(pre_balance + deposit_call.amount as i128)
+        let pre_balance = self.spot_balance(params.product_id).await?;
+        Ok(pre_balance + params.amount as i128)
     }
 
     async fn await_expected_balance(&self, expected_balance: i128, product_id: u32) -> Result<()> {
@@ -59,45 +57,45 @@ vertex_builder!(
     }
 
     async fn spot_balance(&self, product_id: u32) -> Result<i128> {
-        let subaccount_info = self.vertex.get_subaccount_info(self.vertex.subaccount()?).await?;
+        let subaccount_info = self.vertex.get_subaccount_info(self.get_subaccount()?).await?;
         let spot_balance = subaccount_info.get_spot_balance(product_id)?;
         Ok(spot_balance.balance.amount)
     }
 
     pub fn build(&self) -> Result<DepositCollateralParams> {
-        let deposit_collateral_call = self.deposit_collateral_call()?;
         let mints_tokens = self.mints_tokens.unwrap_or(false);
         let approves_allowance = self.approves_allowance.unwrap_or(true);
-
+        let subaccount = self.get_subaccount()?;
+        let referral_code = if let Some(_) = self.on_behalf_of {
+            Some("-1".to_string())
+        } else {
+            self.referral_code.clone()
+        };
+        fields_to_vars!(self, product_id, amount);
         Ok(DepositCollateralParams {
-            deposit_collateral_call,
-            referral_code: self.referral_code.clone(),
+            product_id,
+            amount,
+            subaccount,
+            referral_code,
             approves_allowance,
             mints_tokens,
         })
     }
 
-    fn deposit_collateral_call(&self) -> Result<DepositCollateralCall> {
-        let subaccount_name = self.get_subaccount_name()?;
-        fields_to_vars!(self, product_id, amount);
-        Ok(DepositCollateralCall {
-            subaccount_name,
-            product_id,
-            amount,
-        })
+    fn get_subaccount(&self) -> Result<[u8; 32]> {
+        let subaccount = if let Some(on_behalf_of) = self.on_behalf_of {
+            on_behalf_of
+        } else {
+            self.vertex.subaccount()?
+        };
+        Ok(subaccount)
     }
-
-    fn get_subaccount_name(&self) -> Result<[u8; 12]> {
-        let subaccount = self.vertex.subaccount()?;
-        let mut subaccount_identifier = [0; 12];
-        subaccount_identifier.clone_from_slice(&subaccount[20..]);
-        Ok(subaccount_identifier)
-    }
-
 );
 
 pub struct DepositCollateralParams {
-    pub deposit_collateral_call: DepositCollateralCall,
+    pub product_id: u32,
+    pub subaccount: [u8; 32],
+    pub amount: u128,
     pub referral_code: Option<String>,
     pub approves_allowance: bool,
     pub mints_tokens: bool,

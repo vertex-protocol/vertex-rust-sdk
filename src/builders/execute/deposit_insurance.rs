@@ -79,6 +79,7 @@ vertex_builder!(
 
 );
 
+// TODO: this only deposits into cross group
 pub fn deposit_insurance_bytes(amount: u128) -> Bytes {
     let tx_bytes = AbiEncode::encode(endpoint::UnsignedDepositInsuranceReturn(
         endpoint::DepositInsurance { amount },

@@ -26,9 +26,6 @@ vertex_builder!(
     }
 
     fn get_address(&self) -> Option<H160> {
-        match self.address {
-            None => None,
-            Some(address) => Some(H160::from(address)),
-        }
+        self.address.map(H160::from)
     }
 );

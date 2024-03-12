@@ -72,32 +72,32 @@ pub struct SubmitSlowModeTxParams {
 
 fn swap_amm_bytes(swap_amm: endpoint::SwapAMM) -> Bytes {
     let swap_amm_return = SwapAMMReturn(swap_amm);
-    let bytes = Bytes::from(
+
+    Bytes::from(
         [
             vec![TxType::SwapAMM as u8],
             AbiEncode::encode(swap_amm_return),
         ]
         .concat(),
-    );
-    bytes
+    )
 }
 
 fn withdraw_collateral_bytes(withdraw_collateral: endpoint::WithdrawCollateral) -> Bytes {
     let withdraw_tx_bytes = AbiEncode::encode(endpoint::UnsignedWithdrawCollateralReturn(
         withdraw_collateral,
     ));
-    let bytes = Bytes::from([vec![TxType::WithdrawCollateral as u8], withdraw_tx_bytes].concat());
-    bytes
+
+    Bytes::from([vec![TxType::WithdrawCollateral as u8], withdraw_tx_bytes].concat())
 }
 
 fn mint_lp_bytes(mint_lp: endpoint::MintLp) -> Bytes {
     let mint_lp_return = UnsignedMintLpReturn(mint_lp);
-    let bytes = Bytes::from(
+
+    Bytes::from(
         [
             vec![TxType::MintLp as u8],
             AbiEncode::encode(mint_lp_return),
         ]
         .concat(),
-    );
-    bytes
+    )
 }
