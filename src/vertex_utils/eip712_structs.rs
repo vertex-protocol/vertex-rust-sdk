@@ -647,9 +647,8 @@ pub struct StreamAuthentication {
 pub fn to_bytes12(s: &str) -> [u8; 12] {
     let b = s.as_bytes();
     let mut out = [0u8; 12];
-    for i in 0..b.len() {
-        out[i] = b[i];
-    }
+    let n = std::cmp::min(b.len(), 12);
+    out[..n].copy_from_slice(&b[..n]);
     out
 }
 
