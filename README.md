@@ -9,7 +9,7 @@ This is the Rust SDK for the [Vertex Protocol API](https://vertex-protocol.gitbo
 Add the following line to your Cargo.toml file:
 ```toml
 [dependencies]
-vertex_sdk = "0.1.2"
+vertex_sdk = "0.1.3"
 ```
 
 ## Usage 

@@ -234,7 +234,7 @@ impl TryMath for i128 {
 
 pub fn lp_value(balance: i128, x: i128, y: i128, supply: i128, price: i128) -> i128 {
     if supply == 0 {
-        return 0;
+        0
     } else {
         let pool_total_value = mul_x18(x, price) + y;
         mul_div_x18(balance, pool_total_value, supply)

@@ -26,7 +26,7 @@ pub mod querier {
     use ethers::providers::Middleware;
     #[doc = "Querier was auto-generated with ethers-rs Abigen. More information at: https://github.com/gakonst/ethers-rs"]
     use std::sync::Arc;
-    # [rustfmt :: skip] const __ABI : & str = "[{\"inputs\":[{\"internalType\":\"int256\",\"name\":\"x\",\"type\":\"int256\",\"components\":[]}],\"type\":\"error\",\"name\":\"PRBMathSD59x18__SqrtNegativeInput\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"int256\",\"name\":\"x\",\"type\":\"int256\",\"components\":[]}],\"type\":\"error\",\"name\":\"PRBMathSD59x18__SqrtOverflow\",\"outputs\":[]},{\"inputs\":[],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getAllBooks\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\",\"components\":[]}]},{\"inputs\":[],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getAllProducts\",\"outputs\":[{\"internalType\":\"struct FQuerier.ProductInfo\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct FQuerier.SpotProduct[]\",\"name\":\"spotProducts\",\"type\":\"tuple[]\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"oraclePriceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct RiskHelper.Risk\",\"name\":\"risk\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"longWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"longWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"largePositionPenaltyX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.Config\",\"name\":\"config\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestInflectionUtilX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestFloorX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestSmallCapX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestLargeCapX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.State\",\"name\":\"state\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"cumulativeDepositsMultiplierX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"cumulativeBorrowsMultiplierX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"totalDepositsNormalized\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"totalBorrowsNormalized\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.LpState\",\"name\":\"lpState\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"supply\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct ISpotEngine.Balance\",\"name\":\"quote\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeMultiplierX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.Balance\",\"name\":\"base\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeMultiplierX18\",\"type\":\"int128\",\"components\":[]}]}]},{\"internalType\":\"struct FQuerier.BookInfo\",\"name\":\"bookInfo\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"sizeIncrement\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceIncrementX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"minSize\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"collectedFees\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lpSpreadX18\",\"type\":\"int128\",\"components\":[]}]}]},{\"internalType\":\"struct FQuerier.PerpProduct[]\",\"name\":\"perpProducts\",\"type\":\"tuple[]\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"oraclePriceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct RiskHelper.Risk\",\"name\":\"risk\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"longWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"longWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"largePositionPenaltyX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct IPerpEngine.State\",\"name\":\"state\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"cumulativeFundingLongX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"cumulativeFundingShortX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"availableSettle\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"openInterest\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct IPerpEngine.LpState\",\"name\":\"lpState\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"supply\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeFundingX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"cumulativeFundingPerLpX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"base\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"quote\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct FQuerier.BookInfo\",\"name\":\"bookInfo\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"sizeIncrement\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceIncrementX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"minSize\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"collectedFees\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lpSpreadX18\",\"type\":\"int128\",\"components\":[]}]}]}]}]},{\"inputs\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"contract IProductEngine\",\"name\":\"engine\",\"type\":\"address\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getBookInfo\",\"outputs\":[{\"internalType\":\"struct FQuerier.BookInfo\",\"name\":\"bookInfo\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"sizeIncrement\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceIncrementX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"minSize\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"collectedFees\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lpSpreadX18\",\"type\":\"int128\",\"components\":[]}]}]},{\"inputs\":[],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getClearinghouse\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_endpoint\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"address\",\"name\":\"_fees\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"address\",\"name\":\"_clearinghouse\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"address\",\"name\":\"_clearinghouseLiq\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"address\",\"name\":\"_spotEngine\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"address\",\"name\":\"_perpEngine\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"address\",\"name\":\"_querier\",\"type\":\"address\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getContractVersions\",\"outputs\":[{\"internalType\":\"struct Versions\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint64\",\"name\":\"endpoint\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"feeCalculator\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"clearinghouse\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"clearinghouseLiq\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"spotEngine\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"perpEngine\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"querier\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64[]\",\"name\":\"books\",\"type\":\"uint64[]\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"subaccount\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getPerpBalance\",\"outputs\":[{\"internalType\":\"struct FQuerier.PerpBalance\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"struct IPerpEngine.LpBalance\",\"name\":\"lpBalance\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeFundingX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct IPerpEngine.Balance\",\"name\":\"balance\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"vQuoteBalance\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeFundingX18\",\"type\":\"int128\",\"components\":[]}]}]}]},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"subaccount\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32[]\",\"name\":\"productIds\",\"type\":\"uint32[]\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getPerpBalances\",\"outputs\":[{\"internalType\":\"struct FQuerier.PerpBalance[]\",\"name\":\"perpBalances\",\"type\":\"tuple[]\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"struct IPerpEngine.LpBalance\",\"name\":\"lpBalance\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeFundingX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct IPerpEngine.Balance\",\"name\":\"balance\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"vQuoteBalance\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeFundingX18\",\"type\":\"int128\",\"components\":[]}]}]}]},{\"inputs\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getPerpProduct\",\"outputs\":[{\"internalType\":\"struct FQuerier.PerpProduct\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"oraclePriceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct RiskHelper.Risk\",\"name\":\"risk\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"longWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"longWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"largePositionPenaltyX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct IPerpEngine.State\",\"name\":\"state\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"cumulativeFundingLongX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"cumulativeFundingShortX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"availableSettle\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"openInterest\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct IPerpEngine.LpState\",\"name\":\"lpState\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"supply\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeFundingX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"cumulativeFundingPerLpX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"base\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"quote\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct FQuerier.BookInfo\",\"name\":\"bookInfo\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"sizeIncrement\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceIncrementX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"minSize\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"collectedFees\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lpSpreadX18\",\"type\":\"int128\",\"components\":[]}]}]}]},{\"inputs\":[{\"internalType\":\"uint32[]\",\"name\":\"productIds\",\"type\":\"uint32[]\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getPerpProducts\",\"outputs\":[{\"internalType\":\"struct FQuerier.PerpProduct[]\",\"name\":\"perpProducts\",\"type\":\"tuple[]\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"oraclePriceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct RiskHelper.Risk\",\"name\":\"risk\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"longWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"longWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"largePositionPenaltyX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct IPerpEngine.State\",\"name\":\"state\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"cumulativeFundingLongX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"cumulativeFundingShortX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"availableSettle\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"openInterest\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct IPerpEngine.LpState\",\"name\":\"lpState\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"supply\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeFundingX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"cumulativeFundingPerLpX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"base\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"quote\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct FQuerier.BookInfo\",\"name\":\"bookInfo\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"sizeIncrement\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceIncrementX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"minSize\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"collectedFees\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lpSpreadX18\",\"type\":\"int128\",\"components\":[]}]}]}]},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"subaccount\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getSpotBalance\",\"outputs\":[{\"internalType\":\"struct FQuerier.SpotBalance\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"struct ISpotEngine.LpBalance\",\"name\":\"lpBalance\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.Balance\",\"name\":\"balance\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeMultiplierX18\",\"type\":\"int128\",\"components\":[]}]}]}]},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"subaccount\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32[]\",\"name\":\"productIds\",\"type\":\"uint32[]\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getSpotBalances\",\"outputs\":[{\"internalType\":\"struct FQuerier.SpotBalance[]\",\"name\":\"spotBalances\",\"type\":\"tuple[]\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"struct ISpotEngine.LpBalance\",\"name\":\"lpBalance\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.Balance\",\"name\":\"balance\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeMultiplierX18\",\"type\":\"int128\",\"components\":[]}]}]}]},{\"inputs\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getSpotProduct\",\"outputs\":[{\"internalType\":\"struct FQuerier.SpotProduct\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"oraclePriceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct RiskHelper.Risk\",\"name\":\"risk\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"longWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"longWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"largePositionPenaltyX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.Config\",\"name\":\"config\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestInflectionUtilX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestFloorX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestSmallCapX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestLargeCapX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.State\",\"name\":\"state\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"cumulativeDepositsMultiplierX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"cumulativeBorrowsMultiplierX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"totalDepositsNormalized\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"totalBorrowsNormalized\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.LpState\",\"name\":\"lpState\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"supply\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct ISpotEngine.Balance\",\"name\":\"quote\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeMultiplierX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.Balance\",\"name\":\"base\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeMultiplierX18\",\"type\":\"int128\",\"components\":[]}]}]},{\"internalType\":\"struct FQuerier.BookInfo\",\"name\":\"bookInfo\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"sizeIncrement\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceIncrementX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"minSize\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"collectedFees\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lpSpreadX18\",\"type\":\"int128\",\"components\":[]}]}]}]},{\"inputs\":[{\"internalType\":\"uint32[]\",\"name\":\"productIds\",\"type\":\"uint32[]\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getSpotProducts\",\"outputs\":[{\"internalType\":\"struct FQuerier.SpotProduct[]\",\"name\":\"spotProducts\",\"type\":\"tuple[]\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"oraclePriceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct RiskHelper.Risk\",\"name\":\"risk\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"longWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"longWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"largePositionPenaltyX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.Config\",\"name\":\"config\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestInflectionUtilX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestFloorX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestSmallCapX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestLargeCapX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.State\",\"name\":\"state\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"cumulativeDepositsMultiplierX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"cumulativeBorrowsMultiplierX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"totalDepositsNormalized\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"totalBorrowsNormalized\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.LpState\",\"name\":\"lpState\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"supply\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct ISpotEngine.Balance\",\"name\":\"quote\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeMultiplierX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.Balance\",\"name\":\"base\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeMultiplierX18\",\"type\":\"int128\",\"components\":[]}]}]},{\"internalType\":\"struct FQuerier.BookInfo\",\"name\":\"bookInfo\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"sizeIncrement\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceIncrementX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"minSize\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"collectedFees\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lpSpreadX18\",\"type\":\"int128\",\"components\":[]}]}]}]},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"subaccount\",\"type\":\"bytes32\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getSubaccountInfo\",\"outputs\":[{\"internalType\":\"struct FQuerier.SubaccountInfo\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"subaccount\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bool\",\"name\":\"exists\",\"type\":\"bool\",\"components\":[]},{\"internalType\":\"struct FQuerier.HealthInfo[]\",\"name\":\"healths\",\"type\":\"tuple[]\",\"components\":[{\"internalType\":\"int128\",\"name\":\"assets\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"liabilities\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"health\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"int128[][]\",\"name\":\"healthContributions\",\"type\":\"int128[][]\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"spotCount\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"perpCount\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"struct FQuerier.SpotBalance[]\",\"name\":\"spotBalances\",\"type\":\"tuple[]\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"struct ISpotEngine.LpBalance\",\"name\":\"lpBalance\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.Balance\",\"name\":\"balance\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeMultiplierX18\",\"type\":\"int128\",\"components\":[]}]}]},{\"internalType\":\"struct FQuerier.PerpBalance[]\",\"name\":\"perpBalances\",\"type\":\"tuple[]\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"struct IPerpEngine.LpBalance\",\"name\":\"lpBalance\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeFundingX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct IPerpEngine.Balance\",\"name\":\"balance\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"vQuoteBalance\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeFundingX18\",\"type\":\"int128\",\"components\":[]}]}]},{\"internalType\":\"struct FQuerier.SpotProduct[]\",\"name\":\"spotProducts\",\"type\":\"tuple[]\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"oraclePriceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct RiskHelper.Risk\",\"name\":\"risk\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"longWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"longWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"largePositionPenaltyX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.Config\",\"name\":\"config\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestInflectionUtilX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestFloorX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestSmallCapX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestLargeCapX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.State\",\"name\":\"state\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"cumulativeDepositsMultiplierX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"cumulativeBorrowsMultiplierX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"totalDepositsNormalized\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"totalBorrowsNormalized\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.LpState\",\"name\":\"lpState\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"supply\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct ISpotEngine.Balance\",\"name\":\"quote\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeMultiplierX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.Balance\",\"name\":\"base\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeMultiplierX18\",\"type\":\"int128\",\"components\":[]}]}]},{\"internalType\":\"struct FQuerier.BookInfo\",\"name\":\"bookInfo\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"sizeIncrement\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceIncrementX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"minSize\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"collectedFees\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lpSpreadX18\",\"type\":\"int128\",\"components\":[]}]}]},{\"internalType\":\"struct FQuerier.PerpProduct[]\",\"name\":\"perpProducts\",\"type\":\"tuple[]\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"oraclePriceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct RiskHelper.Risk\",\"name\":\"risk\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"longWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"longWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"largePositionPenaltyX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct IPerpEngine.State\",\"name\":\"state\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"cumulativeFundingLongX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"cumulativeFundingShortX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"availableSettle\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"openInterest\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct IPerpEngine.LpState\",\"name\":\"lpState\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"supply\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeFundingX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"cumulativeFundingPerLpX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"base\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"quote\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct FQuerier.BookInfo\",\"name\":\"bookInfo\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"sizeIncrement\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceIncrementX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"minSize\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"collectedFees\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lpSpreadX18\",\"type\":\"int128\",\"components\":[]}]}]}]}]},{\"inputs\":[],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"getVersion\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_clearinghouse\",\"type\":\"address\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"initialize\",\"outputs\":[]}]" ;
+    # [rustfmt :: skip] const __ABI : & str = "[{\"inputs\":[{\"internalType\":\"uint32\",\"name\":\"isoGroup\",\"type\":\"uint32\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getAllProducts\",\"outputs\":[{\"internalType\":\"struct FQuerier.ProductInfo\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct FQuerier.SpotProduct[]\",\"name\":\"spotProducts\",\"type\":\"tuple[]\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"oraclePriceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct FQuerier.LegacyRisk\",\"name\":\"risk\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"longWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"longWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"largePositionPenaltyX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.Config\",\"name\":\"config\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestInflectionUtilX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestFloorX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestSmallCapX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestLargeCapX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.State\",\"name\":\"state\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"cumulativeDepositsMultiplierX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"cumulativeBorrowsMultiplierX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"totalDepositsNormalized\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"totalBorrowsNormalized\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.LpState\",\"name\":\"lpState\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"supply\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct ISpotEngine.Balance\",\"name\":\"quote\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeMultiplierX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.Balance\",\"name\":\"base\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeMultiplierX18\",\"type\":\"int128\",\"components\":[]}]}]},{\"internalType\":\"struct FQuerier.BookInfo\",\"name\":\"bookInfo\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"sizeIncrement\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceIncrementX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"minSize\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"collectedFees\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lpSpreadX18\",\"type\":\"int128\",\"components\":[]}]}]},{\"internalType\":\"struct FQuerier.PerpProduct[]\",\"name\":\"perpProducts\",\"type\":\"tuple[]\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"oraclePriceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct FQuerier.LegacyRisk\",\"name\":\"risk\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"longWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"longWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"largePositionPenaltyX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct IPerpEngine.State\",\"name\":\"state\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"cumulativeFundingLongX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"cumulativeFundingShortX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"availableSettle\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"openInterest\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct IPerpEngine.LpState\",\"name\":\"lpState\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"supply\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeFundingX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"cumulativeFundingPerLpX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"base\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"quote\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct FQuerier.BookInfo\",\"name\":\"bookInfo\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"sizeIncrement\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceIncrementX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"minSize\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"collectedFees\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lpSpreadX18\",\"type\":\"int128\",\"components\":[]}]}]}]}]},{\"inputs\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getBookInfo\",\"outputs\":[{\"internalType\":\"struct FQuerier.BookInfo\",\"name\":\"bookInfo\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"sizeIncrement\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceIncrementX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"minSize\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"collectedFees\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lpSpreadX18\",\"type\":\"int128\",\"components\":[]}]}]},{\"inputs\":[],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getClearinghouse\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\",\"components\":[]}]},{\"inputs\":[],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getContractVersions\",\"outputs\":[{\"internalType\":\"struct Versions\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint64\",\"name\":\"endpoint\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"clearinghouse\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"clearinghouseLiq\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"spotEngine\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"perpEngine\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"querier\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"exchange\",\"type\":\"uint64\",\"components\":[]}]}]},{\"inputs\":[],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getCrossProducts\",\"outputs\":[{\"internalType\":\"struct FQuerier.ProductInfo\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct FQuerier.SpotProduct[]\",\"name\":\"spotProducts\",\"type\":\"tuple[]\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"oraclePriceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct FQuerier.LegacyRisk\",\"name\":\"risk\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"longWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"longWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"largePositionPenaltyX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.Config\",\"name\":\"config\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestInflectionUtilX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestFloorX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestSmallCapX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestLargeCapX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.State\",\"name\":\"state\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"cumulativeDepositsMultiplierX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"cumulativeBorrowsMultiplierX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"totalDepositsNormalized\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"totalBorrowsNormalized\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.LpState\",\"name\":\"lpState\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"supply\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct ISpotEngine.Balance\",\"name\":\"quote\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeMultiplierX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.Balance\",\"name\":\"base\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeMultiplierX18\",\"type\":\"int128\",\"components\":[]}]}]},{\"internalType\":\"struct FQuerier.BookInfo\",\"name\":\"bookInfo\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"sizeIncrement\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceIncrementX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"minSize\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"collectedFees\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lpSpreadX18\",\"type\":\"int128\",\"components\":[]}]}]},{\"internalType\":\"struct FQuerier.PerpProduct[]\",\"name\":\"perpProducts\",\"type\":\"tuple[]\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"oraclePriceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct FQuerier.LegacyRisk\",\"name\":\"risk\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"longWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"longWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"largePositionPenaltyX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct IPerpEngine.State\",\"name\":\"state\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"cumulativeFundingLongX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"cumulativeFundingShortX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"availableSettle\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"openInterest\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct IPerpEngine.LpState\",\"name\":\"lpState\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"supply\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeFundingX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"cumulativeFundingPerLpX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"base\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"quote\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct FQuerier.BookInfo\",\"name\":\"bookInfo\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"sizeIncrement\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceIncrementX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"minSize\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"collectedFees\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lpSpreadX18\",\"type\":\"int128\",\"components\":[]}]}]}]}]},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"subaccount\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getPerpBalance\",\"outputs\":[{\"internalType\":\"struct FQuerier.PerpBalance\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"struct IPerpEngine.LpBalance\",\"name\":\"lpBalance\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeFundingX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct IPerpEngine.Balance\",\"name\":\"balance\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"vQuoteBalance\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeFundingX18\",\"type\":\"int128\",\"components\":[]}]}]}]},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"subaccount\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32[]\",\"name\":\"productIds\",\"type\":\"uint32[]\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getPerpBalances\",\"outputs\":[{\"internalType\":\"struct FQuerier.PerpBalance[]\",\"name\":\"perpBalances\",\"type\":\"tuple[]\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"struct IPerpEngine.LpBalance\",\"name\":\"lpBalance\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeFundingX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct IPerpEngine.Balance\",\"name\":\"balance\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"vQuoteBalance\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeFundingX18\",\"type\":\"int128\",\"components\":[]}]}]}]},{\"inputs\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getPerpProduct\",\"outputs\":[{\"internalType\":\"struct FQuerier.PerpProduct\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"oraclePriceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct FQuerier.LegacyRisk\",\"name\":\"risk\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"longWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"longWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"largePositionPenaltyX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct IPerpEngine.State\",\"name\":\"state\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"cumulativeFundingLongX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"cumulativeFundingShortX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"availableSettle\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"openInterest\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct IPerpEngine.LpState\",\"name\":\"lpState\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"supply\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeFundingX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"cumulativeFundingPerLpX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"base\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"quote\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct FQuerier.BookInfo\",\"name\":\"bookInfo\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"sizeIncrement\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceIncrementX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"minSize\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"collectedFees\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lpSpreadX18\",\"type\":\"int128\",\"components\":[]}]}]}]},{\"inputs\":[{\"internalType\":\"uint32[]\",\"name\":\"productIds\",\"type\":\"uint32[]\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getPerpProducts\",\"outputs\":[{\"internalType\":\"struct FQuerier.PerpProduct[]\",\"name\":\"perpProducts\",\"type\":\"tuple[]\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"oraclePriceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct FQuerier.LegacyRisk\",\"name\":\"risk\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"longWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"longWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"largePositionPenaltyX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct IPerpEngine.State\",\"name\":\"state\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"cumulativeFundingLongX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"cumulativeFundingShortX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"availableSettle\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"openInterest\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct IPerpEngine.LpState\",\"name\":\"lpState\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"supply\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeFundingX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"cumulativeFundingPerLpX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"base\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"quote\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct FQuerier.BookInfo\",\"name\":\"bookInfo\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"sizeIncrement\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceIncrementX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"minSize\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"collectedFees\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lpSpreadX18\",\"type\":\"int128\",\"components\":[]}]}]}]},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"subaccount\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getSpotBalance\",\"outputs\":[{\"internalType\":\"struct FQuerier.SpotBalance\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"struct ISpotEngine.LpBalance\",\"name\":\"lpBalance\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.Balance\",\"name\":\"balance\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeMultiplierX18\",\"type\":\"int128\",\"components\":[]}]}]}]},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"subaccount\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32[]\",\"name\":\"productIds\",\"type\":\"uint32[]\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getSpotBalances\",\"outputs\":[{\"internalType\":\"struct FQuerier.SpotBalance[]\",\"name\":\"spotBalances\",\"type\":\"tuple[]\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"struct ISpotEngine.LpBalance\",\"name\":\"lpBalance\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.Balance\",\"name\":\"balance\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeMultiplierX18\",\"type\":\"int128\",\"components\":[]}]}]}]},{\"inputs\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getSpotProduct\",\"outputs\":[{\"internalType\":\"struct FQuerier.SpotProduct\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"oraclePriceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct FQuerier.LegacyRisk\",\"name\":\"risk\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"longWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"longWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"largePositionPenaltyX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.Config\",\"name\":\"config\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestInflectionUtilX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestFloorX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestSmallCapX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestLargeCapX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.State\",\"name\":\"state\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"cumulativeDepositsMultiplierX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"cumulativeBorrowsMultiplierX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"totalDepositsNormalized\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"totalBorrowsNormalized\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.LpState\",\"name\":\"lpState\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"supply\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct ISpotEngine.Balance\",\"name\":\"quote\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeMultiplierX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.Balance\",\"name\":\"base\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeMultiplierX18\",\"type\":\"int128\",\"components\":[]}]}]},{\"internalType\":\"struct FQuerier.BookInfo\",\"name\":\"bookInfo\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"sizeIncrement\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceIncrementX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"minSize\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"collectedFees\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lpSpreadX18\",\"type\":\"int128\",\"components\":[]}]}]}]},{\"inputs\":[{\"internalType\":\"uint32[]\",\"name\":\"productIds\",\"type\":\"uint32[]\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getSpotProducts\",\"outputs\":[{\"internalType\":\"struct FQuerier.SpotProduct[]\",\"name\":\"spotProducts\",\"type\":\"tuple[]\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"oraclePriceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct FQuerier.LegacyRisk\",\"name\":\"risk\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"longWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"longWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"largePositionPenaltyX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.Config\",\"name\":\"config\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestInflectionUtilX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestFloorX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestSmallCapX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestLargeCapX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.State\",\"name\":\"state\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"cumulativeDepositsMultiplierX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"cumulativeBorrowsMultiplierX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"totalDepositsNormalized\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"totalBorrowsNormalized\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.LpState\",\"name\":\"lpState\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"supply\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct ISpotEngine.Balance\",\"name\":\"quote\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeMultiplierX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.Balance\",\"name\":\"base\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeMultiplierX18\",\"type\":\"int128\",\"components\":[]}]}]},{\"internalType\":\"struct FQuerier.BookInfo\",\"name\":\"bookInfo\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"sizeIncrement\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceIncrementX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"minSize\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"collectedFees\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lpSpreadX18\",\"type\":\"int128\",\"components\":[]}]}]}]},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"subaccount\",\"type\":\"bytes32\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getSubaccountInfo\",\"outputs\":[{\"internalType\":\"struct FQuerier.SubaccountInfo\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"subaccount\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bool\",\"name\":\"exists\",\"type\":\"bool\",\"components\":[]},{\"internalType\":\"struct FQuerier.HealthInfo[]\",\"name\":\"healths\",\"type\":\"tuple[]\",\"components\":[{\"internalType\":\"int128\",\"name\":\"assets\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"liabilities\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"health\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"int128[][]\",\"name\":\"healthContributions\",\"type\":\"int128[][]\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"spotCount\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"perpCount\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"struct FQuerier.SpotBalance[]\",\"name\":\"spotBalances\",\"type\":\"tuple[]\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"struct ISpotEngine.LpBalance\",\"name\":\"lpBalance\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.Balance\",\"name\":\"balance\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeMultiplierX18\",\"type\":\"int128\",\"components\":[]}]}]},{\"internalType\":\"struct FQuerier.PerpBalance[]\",\"name\":\"perpBalances\",\"type\":\"tuple[]\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"struct IPerpEngine.LpBalance\",\"name\":\"lpBalance\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeFundingX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct IPerpEngine.Balance\",\"name\":\"balance\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"vQuoteBalance\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeFundingX18\",\"type\":\"int128\",\"components\":[]}]}]},{\"internalType\":\"struct FQuerier.SpotProduct[]\",\"name\":\"spotProducts\",\"type\":\"tuple[]\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"oraclePriceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct FQuerier.LegacyRisk\",\"name\":\"risk\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"longWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"longWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"largePositionPenaltyX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.Config\",\"name\":\"config\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestInflectionUtilX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestFloorX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestSmallCapX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"interestLargeCapX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.State\",\"name\":\"state\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"cumulativeDepositsMultiplierX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"cumulativeBorrowsMultiplierX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"totalDepositsNormalized\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"totalBorrowsNormalized\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.LpState\",\"name\":\"lpState\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"supply\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct ISpotEngine.Balance\",\"name\":\"quote\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeMultiplierX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct ISpotEngine.Balance\",\"name\":\"base\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeMultiplierX18\",\"type\":\"int128\",\"components\":[]}]}]},{\"internalType\":\"struct FQuerier.BookInfo\",\"name\":\"bookInfo\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"sizeIncrement\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceIncrementX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"minSize\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"collectedFees\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lpSpreadX18\",\"type\":\"int128\",\"components\":[]}]}]},{\"internalType\":\"struct FQuerier.PerpProduct[]\",\"name\":\"perpProducts\",\"type\":\"tuple[]\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"oraclePriceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct FQuerier.LegacyRisk\",\"name\":\"risk\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"longWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"longWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"largePositionPenaltyX18\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct IPerpEngine.State\",\"name\":\"state\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"cumulativeFundingLongX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"cumulativeFundingShortX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"availableSettle\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"openInterest\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct IPerpEngine.LpState\",\"name\":\"lpState\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"supply\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lastCumulativeFundingX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"cumulativeFundingPerLpX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"base\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"quote\",\"type\":\"int128\",\"components\":[]}]},{\"internalType\":\"struct FQuerier.BookInfo\",\"name\":\"bookInfo\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"sizeIncrement\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceIncrementX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"minSize\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"collectedFees\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"lpSpreadX18\",\"type\":\"int128\",\"components\":[]}]}]}]}]},{\"inputs\":[],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"getVersion\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_clearinghouse\",\"type\":\"address\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"initialize\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"struct RiskHelper.Risk\",\"name\":\"r\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"longWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"longWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]}]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"legacyRisk\",\"outputs\":[{\"internalType\":\"struct FQuerier.LegacyRisk\",\"name\":\"l\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"longWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightInitialX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"longWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"shortWeightMaintenanceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"largePositionPenaltyX18\",\"type\":\"int128\",\"components\":[]}]}]}]" ;
     #[doc = r" The parsed JSON-ABI of the contract."]
     pub static QUERIER_ABI: ethers::contract::Lazy<ethers::core::abi::Abi> =
         ethers::contract::Lazy::new(|| {
@@ -61,31 +61,22 @@ pub mod querier {
         ) -> Self {
             ethers::contract::Contract::new(address.into(), QUERIER_ABI.clone(), client).into()
         }
-        #[doc = "Calls the contract's `getAllBooks` (0x354528e8) function"]
-        pub fn get_all_books(
+        #[doc = "Calls the contract's `getAllProducts` (0x49fe1b3c) function"]
+        pub fn get_all_products(
             &self,
-        ) -> ethers::contract::builders::ContractCall<
-            M,
-            ::std::vec::Vec<ethers::core::types::Address>,
-        > {
+            iso_group: u32,
+        ) -> ethers::contract::builders::ContractCall<M, ProductInfo> {
             self.0
-                .method_hash([53, 69, 40, 232], ())
+                .method_hash([73, 254, 27, 60], iso_group)
                 .expect("method not found (this should never happen)")
         }
-        #[doc = "Calls the contract's `getAllProducts` (0x02ee3a52) function"]
-        pub fn get_all_products(&self) -> ethers::contract::builders::ContractCall<M, ProductInfo> {
-            self.0
-                .method_hash([2, 238, 58, 82], ())
-                .expect("method not found (this should never happen)")
-        }
-        #[doc = "Calls the contract's `getBookInfo` (0x6124e5ff) function"]
+        #[doc = "Calls the contract's `getBookInfo` (0x01cfa9d1) function"]
         pub fn get_book_info(
             &self,
             product_id: u32,
-            engine: ethers::core::types::Address,
         ) -> ethers::contract::builders::ContractCall<M, BookInfo> {
             self.0
-                .method_hash([97, 36, 229, 255], (product_id, engine))
+                .method_hash([1, 207, 169, 209], product_id)
                 .expect("method not found (this should never happen)")
         }
         #[doc = "Calls the contract's `getClearinghouse` (0xb1cb0f42) function"]
@@ -96,30 +87,20 @@ pub mod querier {
                 .method_hash([177, 203, 15, 66], ())
                 .expect("method not found (this should never happen)")
         }
-        #[doc = "Calls the contract's `getContractVersions` (0xe4717e72) function"]
+        #[doc = "Calls the contract's `getContractVersions` (0x71245ab1) function"]
         pub fn get_contract_versions(
             &self,
-            endpoint: ethers::core::types::Address,
-            fees: ethers::core::types::Address,
-            clearinghouse: ethers::core::types::Address,
-            clearinghouse_liq: ethers::core::types::Address,
-            spot_engine: ethers::core::types::Address,
-            perp_engine: ethers::core::types::Address,
-            querier: ethers::core::types::Address,
         ) -> ethers::contract::builders::ContractCall<M, Versions> {
             self.0
-                .method_hash(
-                    [228, 113, 126, 114],
-                    (
-                        endpoint,
-                        fees,
-                        clearinghouse,
-                        clearinghouse_liq,
-                        spot_engine,
-                        perp_engine,
-                        querier,
-                    ),
-                )
+                .method_hash([113, 36, 90, 177], ())
+                .expect("method not found (this should never happen)")
+        }
+        #[doc = "Calls the contract's `getCrossProducts` (0x69d33be2) function"]
+        pub fn get_cross_products(
+            &self,
+        ) -> ethers::contract::builders::ContractCall<M, ProductInfo> {
+            self.0
+                .method_hash([105, 211, 59, 226], ())
                 .expect("method not found (this should never happen)")
         }
         #[doc = "Calls the contract's `getPerpBalance` (0xd7b229b6) function"]
@@ -222,113 +203,22 @@ pub mod querier {
                 .method_hash([196, 214, 109, 232], clearinghouse)
                 .expect("method not found (this should never happen)")
         }
+        #[doc = "Calls the contract's `legacyRisk` (0x869952fd) function"]
+        pub fn legacy_risk(
+            &self,
+            r: Risk,
+        ) -> ethers::contract::builders::ContractCall<M, LegacyRisk> {
+            self.0
+                .method_hash([134, 153, 82, 253], (r,))
+                .expect("method not found (this should never happen)")
+        }
     }
     impl<M: ethers::providers::Middleware> From<ethers::contract::Contract<M>> for Querier<M> {
         fn from(contract: ethers::contract::Contract<M>) -> Self {
             Self(contract)
         }
     }
-    #[doc = "Custom Error type `PRBMathSD59x18__SqrtNegativeInput` with signature `PRBMathSD59x18__SqrtNegativeInput(int256)` and selector `[193, 25, 7, 254]`"]
-    #[derive(
-        Serialize,
-        Deserialize,
-        Clone,
-        Debug,
-        Default,
-        Eq,
-        PartialEq,
-        ethers :: contract :: EthError,
-        ethers :: contract :: EthDisplay,
-    )]
-    #[etherror(
-        name = "PRBMathSD59x18__SqrtNegativeInput",
-        abi = "PRBMathSD59x18__SqrtNegativeInput(int256)"
-    )]
-    pub struct PRBMathSD59x18__SqrtNegativeInput {
-        #[serde(
-            serialize_with = "serialize_i256",
-            deserialize_with = "deserialize_i256"
-        )]
-        pub x: I256,
-    }
-    #[doc = "Custom Error type `PRBMathSD59x18__SqrtOverflow` with signature `PRBMathSD59x18__SqrtOverflow(int256)` and selector `[44, 72, 44, 57]`"]
-    #[derive(
-        Serialize,
-        Deserialize,
-        Clone,
-        Debug,
-        Default,
-        Eq,
-        PartialEq,
-        ethers :: contract :: EthError,
-        ethers :: contract :: EthDisplay,
-    )]
-    #[etherror(
-        name = "PRBMathSD59x18__SqrtOverflow",
-        abi = "PRBMathSD59x18__SqrtOverflow(int256)"
-    )]
-    pub struct PRBMathSD59x18__SqrtOverflow {
-        #[serde(
-            serialize_with = "serialize_i256",
-            deserialize_with = "deserialize_i256"
-        )]
-        pub x: I256,
-    }
-    #[derive(
-        Serialize, Deserialize, Debug, Clone, PartialEq, Eq, ethers :: contract :: EthAbiType,
-    )]
-    pub enum QuerierErrors {
-        PRBMathSD59x18__SqrtNegativeInput(PRBMathSD59x18__SqrtNegativeInput),
-        PRBMathSD59x18__SqrtOverflow(PRBMathSD59x18__SqrtOverflow),
-    }
-    impl ethers::core::abi::AbiDecode for QuerierErrors {
-        fn decode(
-            data: impl AsRef<[u8]>,
-        ) -> ::std::result::Result<Self, ethers::core::abi::AbiError> {
-            if let Ok(decoded) =
-                <PRBMathSD59x18__SqrtNegativeInput as ethers::core::abi::AbiDecode>::decode(
-                    data.as_ref(),
-                )
-            {
-                return Ok(QuerierErrors::PRBMathSD59x18__SqrtNegativeInput(decoded));
-            }
-            if let Ok(decoded) =
-                <PRBMathSD59x18__SqrtOverflow as ethers::core::abi::AbiDecode>::decode(
-                    data.as_ref(),
-                )
-            {
-                return Ok(QuerierErrors::PRBMathSD59x18__SqrtOverflow(decoded));
-            }
-            Err(ethers::core::abi::Error::InvalidData.into())
-        }
-    }
-    impl ethers::core::abi::AbiEncode for QuerierErrors {
-        fn encode(self) -> Vec<u8> {
-            match self {
-                QuerierErrors::PRBMathSD59x18__SqrtNegativeInput(element) => element.encode(),
-                QuerierErrors::PRBMathSD59x18__SqrtOverflow(element) => element.encode(),
-            }
-        }
-    }
-    impl ::std::fmt::Display for QuerierErrors {
-        fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-            match self {
-                QuerierErrors::PRBMathSD59x18__SqrtNegativeInput(element) => element.fmt(f),
-                QuerierErrors::PRBMathSD59x18__SqrtOverflow(element) => element.fmt(f),
-            }
-        }
-    }
-    impl ::std::convert::From<PRBMathSD59x18__SqrtNegativeInput> for QuerierErrors {
-        fn from(var: PRBMathSD59x18__SqrtNegativeInput) -> Self {
-            QuerierErrors::PRBMathSD59x18__SqrtNegativeInput(var)
-        }
-    }
-    impl ::std::convert::From<PRBMathSD59x18__SqrtOverflow> for QuerierErrors {
-        fn from(var: PRBMathSD59x18__SqrtOverflow) -> Self {
-            QuerierErrors::PRBMathSD59x18__SqrtOverflow(var)
-        }
-    }
-    #[doc = "Container type for all input parameters for the `getAllBooks` function with signature `getAllBooks()` and selector `[53, 69, 40, 232]`"]
+    #[doc = "Container type for all input parameters for the `getAllProducts` function with signature `getAllProducts(uint32)` and selector `[73, 254, 27, 60]`"]
     #[derive(
         Serialize,
         Deserialize,
@@ -340,9 +230,11 @@ pub mod querier {
         ethers :: contract :: EthDisplay,
         Default,
     )]
-    #[ethcall(name = "getAllBooks", abi = "getAllBooks()")]
-    pub struct GetAllBooksCall;
-    #[doc = "Container type for all input parameters for the `getAllProducts` function with signature `getAllProducts()` and selector `[2, 238, 58, 82]`"]
+    #[ethcall(name = "getAllProducts", abi = "getAllProducts(uint32)")]
+    pub struct GetAllProductsCall {
+        pub iso_group: u32,
+    }
+    #[doc = "Container type for all input parameters for the `getBookInfo` function with signature `getBookInfo(uint32)` and selector `[1, 207, 169, 209]`"]
     #[derive(
         Serialize,
         Deserialize,
@@ -354,24 +246,9 @@ pub mod querier {
         ethers :: contract :: EthDisplay,
         Default,
     )]
-    #[ethcall(name = "getAllProducts", abi = "getAllProducts()")]
-    pub struct GetAllProductsCall;
-    #[doc = "Container type for all input parameters for the `getBookInfo` function with signature `getBookInfo(uint32,address)` and selector `[97, 36, 229, 255]`"]
-    #[derive(
-        Serialize,
-        Deserialize,
-        Clone,
-        Debug,
-        Eq,
-        PartialEq,
-        ethers :: contract :: EthCall,
-        ethers :: contract :: EthDisplay,
-        Default,
-    )]
-    #[ethcall(name = "getBookInfo", abi = "getBookInfo(uint32,address)")]
+    #[ethcall(name = "getBookInfo", abi = "getBookInfo(uint32)")]
     pub struct GetBookInfoCall {
         pub product_id: u32,
-        pub engine: ethers::core::types::Address,
     }
     #[doc = "Container type for all input parameters for the `getClearinghouse` function with signature `getClearinghouse()` and selector `[177, 203, 15, 66]`"]
     #[derive(
@@ -387,7 +264,7 @@ pub mod querier {
     )]
     #[ethcall(name = "getClearinghouse", abi = "getClearinghouse()")]
     pub struct GetClearinghouseCall;
-    #[doc = "Container type for all input parameters for the `getContractVersions` function with signature `getContractVersions(address,address,address,address,address,address,address)` and selector `[228, 113, 126, 114]`"]
+    #[doc = "Container type for all input parameters for the `getContractVersions` function with signature `getContractVersions()` and selector `[113, 36, 90, 177]`"]
     #[derive(
         Serialize,
         Deserialize,
@@ -399,19 +276,22 @@ pub mod querier {
         ethers :: contract :: EthDisplay,
         Default,
     )]
-    #[ethcall(
-        name = "getContractVersions",
-        abi = "getContractVersions(address,address,address,address,address,address,address)"
+    #[ethcall(name = "getContractVersions", abi = "getContractVersions()")]
+    pub struct GetContractVersionsCall;
+    #[doc = "Container type for all input parameters for the `getCrossProducts` function with signature `getCrossProducts()` and selector `[105, 211, 59, 226]`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthCall,
+        ethers :: contract :: EthDisplay,
+        Default,
     )]
-    pub struct GetContractVersionsCall {
-        pub endpoint: ethers::core::types::Address,
-        pub fees: ethers::core::types::Address,
-        pub clearinghouse: ethers::core::types::Address,
-        pub clearinghouse_liq: ethers::core::types::Address,
-        pub spot_engine: ethers::core::types::Address,
-        pub perp_engine: ethers::core::types::Address,
-        pub querier: ethers::core::types::Address,
-    }
+    #[ethcall(name = "getCrossProducts", abi = "getCrossProducts()")]
+    pub struct GetCrossProductsCall;
     #[doc = "Container type for all input parameters for the `getPerpBalance` function with signature `getPerpBalance(bytes32,uint32)` and selector `[215, 178, 41, 182]`"]
     #[derive(
         Serialize,
@@ -610,15 +490,34 @@ pub mod querier {
     pub struct InitializeCall {
         pub clearinghouse: ethers::core::types::Address,
     }
+    #[doc = "Container type for all input parameters for the `legacyRisk` function with signature `legacyRisk((int128,int128,int128,int128,int128))` and selector `[134, 153, 82, 253]`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthCall,
+        ethers :: contract :: EthDisplay,
+        Default,
+    )]
+    #[ethcall(
+        name = "legacyRisk",
+        abi = "legacyRisk((int128,int128,int128,int128,int128))"
+    )]
+    pub struct LegacyRiskCall {
+        pub r: Risk,
+    }
     #[derive(
         Serialize, Deserialize, Debug, Clone, PartialEq, Eq, ethers :: contract :: EthAbiType,
     )]
     pub enum QuerierCalls {
-        GetAllBooks(GetAllBooksCall),
         GetAllProducts(GetAllProductsCall),
         GetBookInfo(GetBookInfoCall),
         GetClearinghouse(GetClearinghouseCall),
         GetContractVersions(GetContractVersionsCall),
+        GetCrossProducts(GetCrossProductsCall),
         GetPerpBalance(GetPerpBalanceCall),
         GetPerpBalances(GetPerpBalancesCall),
         GetPerpProduct(GetPerpProductCall),
@@ -630,16 +529,12 @@ pub mod querier {
         GetSubaccountInfo(GetSubaccountInfoCall),
         GetVersion(GetVersionCall),
         Initialize(InitializeCall),
+        LegacyRisk(LegacyRiskCall),
     }
     impl ethers::core::abi::AbiDecode for QuerierCalls {
         fn decode(
             data: impl AsRef<[u8]>,
         ) -> ::std::result::Result<Self, ethers::core::abi::AbiError> {
-            if let Ok(decoded) =
-                <GetAllBooksCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
-            {
-                return Ok(QuerierCalls::GetAllBooks(decoded));
-            }
             if let Ok(decoded) =
                 <GetAllProductsCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
             {
@@ -659,6 +554,11 @@ pub mod querier {
                 <GetContractVersionsCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
             {
                 return Ok(QuerierCalls::GetContractVersions(decoded));
+            }
+            if let Ok(decoded) =
+                <GetCrossProductsCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
+            {
+                return Ok(QuerierCalls::GetCrossProducts(decoded));
             }
             if let Ok(decoded) =
                 <GetPerpBalanceCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
@@ -715,17 +615,22 @@ pub mod querier {
             {
                 return Ok(QuerierCalls::Initialize(decoded));
             }
+            if let Ok(decoded) =
+                <LegacyRiskCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
+            {
+                return Ok(QuerierCalls::LegacyRisk(decoded));
+            }
             Err(ethers::core::abi::Error::InvalidData.into())
         }
     }
     impl ethers::core::abi::AbiEncode for QuerierCalls {
         fn encode(self) -> Vec<u8> {
             match self {
-                QuerierCalls::GetAllBooks(element) => element.encode(),
                 QuerierCalls::GetAllProducts(element) => element.encode(),
                 QuerierCalls::GetBookInfo(element) => element.encode(),
                 QuerierCalls::GetClearinghouse(element) => element.encode(),
                 QuerierCalls::GetContractVersions(element) => element.encode(),
+                QuerierCalls::GetCrossProducts(element) => element.encode(),
                 QuerierCalls::GetPerpBalance(element) => element.encode(),
                 QuerierCalls::GetPerpBalances(element) => element.encode(),
                 QuerierCalls::GetPerpProduct(element) => element.encode(),
@@ -737,17 +642,18 @@ pub mod querier {
                 QuerierCalls::GetSubaccountInfo(element) => element.encode(),
                 QuerierCalls::GetVersion(element) => element.encode(),
                 QuerierCalls::Initialize(element) => element.encode(),
+                QuerierCalls::LegacyRisk(element) => element.encode(),
             }
         }
     }
     impl ::std::fmt::Display for QuerierCalls {
         fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
             match self {
-                QuerierCalls::GetAllBooks(element) => element.fmt(f),
                 QuerierCalls::GetAllProducts(element) => element.fmt(f),
                 QuerierCalls::GetBookInfo(element) => element.fmt(f),
                 QuerierCalls::GetClearinghouse(element) => element.fmt(f),
                 QuerierCalls::GetContractVersions(element) => element.fmt(f),
+                QuerierCalls::GetCrossProducts(element) => element.fmt(f),
                 QuerierCalls::GetPerpBalance(element) => element.fmt(f),
                 QuerierCalls::GetPerpBalances(element) => element.fmt(f),
                 QuerierCalls::GetPerpProduct(element) => element.fmt(f),
@@ -759,12 +665,8 @@ pub mod querier {
                 QuerierCalls::GetSubaccountInfo(element) => element.fmt(f),
                 QuerierCalls::GetVersion(element) => element.fmt(f),
                 QuerierCalls::Initialize(element) => element.fmt(f),
+                QuerierCalls::LegacyRisk(element) => element.fmt(f),
             }
-        }
-    }
-    impl ::std::convert::From<GetAllBooksCall> for QuerierCalls {
-        fn from(var: GetAllBooksCall) -> Self {
-            QuerierCalls::GetAllBooks(var)
         }
     }
     impl ::std::convert::From<GetAllProductsCall> for QuerierCalls {
@@ -785,6 +687,11 @@ pub mod querier {
     impl ::std::convert::From<GetContractVersionsCall> for QuerierCalls {
         fn from(var: GetContractVersionsCall) -> Self {
             QuerierCalls::GetContractVersions(var)
+        }
+    }
+    impl ::std::convert::From<GetCrossProductsCall> for QuerierCalls {
+        fn from(var: GetCrossProductsCall) -> Self {
+            QuerierCalls::GetCrossProducts(var)
         }
     }
     impl ::std::convert::From<GetPerpBalanceCall> for QuerierCalls {
@@ -842,20 +749,12 @@ pub mod querier {
             QuerierCalls::Initialize(var)
         }
     }
-    #[doc = "Container type for all return fields from the `getAllBooks` function with signature `getAllBooks()` and selector `[53, 69, 40, 232]`"]
-    #[derive(
-        Serialize,
-        Deserialize,
-        Clone,
-        Debug,
-        Eq,
-        PartialEq,
-        ethers :: contract :: EthAbiType,
-        ethers :: contract :: EthAbiCodec,
-        Default,
-    )]
-    pub struct GetAllBooksReturn(pub ::std::vec::Vec<ethers::core::types::Address>);
-    #[doc = "Container type for all return fields from the `getAllProducts` function with signature `getAllProducts()` and selector `[2, 238, 58, 82]`"]
+    impl ::std::convert::From<LegacyRiskCall> for QuerierCalls {
+        fn from(var: LegacyRiskCall) -> Self {
+            QuerierCalls::LegacyRisk(var)
+        }
+    }
+    #[doc = "Container type for all return fields from the `getAllProducts` function with signature `getAllProducts(uint32)` and selector `[73, 254, 27, 60]`"]
     #[derive(
         Serialize,
         Deserialize,
@@ -868,7 +767,7 @@ pub mod querier {
         Default,
     )]
     pub struct GetAllProductsReturn(pub ProductInfo);
-    #[doc = "Container type for all return fields from the `getBookInfo` function with signature `getBookInfo(uint32,address)` and selector `[97, 36, 229, 255]`"]
+    #[doc = "Container type for all return fields from the `getBookInfo` function with signature `getBookInfo(uint32)` and selector `[1, 207, 169, 209]`"]
     #[derive(
         Serialize,
         Deserialize,
@@ -896,7 +795,7 @@ pub mod querier {
         Default,
     )]
     pub struct GetClearinghouseReturn(pub ethers::core::types::Address);
-    #[doc = "Container type for all return fields from the `getContractVersions` function with signature `getContractVersions(address,address,address,address,address,address,address)` and selector `[228, 113, 126, 114]`"]
+    #[doc = "Container type for all return fields from the `getContractVersions` function with signature `getContractVersions()` and selector `[113, 36, 90, 177]`"]
     #[derive(
         Serialize,
         Deserialize,
@@ -909,6 +808,19 @@ pub mod querier {
         Default,
     )]
     pub struct GetContractVersionsReturn(pub Versions);
+    #[doc = "Container type for all return fields from the `getCrossProducts` function with signature `getCrossProducts()` and selector `[105, 211, 59, 226]`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthAbiType,
+        ethers :: contract :: EthAbiCodec,
+        Default,
+    )]
+    pub struct GetCrossProductsReturn(pub ProductInfo);
     #[doc = "Container type for all return fields from the `getPerpBalance` function with signature `getPerpBalance(bytes32,uint32)` and selector `[215, 178, 41, 182]`"]
     #[derive(
         Serialize,
@@ -1047,6 +959,21 @@ pub mod querier {
         Default,
     )]
     pub struct GetVersionReturn(pub u64);
+    #[doc = "Container type for all return fields from the `legacyRisk` function with signature `legacyRisk((int128,int128,int128,int128,int128))` and selector `[134, 153, 82, 253]`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthAbiType,
+        ethers :: contract :: EthAbiCodec,
+        Default,
+    )]
+    pub struct LegacyRiskReturn {
+        pub l: LegacyRisk,
+    }
     #[doc = "`BookInfo(int128,int128,int128,int128,int128)`"]
     #[derive(
         Archive,
@@ -1123,6 +1050,49 @@ pub mod querier {
         )]
         pub health: i128,
     }
+    #[doc = "`LegacyRisk(int128,int128,int128,int128,int128)`"]
+    #[derive(
+        Archive,
+        RkyvSerialize,
+        RkyvDeserialize,
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Default,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthAbiType,
+        ethers :: contract :: EthAbiCodec,
+    )]
+    #[archive(check_bytes)]
+    pub struct LegacyRisk {
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
+        pub long_weight_initial_x18: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
+        pub short_weight_initial_x18: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
+        pub long_weight_maintenance_x18: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
+        pub short_weight_maintenance_x18: i128,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
+        pub large_position_penalty_x18: i128,
+    }
     #[doc = "`PerpBalance(uint32,(int128,int128),(int128,int128,int128))`"]
     #[derive(
         Archive,
@@ -1167,7 +1137,7 @@ pub mod querier {
             deserialize_with = "deserialize_i128"
         )]
         pub oracle_price_x18: i128,
-        pub risk: Risk,
+        pub risk: LegacyRisk,
         pub state: crate::bindings::perp_engine::State,
         pub lp_state: crate::bindings::perp_engine::LpState,
         pub book_info: BookInfo,
@@ -1228,7 +1198,7 @@ pub mod querier {
             deserialize_with = "deserialize_i128"
         )]
         pub oracle_price_x18: i128,
-        pub risk: Risk,
+        pub risk: LegacyRisk,
         pub config: Config,
         pub state: crate::bindings::spot_engine::State,
         pub lp_state: crate::bindings::spot_engine::LpState,
@@ -1566,9 +1536,9 @@ pub mod querier {
             serialize_with = "serialize_i128",
             deserialize_with = "deserialize_i128"
         )]
-        pub large_position_penalty_x18: i128,
+        pub price_x18: i128,
     }
-    #[doc = "`Versions(uint64,uint64,uint64,uint64,uint64,uint64,uint64,uint64[])`"]
+    #[doc = "`Versions(uint64,uint64,uint64,uint64,uint64,uint64,uint64)`"]
     #[derive(
         Serialize,
         Deserialize,
@@ -1582,12 +1552,11 @@ pub mod querier {
     )]
     pub struct Versions {
         pub endpoint: u64,
-        pub fee_calculator: u64,
         pub clearinghouse: u64,
         pub clearinghouse_liq: u64,
         pub spot_engine: u64,
         pub perp_engine: u64,
         pub querier: u64,
-        pub books: Vec<u64>,
+        pub exchange: u64,
     }
 }

@@ -1,6 +1,6 @@
 #![allow(non_snake_case)]
 
-use crate::bindings::{endpoint, offchain_book};
+use crate::bindings::{endpoint, offchain_exchange};
 use crate::serialize_utils::{
     deserialize_bytes32, deserialize_i128, deserialize_u128, deserialize_u64,
     deserialize_vec_bytes32, serialize_bytes32, serialize_i128, serialize_u128, serialize_u64,
@@ -103,8 +103,24 @@ impl OrderType {
 }
 
 impl Order {
-    pub fn to_offchain_book_binding(&self) -> offchain_book::Order {
-        offchain_book::Order {
+    pub fn new(
+        sender: [u8; 32],
+        priceX18: i128,
+        amount: i128,
+        expiration: u64,
+        nonce: u64,
+    ) -> Self {
+        Self {
+            sender,
+            priceX18,
+            amount,
+            expiration,
+            nonce,
+        }
+    }
+
+    pub fn to_offchain_exchange_binding(&self) -> offchain_exchange::Order {
+        offchain_exchange::Order {
             sender: self.sender,
             price_x18: self.priceX18,
             amount: self.amount,
@@ -130,9 +146,12 @@ impl Order {
         }
     }
 
-    pub fn to_offchain_book_signed_binding(&self, signature: &Bytes) -> offchain_book::SignedOrder {
-        offchain_book::SignedOrder {
-            order: self.to_offchain_book_binding(),
+    pub fn to_offchain_exchange_signed_binding(
+        &self,
+        signature: &Bytes,
+    ) -> offchain_exchange::SignedOrder {
+        offchain_exchange::SignedOrder {
+            order: self.to_offchain_exchange_binding(),
             signature: signature.clone(),
         }
     }
@@ -351,8 +370,8 @@ pub struct LiquidateSubaccount {
         deserialize_with = "deserialize_bytes32"
     )]
     pub liquidatee: [u8; 32],
-    pub mode: u8,
-    pub healthGroup: u32,
+    pub productId: u32,
+    pub isEncodedSpread: bool,
     #[serde(
         serialize_with = "serialize_i128",
         deserialize_with = "deserialize_i128"
@@ -368,8 +387,8 @@ impl LiquidateSubaccount {
         endpoint::LiquidateSubaccount {
             sender: self.sender,
             liquidatee: self.liquidatee,
-            mode: self.mode,
-            health_group: self.healthGroup,
+            product_id: self.productId,
+            is_encoded_spread: self.isEncodedSpread,
             amount: self.amount,
             nonce: self.nonce,
         }
@@ -513,6 +532,48 @@ impl BurnLp {
         endpoint::BurnLp {
             sender: self.sender,
             product_id: self.productId,
+            amount: self.amount,
+            nonce: self.nonce,
+        }
+    }
+}
+
+#[derive(
+    Archive,
+    RkyvDeserialize,
+    RkyvSerialize,
+    Serialize,
+    Deserialize,
+    Debug,
+    Clone,
+    Eip712,
+    EthAbiType,
+)]
+#[eip712()]
+#[archive(check_bytes)]
+#[allow(non_snake_case)]
+pub struct TransferQuote {
+    // #[ts(type = "string")]
+    #[serde(
+        serialize_with = "serialize_bytes32",
+        deserialize_with = "deserialize_bytes32"
+    )]
+    pub sender: [u8; 32],
+    #[serde(
+        serialize_with = "serialize_bytes32",
+        deserialize_with = "deserialize_bytes32"
+    )]
+    pub recipient: [u8; 32],
+    pub amount: u128,
+    #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
+    pub nonce: u64,
+}
+
+impl TransferQuote {
+    pub fn to_binding(&self) -> endpoint::TransferQuote {
+        endpoint::TransferQuote {
+            sender: self.sender,
+            recipient: self.recipient,
             amount: self.amount,
             nonce: self.nonce,
         }

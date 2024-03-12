@@ -65,12 +65,13 @@ vertex_builder!(
         let signature = self.get_signature(product_id, &order)?;
         let digest = self.get_digest(&order)?;
         Ok(PlaceTriggerOrder {
-            order: order,
+            order,
             signature: Bytes::from(signature),
             product_id,
             digest: Some(TxHash(digest)),
             spot_leverage: self.spot_leverage,
             trigger,
+            id: self.id
         })
     }
 
@@ -99,7 +100,7 @@ vertex_builder!(
     }
 
     fn assert_trigger_unset(&self) -> Result<()> {
-        if !self.trigger_criteria.is_none() {
+        if self.trigger_criteria.is_some() {
             Err(eyre!("trigger_criteria set, use .build_triger to build trigger orders or clear trigger criteria"))
         } else {
             Ok(())

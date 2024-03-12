@@ -128,6 +128,7 @@ pub struct PlaceTriggerOrder {
     pub spot_leverage: Option<bool>,
     pub trigger: TriggerCriteria,
     pub digest: Option<H256>,
+    pub id: Option<u64>,
 }
 
 impl PlaceTriggerOrder {
@@ -137,7 +138,7 @@ impl PlaceTriggerOrder {
             signature: self.signature.to_vec(),
             product_id: self.product_id,
             digest: None,
-            id: None,
+            id: self.id,
             spot_leverage: self.spot_leverage,
         }
     }
@@ -147,7 +148,32 @@ impl PlaceTriggerOrder {
     }
 
     pub fn from_order_data(data: &[u8]) -> Self {
-        bincode::deserialize(data).unwrap()
+        #[derive(Clone, Debug, Serialize, Deserialize)]
+        #[serde(rename_all = "snake_case")]
+        pub struct PlaceTriggerOrderOld {
+            pub order: Order,
+            pub signature: Bytes,
+            pub product_id: u32,
+            pub spot_leverage: Option<bool>,
+            pub trigger: TriggerCriteria,
+            pub digest: Option<H256>,
+        }
+
+        match bincode::deserialize(data) {
+            Ok(p) => p,
+            Err(_) => {
+                let p_old = bincode::deserialize::<PlaceTriggerOrderOld>(data).unwrap();
+                PlaceTriggerOrder {
+                    order: p_old.order,
+                    signature: p_old.signature,
+                    product_id: p_old.product_id,
+                    spot_leverage: p_old.spot_leverage,
+                    trigger: p_old.trigger,
+                    digest: p_old.digest,
+                    id: None,
+                }
+            }
+        }
     }
 
     pub fn expiration(&self) -> u64 {

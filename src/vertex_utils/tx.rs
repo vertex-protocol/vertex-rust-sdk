@@ -33,6 +33,11 @@ pub enum TxType {
     LinkSigner = 19,
     UpdateFeeRates = 20,
     BurnLpAndTransfer = 21,
+    MatchOrdersRFQ = 22,
+    // TODO: transfer quote is missing some more setup, eg: TxType.
+    // need to confirm expected behavior, handling, etc
+    TransferQuote = 23,
+    RebalanceXWithdraw = 24,
 }
 
 impl TxType {
@@ -60,6 +65,9 @@ impl TxType {
             19 => Self::LinkSigner,
             20 => Self::UpdateFeeRates,
             21 => Self::BurnLpAndTransfer,
+            22 => Self::MatchOrdersRFQ,
+            23 => Self::TransferQuote,
+            24 => Self::RebalanceXWithdraw,
             _ => panic!("Invalid TxType"),
         }
     }
@@ -85,6 +93,10 @@ pub fn domain(chain_id: U256, verifying_contract: H160) -> EIP712Domain {
     }
 }
 
+pub fn domain2(chain_id: u64, verifying_contract: [u8; 20]) -> EIP712Domain {
+    domain(U256::from(chain_id), verifying_contract.into())
+}
+
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum VertexTx {
@@ -99,12 +111,17 @@ pub enum VertexTx {
     SpotTick(endpoint::SpotTick),
     UpdatePrice(endpoint::UpdatePrice),
 
+    ManualAssert(endpoint::ManualAssert),
+
     MatchOrders(endpoint::MatchOrders),
     ExecuteSlowMode,
     MintLp(endpoint::MintLp),
     BurnLp(endpoint::BurnLp),
     SwapAMM(endpoint::SwapAMM),
     BurnLpAndTransfer(endpoint::BurnLpAndTransfer),
+    MatchOrdersRFQ(endpoint::MatchOrders),
+    TransferQuote(endpoint::TransferQuote),
+    RebalanceXWithdraw(endpoint::RebalanceXWithdraw),
     Other,
 }
 
@@ -121,10 +138,14 @@ impl VertexTx {
             VertexTx::ExecuteSlowMode => TxType::ExecuteSlowMode,
             VertexTx::MintLp(_) => TxType::MintLp,
             VertexTx::BurnLp(_) => TxType::BurnLp,
+            VertexTx::ManualAssert(_) => TxType::ManualAssert,
             VertexTx::SwapAMM(_) => TxType::SwapAMM,
             VertexTx::PerpTick(_) => TxType::PerpTick,
             VertexTx::LinkSigner(_) => TxType::LinkSigner,
             VertexTx::BurnLpAndTransfer(_) => TxType::BurnLpAndTransfer,
+            VertexTx::MatchOrdersRFQ(_) => TxType::MatchOrdersRFQ,
+            VertexTx::TransferQuote(_) => TxType::TransferQuote,
+            VertexTx::RebalanceXWithdraw(_) => TxType::RebalanceXWithdraw,
             VertexTx::Other => panic!("Other is not a valid tx type"),
         }
     }

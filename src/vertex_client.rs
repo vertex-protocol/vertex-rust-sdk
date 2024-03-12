@@ -101,7 +101,7 @@ impl VertexBase for VertexClient {
         }
     }
     fn wallet(&self) -> Result<&Wallet<SigningKey>> {
-        Ok(self.wallet.as_ref().ok_or(none_error("wallet"))?)
+        self.wallet.as_ref().ok_or(none_error("wallet"))
     }
 
     fn subaccount_name_bytes(&self) -> [u8; 12] {

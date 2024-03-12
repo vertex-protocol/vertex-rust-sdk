@@ -26,7 +26,7 @@ pub mod endpoint {
     use ethers::providers::Middleware;
     #[doc = "Endpoint was auto-generated with ethers-rs Abigen. More information at: https://github.com/gakonst/ethers-rs"]
     use std::sync::Arc;
-    # [rustfmt :: skip] const __ABI : & str = "[{\"inputs\":[{\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\",\"components\":[],\"indexed\":false}],\"type\":\"event\",\"name\":\"Initialized\",\"outputs\":[],\"anonymous\":false},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\",\"components\":[],\"indexed\":true},{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\",\"components\":[],\"indexed\":true}],\"type\":\"event\",\"name\":\"OwnershipTransferred\",\"outputs\":[],\"anonymous\":false},{\"inputs\":[],\"type\":\"event\",\"name\":\"SubmitTransactions\",\"outputs\":[],\"anonymous\":false},{\"inputs\":[{\"internalType\":\"struct IEndpoint.BurnLpAndTransfer\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"recipient\",\"type\":\"bytes32\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"burnLpAndTransfer\",\"outputs\":[{\"internalType\":\"struct IEndpoint.BurnLpAndTransfer\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"recipient\",\"type\":\"bytes32\",\"components\":[]}]}]},{\"inputs\":[],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"checkLpAction\",\"outputs\":[{\"internalType\":\"uint32\",\"name\":\"\",\"type\":\"uint32\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"bytes\",\"name\":\"transaction\",\"type\":\"bytes\",\"components\":[]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"checkLpActionInner\",\"outputs\":[{\"internalType\":\"uint32\",\"name\":\"\",\"type\":\"uint32\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"bytes\",\"name\":\"transaction\",\"type\":\"bytes\",\"components\":[]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"checkSlowModeTxInner\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\",\"components\":[]}]},{\"inputs\":[],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"checkSlowModeTxLinkSigner\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.ClaimSequencerFees\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"subaccount\",\"type\":\"bytes32\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"claimSequencerFees\",\"outputs\":[{\"internalType\":\"struct IEndpoint.ClaimSequencerFees\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"subaccount\",\"type\":\"bytes32\",\"components\":[]}]}]},{\"inputs\":[],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"clearinghouse\",\"outputs\":[{\"internalType\":\"contract IClearinghouse\",\"name\":\"\",\"type\":\"address\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"bytes12\",\"name\":\"subaccountName\",\"type\":\"bytes12\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"depositCollateral\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"subaccount\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"string\",\"name\":\"referralCode\",\"type\":\"string\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"depositCollateralWithReferral\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"bytes12\",\"name\":\"subaccountName\",\"type\":\"bytes12\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"string\",\"name\":\"referralCode\",\"type\":\"string\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"depositCollateralWithReferral\",\"outputs\":[]},{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"executeSlowModeTransaction\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getBook\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\",\"components\":[]}]},{\"inputs\":[],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"getHealthCheckFee\",\"outputs\":[{\"internalType\":\"int128\",\"name\":\"\",\"type\":\"int128\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"subaccount\",\"type\":\"bytes32\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getLinkedSigner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\",\"components\":[]}]},{\"inputs\":[],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"getLiquidationFee\",\"outputs\":[{\"internalType\":\"int128\",\"name\":\"\",\"type\":\"int128\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getNonce\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\",\"components\":[]}]},{\"inputs\":[],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getNumSubaccounts\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getPriceX18\",\"outputs\":[{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"uint32\",\"name\":\"healthGroup\",\"type\":\"uint32\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getPricesX18\",\"outputs\":[{\"internalType\":\"struct IEndpoint.Prices\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128\",\"name\":\"spotPriceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"perpPriceX18\",\"type\":\"int128\",\"components\":[]}]}]},{\"inputs\":[],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getSequencer\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"subaccountId\",\"type\":\"uint64\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getSubaccountById\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"subaccount\",\"type\":\"bytes32\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getSubaccountId\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\",\"components\":[]}]},{\"inputs\":[],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"getTakerSequencerFee\",\"outputs\":[{\"internalType\":\"int128\",\"name\":\"\",\"type\":\"int128\",\"components\":[]}]},{\"inputs\":[],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getTime\",\"outputs\":[{\"internalType\":\"uint128\",\"name\":\"\",\"type\":\"uint128\",\"components\":[]}]},{\"inputs\":[],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"getVersion\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\",\"components\":[]}]},{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"incrementSubmissions\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_sanctions\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"address\",\"name\":\"_sequencer\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"contract IClearinghouse\",\"name\":\"_clearinghouse\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"slowModeTimeout\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"_time\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"int128[]\",\"name\":\"_prices\",\"type\":\"int128[]\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"initialize\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"transaction\",\"type\":\"bytes\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"liquidationStart\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.ManualAssert\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128[]\",\"name\":\"openInterests\",\"type\":\"int128[]\",\"components\":[]},{\"internalType\":\"int128[]\",\"name\":\"totalDeposits\",\"type\":\"int128[]\",\"components\":[]},{\"internalType\":\"int128[]\",\"name\":\"totalBorrows\",\"type\":\"int128[]\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"manualAssert\",\"outputs\":[{\"internalType\":\"struct IEndpoint.ManualAssert\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128[]\",\"name\":\"openInterests\",\"type\":\"int128[]\",\"components\":[]},{\"internalType\":\"int128[]\",\"name\":\"totalDeposits\",\"type\":\"int128[]\",\"components\":[]},{\"internalType\":\"int128[]\",\"name\":\"totalBorrows\",\"type\":\"int128[]\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.MatchOrderAMM\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"baseDelta\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"quoteDelta\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct IEndpoint.SignedOrder\",\"name\":\"taker\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.Order\",\"name\":\"order\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"expiration\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"matchOrderAMM\",\"outputs\":[{\"internalType\":\"struct IEndpoint.MatchOrderAMM\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"baseDelta\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"quoteDelta\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct IEndpoint.SignedOrder\",\"name\":\"taker\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.Order\",\"name\":\"order\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"expiration\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.MatchOrders\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"bool\",\"name\":\"amm\",\"type\":\"bool\",\"components\":[]},{\"internalType\":\"struct IEndpoint.SignedOrder\",\"name\":\"taker\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.Order\",\"name\":\"order\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"expiration\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]},{\"internalType\":\"struct IEndpoint.SignedOrder\",\"name\":\"maker\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.Order\",\"name\":\"order\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"expiration\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"matchOrders\",\"outputs\":[{\"internalType\":\"struct IEndpoint.MatchOrders\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"bool\",\"name\":\"amm\",\"type\":\"bool\",\"components\":[]},{\"internalType\":\"struct IEndpoint.SignedOrder\",\"name\":\"taker\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.Order\",\"name\":\"order\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"expiration\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]},{\"internalType\":\"struct IEndpoint.SignedOrder\",\"name\":\"maker\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.Order\",\"name\":\"order\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"expiration\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}]}]},{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"migrate\",\"outputs\":[]},{\"inputs\":[],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"nSubmissions\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\",\"components\":[]}]},{\"inputs\":[],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.PerpTick\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint128\",\"name\":\"time\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"int128[]\",\"name\":\"avgPriceDiffs\",\"type\":\"int128[]\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"perpTick\",\"outputs\":[{\"internalType\":\"struct IEndpoint.PerpTick\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint128\",\"name\":\"time\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"int128[]\",\"name\":\"avgPriceDiffs\",\"type\":\"int128[]\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"bytes\",\"name\":\"transaction\",\"type\":\"bytes\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"processSlowModeTransaction\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.Rebate\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32[]\",\"name\":\"subaccounts\",\"type\":\"bytes32[]\",\"components\":[]},{\"internalType\":\"int128[]\",\"name\":\"amounts\",\"type\":\"int128[]\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"rebate\",\"outputs\":[{\"internalType\":\"struct IEndpoint.Rebate\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32[]\",\"name\":\"subaccounts\",\"type\":\"bytes32[]\",\"components\":[]},{\"internalType\":\"int128[]\",\"name\":\"amounts\",\"type\":\"int128[]\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"referralCodes\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"bool\",\"name\":\"transferable\",\"type\":\"bool\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"registerTransferableWallet\",\"outputs\":[]},{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"renounceOwnership\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"subaccount\",\"type\":\"bytes32\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"requireSubaccount\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"uint32\",\"name\":\"\",\"type\":\"uint32\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"sequencerFee\",\"outputs\":[{\"internalType\":\"int128\",\"name\":\"\",\"type\":\"int128\",\"components\":[]}]},{\"inputs\":[],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"sequencerFees\",\"outputs\":[{\"internalType\":\"int128\",\"name\":\"\",\"type\":\"int128\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"address\",\"name\":\"book\",\"type\":\"address\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"setBook\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"setPriceX18\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_sequencer\",\"type\":\"address\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"setSequencer\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.SlowModeConfig\",\"name\":\"_slowModeConfig\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint64\",\"name\":\"timeout\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"txCount\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"txUpTo\",\"type\":\"uint64\",\"components\":[]}]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"setSlowModeConfig\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"idx\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"struct IEndpoint.SlowModeTx\",\"name\":\"txn\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint64\",\"name\":\"executableAt\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"bytes\",\"name\":\"tx\",\"type\":\"bytes\",\"components\":[]}]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"setSlowModeTx\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.SettlePnl\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32[]\",\"name\":\"subaccounts\",\"type\":\"bytes32[]\",\"components\":[]},{\"internalType\":\"uint256[]\",\"name\":\"productIds\",\"type\":\"uint256[]\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"settlePnl\",\"outputs\":[{\"internalType\":\"struct IEndpoint.SettlePnl\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32[]\",\"name\":\"subaccounts\",\"type\":\"bytes32[]\",\"components\":[]},{\"internalType\":\"uint256[]\",\"name\":\"productIds\",\"type\":\"uint256[]\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.SignedBurnLp\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.BurnLp\",\"name\":\"tx\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"signedBurnLp\",\"outputs\":[{\"internalType\":\"struct IEndpoint.SignedBurnLp\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.BurnLp\",\"name\":\"tx\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct FEndpoint.SignedCancellation\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct FEndpoint.Cancellation\",\"name\":\"cancellation\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32[]\",\"name\":\"productIds\",\"type\":\"uint32[]\",\"components\":[]},{\"internalType\":\"bytes32[]\",\"name\":\"digests\",\"type\":\"bytes32[]\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"signedCancellation\",\"outputs\":[{\"internalType\":\"struct FEndpoint.SignedCancellation\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct FEndpoint.Cancellation\",\"name\":\"cancellation\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32[]\",\"name\":\"productIds\",\"type\":\"uint32[]\",\"components\":[]},{\"internalType\":\"bytes32[]\",\"name\":\"digests\",\"type\":\"bytes32[]\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct FEndpoint.SignedCancellationProducts\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct FEndpoint.CancellationProducts\",\"name\":\"cancellationProducts\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32[]\",\"name\":\"productIds\",\"type\":\"uint32[]\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"signedCancellationProducts\",\"outputs\":[{\"internalType\":\"struct FEndpoint.SignedCancellationProducts\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct FEndpoint.CancellationProducts\",\"name\":\"cancellationProducts\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32[]\",\"name\":\"productIds\",\"type\":\"uint32[]\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.SignedLinkSigner\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.LinkSigner\",\"name\":\"tx\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"signer\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"signedLinkSigner\",\"outputs\":[{\"internalType\":\"struct IEndpoint.SignedLinkSigner\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.LinkSigner\",\"name\":\"tx\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"signer\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.SignedLiquidateSubaccount\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.LiquidateSubaccount\",\"name\":\"tx\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"liquidatee\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint8\",\"name\":\"mode\",\"type\":\"uint8\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"healthGroup\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"signedLiquidateSubaccount\",\"outputs\":[{\"internalType\":\"struct IEndpoint.SignedLiquidateSubaccount\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.LiquidateSubaccount\",\"name\":\"tx\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"liquidatee\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint8\",\"name\":\"mode\",\"type\":\"uint8\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"healthGroup\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.SignedMintLp\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.MintLp\",\"name\":\"tx\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amountBase\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"quoteAmountLow\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"quoteAmountHigh\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"signedMintLp\",\"outputs\":[{\"internalType\":\"struct IEndpoint.SignedMintLp\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.MintLp\",\"name\":\"tx\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amountBase\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"quoteAmountLow\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"quoteAmountHigh\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.SignedOrder\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.Order\",\"name\":\"order\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"expiration\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"signedOrder\",\"outputs\":[{\"internalType\":\"struct IEndpoint.SignedOrder\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.Order\",\"name\":\"order\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"expiration\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.SignedWithdrawCollateral\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.WithdrawCollateral\",\"name\":\"tx\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"signedWithdrawCollateral\",\"outputs\":[{\"internalType\":\"struct IEndpoint.SignedWithdrawCollateral\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.WithdrawCollateral\",\"name\":\"tx\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}]},{\"inputs\":[],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"slowModeConfig\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"timeout\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"txCount\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"txUpTo\",\"type\":\"uint64\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"slowModeTxs\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"executableAt\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"bytes\",\"name\":\"tx\",\"type\":\"bytes\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.SpotTick\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint128\",\"name\":\"time\",\"type\":\"uint128\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"spotTick\",\"outputs\":[{\"internalType\":\"struct IEndpoint.SpotTick\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint128\",\"name\":\"time\",\"type\":\"uint128\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"transaction\",\"type\":\"bytes\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"submitSlowModeTransaction\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"bytes[]\",\"name\":\"transactions\",\"type\":\"bytes[]\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"submitTransactions\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"idx\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"bytes[]\",\"name\":\"transactions\",\"type\":\"bytes[]\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"submitTransactionsChecked\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"idx\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"bytes[]\",\"name\":\"transactions\",\"type\":\"bytes[]\",\"components\":[]},{\"internalType\":\"uint256\",\"name\":\"gasLimit\",\"type\":\"uint256\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"submitTransactionsCheckedWithGasLimit\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.SwapAMM\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"swapAMM\",\"outputs\":[{\"internalType\":\"struct IEndpoint.SwapAMM\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"transferOwnership\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.BurnLp\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"unsignedBurnLp\",\"outputs\":[{\"internalType\":\"struct IEndpoint.BurnLp\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.DepositCollateral\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"unsignedDepositCollateral\",\"outputs\":[{\"internalType\":\"struct IEndpoint.DepositCollateral\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.DepositInsurance\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"unsignedDepositInsurance\",\"outputs\":[{\"internalType\":\"struct IEndpoint.DepositInsurance\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.LinkSigner\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"signer\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"unsignedLinkSigner\",\"outputs\":[{\"internalType\":\"struct IEndpoint.LinkSigner\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"signer\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.LiquidateSubaccount\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"liquidatee\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint8\",\"name\":\"mode\",\"type\":\"uint8\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"healthGroup\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"unsignedLiquidateSubaccount\",\"outputs\":[{\"internalType\":\"struct IEndpoint.LiquidateSubaccount\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"liquidatee\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint8\",\"name\":\"mode\",\"type\":\"uint8\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"healthGroup\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.MintLp\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amountBase\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"quoteAmountLow\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"quoteAmountHigh\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"unsignedMintLp\",\"outputs\":[{\"internalType\":\"struct IEndpoint.MintLp\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amountBase\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"quoteAmountLow\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"quoteAmountHigh\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.WithdrawCollateral\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"unsignedWithdrawCollateral\",\"outputs\":[{\"internalType\":\"struct IEndpoint.WithdrawCollateral\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.UpdateFeeRates\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int64\",\"name\":\"makerRateX18\",\"type\":\"int64\",\"components\":[]},{\"internalType\":\"int64\",\"name\":\"takerRateX18\",\"type\":\"int64\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"updateFeeRates\",\"outputs\":[{\"internalType\":\"struct IEndpoint.UpdateFeeRates\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int64\",\"name\":\"makerRateX18\",\"type\":\"int64\",\"components\":[]},{\"internalType\":\"int64\",\"name\":\"takerRateX18\",\"type\":\"int64\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.UpdatePrice\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"updatePrice\",\"outputs\":[{\"internalType\":\"struct IEndpoint.UpdatePrice\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.UpdateProduct\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"address\",\"name\":\"engine\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"bytes\",\"name\":\"tx\",\"type\":\"bytes\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"updateProduct\",\"outputs\":[{\"internalType\":\"struct IEndpoint.UpdateProduct\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"address\",\"name\":\"engine\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"bytes\",\"name\":\"tx\",\"type\":\"bytes\",\"components\":[]}]}]}]" ;
+    # [rustfmt :: skip] const __ABI : & str = "[{\"inputs\":[{\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\",\"components\":[],\"indexed\":false}],\"type\":\"event\",\"name\":\"Initialized\",\"outputs\":[],\"anonymous\":false},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\",\"components\":[],\"indexed\":true},{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\",\"components\":[],\"indexed\":true}],\"type\":\"event\",\"name\":\"OwnershipTransferred\",\"outputs\":[],\"anonymous\":false},{\"inputs\":[],\"type\":\"event\",\"name\":\"SubmitTransactions\",\"outputs\":[],\"anonymous\":false},{\"inputs\":[{\"internalType\":\"struct IEndpoint.BurnLpAndTransfer\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"recipient\",\"type\":\"bytes32\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"burnLpAndTransfer\",\"outputs\":[{\"internalType\":\"struct IEndpoint.BurnLpAndTransfer\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"recipient\",\"type\":\"bytes32\",\"components\":[]}]}]},{\"inputs\":[],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"checkLpAction\",\"outputs\":[{\"internalType\":\"uint32\",\"name\":\"\",\"type\":\"uint32\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"bytes\",\"name\":\"transaction\",\"type\":\"bytes\",\"components\":[]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"checkLpActionInner\",\"outputs\":[{\"internalType\":\"uint32\",\"name\":\"\",\"type\":\"uint32\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"bytes\",\"name\":\"transaction\",\"type\":\"bytes\",\"components\":[]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"checkSlowModeTxInner\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\",\"components\":[]}]},{\"inputs\":[],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"checkSlowModeTxLinkSigner\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.ClaimSequencerFees\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"subaccount\",\"type\":\"bytes32\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"claimSequencerFees\",\"outputs\":[{\"internalType\":\"struct IEndpoint.ClaimSequencerFees\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"subaccount\",\"type\":\"bytes32\",\"components\":[]}]}]},{\"inputs\":[],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"clearinghouse\",\"outputs\":[{\"internalType\":\"contract IClearinghouse\",\"name\":\"\",\"type\":\"address\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"bytes12\",\"name\":\"subaccountName\",\"type\":\"bytes12\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"depositCollateral\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"subaccount\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"string\",\"name\":\"referralCode\",\"type\":\"string\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"depositCollateralWithReferral\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"bytes12\",\"name\":\"subaccountName\",\"type\":\"bytes12\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"string\",\"name\":\"referralCode\",\"type\":\"string\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"depositCollateralWithReferral\",\"outputs\":[]},{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"executeSlowModeTransaction\",\"outputs\":[]},{\"inputs\":[],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"getHealthCheckFee\",\"outputs\":[{\"internalType\":\"int128\",\"name\":\"\",\"type\":\"int128\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"subaccount\",\"type\":\"bytes32\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getLinkedSigner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\",\"components\":[]}]},{\"inputs\":[],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"getLiquidationFee\",\"outputs\":[{\"internalType\":\"int128\",\"name\":\"\",\"type\":\"int128\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getNonce\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\",\"components\":[]}]},{\"inputs\":[],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getNumSubaccounts\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\",\"components\":[]}]},{\"inputs\":[],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getOffchainExchange\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getPriceX18\",\"outputs\":[{\"internalType\":\"int128\",\"name\":\"_priceX18\",\"type\":\"int128\",\"components\":[]}]},{\"inputs\":[],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getSequencer\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"idx\",\"type\":\"uint64\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getSlowModeTx\",\"outputs\":[{\"internalType\":\"struct IEndpoint.SlowModeTx\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint64\",\"name\":\"executableAt\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"bytes\",\"name\":\"tx\",\"type\":\"bytes\",\"components\":[]}]},{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"subaccountId\",\"type\":\"uint64\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getSubaccountById\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"subaccount\",\"type\":\"bytes32\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getSubaccountId\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\",\"components\":[]}]},{\"inputs\":[],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"getTakerSequencerFee\",\"outputs\":[{\"internalType\":\"int128\",\"name\":\"\",\"type\":\"int128\",\"components\":[]}]},{\"inputs\":[],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"getTime\",\"outputs\":[{\"internalType\":\"uint128\",\"name\":\"\",\"type\":\"uint128\",\"components\":[]}]},{\"inputs\":[],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"getVersion\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\",\"components\":[]}]},{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"incrementSubmissions\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_sanctions\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"address\",\"name\":\"_sequencer\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"address\",\"name\":\"_offchainExchange\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"contract IClearinghouse\",\"name\":\"_clearinghouse\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"address\",\"name\":\"_verifier\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"int128[]\",\"name\":\"initialPrices\",\"type\":\"int128[]\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"initialize\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.LegacyMatchOrders\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"bool\",\"name\":\"amm\",\"type\":\"bool\",\"components\":[]},{\"internalType\":\"struct IEndpoint.SignedOrder\",\"name\":\"taker\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.Order\",\"name\":\"order\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"expiration\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]},{\"internalType\":\"struct IEndpoint.SignedOrder\",\"name\":\"maker\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.Order\",\"name\":\"order\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"expiration\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"legacyMatchOrders\",\"outputs\":[{\"internalType\":\"struct IEndpoint.LegacyMatchOrders\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"bool\",\"name\":\"amm\",\"type\":\"bool\",\"components\":[]},{\"internalType\":\"struct IEndpoint.SignedOrder\",\"name\":\"taker\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.Order\",\"name\":\"order\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"expiration\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]},{\"internalType\":\"struct IEndpoint.SignedOrder\",\"name\":\"maker\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.Order\",\"name\":\"order\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"expiration\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.LegacySignedLiquidateSubaccount\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.LegacyLiquidateSubaccount\",\"name\":\"tx\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"liquidatee\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint8\",\"name\":\"mode\",\"type\":\"uint8\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"healthGroup\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"legacySignedLiquidateSubaccount\",\"outputs\":[{\"internalType\":\"struct IEndpoint.LegacySignedLiquidateSubaccount\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.LegacyLiquidateSubaccount\",\"name\":\"tx\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"liquidatee\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint8\",\"name\":\"mode\",\"type\":\"uint8\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"healthGroup\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.LegacySpotTick\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint128\",\"name\":\"time\",\"type\":\"uint128\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"legacySpotTick\",\"outputs\":[{\"internalType\":\"struct IEndpoint.LegacySpotTick\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint128\",\"name\":\"time\",\"type\":\"uint128\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.LegacyLiquidateSubaccount\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"liquidatee\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint8\",\"name\":\"mode\",\"type\":\"uint8\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"healthGroup\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"legacyUnsignedLiquidateSubaccount\",\"outputs\":[{\"internalType\":\"struct IEndpoint.LegacyLiquidateSubaccount\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"liquidatee\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint8\",\"name\":\"mode\",\"type\":\"uint8\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"healthGroup\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"transaction\",\"type\":\"bytes\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"liquidationStart\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.ManualAssert\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128[]\",\"name\":\"openInterests\",\"type\":\"int128[]\",\"components\":[]},{\"internalType\":\"int128[]\",\"name\":\"totalDeposits\",\"type\":\"int128[]\",\"components\":[]},{\"internalType\":\"int128[]\",\"name\":\"totalBorrows\",\"type\":\"int128[]\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"manualAssert\",\"outputs\":[{\"internalType\":\"struct IEndpoint.ManualAssert\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"int128[]\",\"name\":\"openInterests\",\"type\":\"int128[]\",\"components\":[]},{\"internalType\":\"int128[]\",\"name\":\"totalDeposits\",\"type\":\"int128[]\",\"components\":[]},{\"internalType\":\"int128[]\",\"name\":\"totalBorrows\",\"type\":\"int128[]\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.MatchOrderAMM\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"baseDelta\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"quoteDelta\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct IEndpoint.SignedOrder\",\"name\":\"taker\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.Order\",\"name\":\"order\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"expiration\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"matchOrderAMM\",\"outputs\":[{\"internalType\":\"struct IEndpoint.MatchOrderAMM\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"baseDelta\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"quoteDelta\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"struct IEndpoint.SignedOrder\",\"name\":\"taker\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.Order\",\"name\":\"order\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"expiration\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.MatchOrders\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"struct IEndpoint.SignedOrder\",\"name\":\"taker\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.Order\",\"name\":\"order\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"expiration\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]},{\"internalType\":\"struct IEndpoint.SignedOrder\",\"name\":\"maker\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.Order\",\"name\":\"order\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"expiration\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"matchOrders\",\"outputs\":[{\"internalType\":\"struct IEndpoint.MatchOrders\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"struct IEndpoint.SignedOrder\",\"name\":\"taker\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.Order\",\"name\":\"order\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"expiration\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]},{\"internalType\":\"struct IEndpoint.SignedOrder\",\"name\":\"maker\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.Order\",\"name\":\"order\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"expiration\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}]}]},{\"inputs\":[],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"nSubmissions\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\",\"components\":[]}]},{\"inputs\":[],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.PerpTick\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint128\",\"name\":\"time\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"int128[]\",\"name\":\"avgPriceDiffs\",\"type\":\"int128[]\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"perpTick\",\"outputs\":[{\"internalType\":\"struct IEndpoint.PerpTick\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint128\",\"name\":\"time\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"int128[]\",\"name\":\"avgPriceDiffs\",\"type\":\"int128[]\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"bytes\",\"name\":\"transaction\",\"type\":\"bytes\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"processSlowModeTransaction\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.RebalanceXWithdraw\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"address\",\"name\":\"sendTo\",\"type\":\"address\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"rebalanceXWithdraw\",\"outputs\":[{\"internalType\":\"struct IEndpoint.RebalanceXWithdraw\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"address\",\"name\":\"sendTo\",\"type\":\"address\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.Rebate\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32[]\",\"name\":\"subaccounts\",\"type\":\"bytes32[]\",\"components\":[]},{\"internalType\":\"int128[]\",\"name\":\"amounts\",\"type\":\"int128[]\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"rebate\",\"outputs\":[{\"internalType\":\"struct IEndpoint.Rebate\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32[]\",\"name\":\"subaccounts\",\"type\":\"bytes32[]\",\"components\":[]},{\"internalType\":\"int128[]\",\"name\":\"amounts\",\"type\":\"int128[]\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\",\"components\":[]}],\"stateMutability\":\"view\",\"type\":\"function\",\"name\":\"referralCodes\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\",\"components\":[]}]},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"wallet\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"bool\",\"name\":\"_transferable\",\"type\":\"bool\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"registerTransferableWallet\",\"outputs\":[]},{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"renounceOwnership\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"_priceX18\",\"type\":\"int128\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"setPriceX18\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_sequencer\",\"type\":\"address\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"setSequencer\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.SlowModeConfig\",\"name\":\"_slowModeConfig\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint64\",\"name\":\"timeout\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"txCount\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"txUpTo\",\"type\":\"uint64\",\"components\":[]}]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"setSlowModeConfig\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"idx\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"struct IEndpoint.SlowModeTx\",\"name\":\"txn\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint64\",\"name\":\"executableAt\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"bytes\",\"name\":\"tx\",\"type\":\"bytes\",\"components\":[]}]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"setSlowModeTx\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.SettlePnl\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32[]\",\"name\":\"subaccounts\",\"type\":\"bytes32[]\",\"components\":[]},{\"internalType\":\"uint256[]\",\"name\":\"productIds\",\"type\":\"uint256[]\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"settlePnl\",\"outputs\":[{\"internalType\":\"struct IEndpoint.SettlePnl\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32[]\",\"name\":\"subaccounts\",\"type\":\"bytes32[]\",\"components\":[]},{\"internalType\":\"uint256[]\",\"name\":\"productIds\",\"type\":\"uint256[]\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.SignedBurnLp\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.BurnLp\",\"name\":\"tx\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"signedBurnLp\",\"outputs\":[{\"internalType\":\"struct IEndpoint.SignedBurnLp\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.BurnLp\",\"name\":\"tx\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct FEndpoint.SignedCancellation\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct FEndpoint.Cancellation\",\"name\":\"cancellation\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32[]\",\"name\":\"productIds\",\"type\":\"uint32[]\",\"components\":[]},{\"internalType\":\"bytes32[]\",\"name\":\"digests\",\"type\":\"bytes32[]\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"signedCancellation\",\"outputs\":[{\"internalType\":\"struct FEndpoint.SignedCancellation\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct FEndpoint.Cancellation\",\"name\":\"cancellation\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32[]\",\"name\":\"productIds\",\"type\":\"uint32[]\",\"components\":[]},{\"internalType\":\"bytes32[]\",\"name\":\"digests\",\"type\":\"bytes32[]\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct FEndpoint.SignedCancellationProducts\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct FEndpoint.CancellationProducts\",\"name\":\"cancellationProducts\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32[]\",\"name\":\"productIds\",\"type\":\"uint32[]\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"signedCancellationProducts\",\"outputs\":[{\"internalType\":\"struct FEndpoint.SignedCancellationProducts\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct FEndpoint.CancellationProducts\",\"name\":\"cancellationProducts\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32[]\",\"name\":\"productIds\",\"type\":\"uint32[]\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.SignedLinkSigner\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.LinkSigner\",\"name\":\"tx\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"signer\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"signedLinkSigner\",\"outputs\":[{\"internalType\":\"struct IEndpoint.SignedLinkSigner\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.LinkSigner\",\"name\":\"tx\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"signer\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.SignedLiquidateSubaccount\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.LiquidateSubaccount\",\"name\":\"tx\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"liquidatee\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"bool\",\"name\":\"isEncodedSpread\",\"type\":\"bool\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"signedLiquidateSubaccount\",\"outputs\":[{\"internalType\":\"struct IEndpoint.SignedLiquidateSubaccount\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.LiquidateSubaccount\",\"name\":\"tx\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"liquidatee\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"bool\",\"name\":\"isEncodedSpread\",\"type\":\"bool\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.SignedMintLp\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.MintLp\",\"name\":\"tx\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amountBase\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"quoteAmountLow\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"quoteAmountHigh\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"signedMintLp\",\"outputs\":[{\"internalType\":\"struct IEndpoint.SignedMintLp\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.MintLp\",\"name\":\"tx\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amountBase\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"quoteAmountLow\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"quoteAmountHigh\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.SignedOrder\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.Order\",\"name\":\"order\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"expiration\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"signedOrder\",\"outputs\":[{\"internalType\":\"struct IEndpoint.SignedOrder\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.Order\",\"name\":\"order\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"expiration\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.SignedTransferQuote\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.TransferQuote\",\"name\":\"tx\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"recipient\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"signedTransferQuote\",\"outputs\":[{\"internalType\":\"struct IEndpoint.SignedTransferQuote\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.TransferQuote\",\"name\":\"tx\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"recipient\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.SignedWithdrawCollateral\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.WithdrawCollateral\",\"name\":\"tx\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"signedWithdrawCollateral\",\"outputs\":[{\"internalType\":\"struct IEndpoint.SignedWithdrawCollateral\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"struct IEndpoint.WithdrawCollateral\",\"name\":\"tx\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]},{\"internalType\":\"bytes\",\"name\":\"signature\",\"type\":\"bytes\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.SpotTick\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint128\",\"name\":\"time\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"int128[]\",\"name\":\"utilizationRatiosX18\",\"type\":\"int128[]\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"spotTick\",\"outputs\":[{\"internalType\":\"struct IEndpoint.SpotTick\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint128\",\"name\":\"time\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"int128[]\",\"name\":\"utilizationRatiosX18\",\"type\":\"int128[]\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"transaction\",\"type\":\"bytes\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"submitSlowModeTransaction\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"bytes[]\",\"name\":\"transactions\",\"type\":\"bytes[]\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"submitTransactions\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"idx\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"bytes[]\",\"name\":\"transactions\",\"type\":\"bytes[]\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"e\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"submitTransactionsChecked\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"idx\",\"type\":\"uint64\",\"components\":[]},{\"internalType\":\"bytes[]\",\"name\":\"transactions\",\"type\":\"bytes[]\",\"components\":[]},{\"internalType\":\"uint256\",\"name\":\"gasLimit\",\"type\":\"uint256\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"submitTransactionsCheckedWithGasLimit\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.SwapAMM\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"swapAMM\",\"outputs\":[{\"internalType\":\"struct IEndpoint.SwapAMM\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\",\"components\":[]}],\"stateMutability\":\"nonpayable\",\"type\":\"function\",\"name\":\"transferOwnership\",\"outputs\":[]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.TransferQuote\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"recipient\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"transferQuote\",\"outputs\":[{\"internalType\":\"struct IEndpoint.TransferQuote\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"recipient\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.BurnLp\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"unsignedBurnLp\",\"outputs\":[{\"internalType\":\"struct IEndpoint.BurnLp\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.DepositCollateral\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"unsignedDepositCollateral\",\"outputs\":[{\"internalType\":\"struct IEndpoint.DepositCollateral\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.DepositInsurance\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"unsignedDepositInsurance\",\"outputs\":[{\"internalType\":\"struct IEndpoint.DepositInsurance\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.LinkSigner\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"signer\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"unsignedLinkSigner\",\"outputs\":[{\"internalType\":\"struct IEndpoint.LinkSigner\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"signer\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.LiquidateSubaccount\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"liquidatee\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"bool\",\"name\":\"isEncodedSpread\",\"type\":\"bool\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"unsignedLiquidateSubaccount\",\"outputs\":[{\"internalType\":\"struct IEndpoint.LiquidateSubaccount\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"liquidatee\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"bool\",\"name\":\"isEncodedSpread\",\"type\":\"bool\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"amount\",\"type\":\"int128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.MintLp\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amountBase\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"quoteAmountLow\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"quoteAmountHigh\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"unsignedMintLp\",\"outputs\":[{\"internalType\":\"struct IEndpoint.MintLp\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amountBase\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"quoteAmountLow\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"quoteAmountHigh\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.TransferQuote\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"recipient\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"unsignedTransferQuote\",\"outputs\":[{\"internalType\":\"struct IEndpoint.TransferQuote\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"bytes32\",\"name\":\"recipient\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.WithdrawCollateral\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"unsignedWithdrawCollateral\",\"outputs\":[{\"internalType\":\"struct IEndpoint.WithdrawCollateral\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"bytes32\",\"name\":\"sender\",\"type\":\"bytes32\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"uint128\",\"name\":\"amount\",\"type\":\"uint128\",\"components\":[]},{\"internalType\":\"uint64\",\"name\":\"nonce\",\"type\":\"uint64\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.UpdateFeeRates\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int64\",\"name\":\"makerRateX18\",\"type\":\"int64\",\"components\":[]},{\"internalType\":\"int64\",\"name\":\"takerRateX18\",\"type\":\"int64\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"updateFeeRates\",\"outputs\":[{\"internalType\":\"struct IEndpoint.UpdateFeeRates\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int64\",\"name\":\"makerRateX18\",\"type\":\"int64\",\"components\":[]},{\"internalType\":\"int64\",\"name\":\"takerRateX18\",\"type\":\"int64\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.UpdatePrice\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"updatePrice\",\"outputs\":[{\"internalType\":\"struct IEndpoint.UpdatePrice\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"uint32\",\"name\":\"productId\",\"type\":\"uint32\",\"components\":[]},{\"internalType\":\"int128\",\"name\":\"priceX18\",\"type\":\"int128\",\"components\":[]}]}]},{\"inputs\":[{\"internalType\":\"struct IEndpoint.UpdateProduct\",\"name\":\"p\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"address\",\"name\":\"engine\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"bytes\",\"name\":\"tx\",\"type\":\"bytes\",\"components\":[]}]}],\"stateMutability\":\"pure\",\"type\":\"function\",\"name\":\"updateProduct\",\"outputs\":[{\"internalType\":\"struct IEndpoint.UpdateProduct\",\"name\":\"\",\"type\":\"tuple\",\"components\":[{\"internalType\":\"address\",\"name\":\"engine\",\"type\":\"address\",\"components\":[]},{\"internalType\":\"bytes\",\"name\":\"tx\",\"type\":\"bytes\",\"components\":[]}]}]}]" ;
     #[doc = r" The parsed JSON-ABI of the contract."]
     pub static ENDPOINT_ABI: ethers::contract::Lazy<ethers::core::abi::Abi> =
         ethers::contract::Lazy::new(|| {
@@ -79,11 +79,11 @@ pub mod endpoint {
         #[doc = "Calls the contract's `checkLpActionInner` (0xc345530b) function"]
         pub fn check_lp_action_inner(
             &self,
-            sender: ethers::core::types::Address,
+            p0: ethers::core::types::Address,
             transaction: ethers::core::types::Bytes,
         ) -> ethers::contract::builders::ContractCall<M, u32> {
             self.0
-                .method_hash([195, 69, 83, 11], (sender, transaction))
+                .method_hash([195, 69, 83, 11], (p0, transaction))
                 .expect("method not found (this should never happen)")
         }
         #[doc = "Calls the contract's `checkSlowModeTxInner` (0xb70eb263) function"]
@@ -170,15 +170,6 @@ pub mod endpoint {
                 .method_hash([101, 221, 19, 102], ())
                 .expect("method not found (this should never happen)")
         }
-        #[doc = "Calls the contract's `getBook` (0xcf987c9b) function"]
-        pub fn get_book(
-            &self,
-            product_id: u32,
-        ) -> ethers::contract::builders::ContractCall<M, ethers::core::types::Address> {
-            self.0
-                .method_hash([207, 152, 124, 155], product_id)
-                .expect("method not found (this should never happen)")
-        }
         #[doc = "Calls the contract's `getHealthCheckFee` (0xd4de8d9d) function"]
         pub fn get_health_check_fee(&self) -> ethers::contract::builders::ContractCall<M, i128> {
             self.0
@@ -215,6 +206,14 @@ pub mod endpoint {
                 .method_hash([196, 249, 178, 95], ())
                 .expect("method not found (this should never happen)")
         }
+        #[doc = "Calls the contract's `getOffchainExchange` (0x8f4f8ecc) function"]
+        pub fn get_offchain_exchange(
+            &self,
+        ) -> ethers::contract::builders::ContractCall<M, ethers::core::types::Address> {
+            self.0
+                .method_hash([143, 79, 142, 204], ())
+                .expect("method not found (this should never happen)")
+        }
         #[doc = "Calls the contract's `getPriceX18` (0x368e4686) function"]
         pub fn get_price_x18(
             &self,
@@ -224,21 +223,21 @@ pub mod endpoint {
                 .method_hash([54, 142, 70, 134], product_id)
                 .expect("method not found (this should never happen)")
         }
-        #[doc = "Calls the contract's `getPricesX18` (0xafa55dee) function"]
-        pub fn get_prices_x18(
-            &self,
-            health_group: u32,
-        ) -> ethers::contract::builders::ContractCall<M, Prices> {
-            self.0
-                .method_hash([175, 165, 93, 238], health_group)
-                .expect("method not found (this should never happen)")
-        }
         #[doc = "Calls the contract's `getSequencer` (0x4d96a90a) function"]
         pub fn get_sequencer(
             &self,
         ) -> ethers::contract::builders::ContractCall<M, ethers::core::types::Address> {
             self.0
                 .method_hash([77, 150, 169, 10], ())
+                .expect("method not found (this should never happen)")
+        }
+        #[doc = "Calls the contract's `getSlowModeTx` (0xee525526) function"]
+        pub fn get_slow_mode_tx(
+            &self,
+            idx: u64,
+        ) -> ethers::contract::builders::ContractCall<M, (SlowModeTx, u64, u64)> {
+            self.0
+                .method_hash([238, 82, 85, 38], idx)
                 .expect("method not found (this should never happen)")
         }
         #[doc = "Calls the contract's `getSubaccountById` (0xef64ed0e) function"]
@@ -283,28 +282,64 @@ pub mod endpoint {
                 .method_hash([34, 0, 96, 70], ())
                 .expect("method not found (this should never happen)")
         }
-        #[doc = "Calls the contract's `initialize` (0xa53051bc) function"]
+        #[doc = "Calls the contract's `initialize` (0x5444569d) function"]
         pub fn initialize(
             &self,
             sanctions: ethers::core::types::Address,
             sequencer: ethers::core::types::Address,
+            offchain_exchange: ethers::core::types::Address,
             clearinghouse: ethers::core::types::Address,
-            slow_mode_timeout: u64,
-            time: u128,
-            prices: ::std::vec::Vec<i128>,
+            verifier: ethers::core::types::Address,
+            initial_prices: ::std::vec::Vec<i128>,
         ) -> ethers::contract::builders::ContractCall<M, ()> {
             self.0
                 .method_hash(
-                    [165, 48, 81, 188],
+                    [84, 68, 86, 157],
                     (
                         sanctions,
                         sequencer,
+                        offchain_exchange,
                         clearinghouse,
-                        slow_mode_timeout,
-                        time,
-                        prices,
+                        verifier,
+                        initial_prices,
                     ),
                 )
+                .expect("method not found (this should never happen)")
+        }
+        #[doc = "Calls the contract's `legacyMatchOrders` (0xb36488b8) function"]
+        pub fn legacy_match_orders(
+            &self,
+            p: LegacyMatchOrders,
+        ) -> ethers::contract::builders::ContractCall<M, LegacyMatchOrders> {
+            self.0
+                .method_hash([179, 100, 136, 184], (p,))
+                .expect("method not found (this should never happen)")
+        }
+        #[doc = "Calls the contract's `legacySignedLiquidateSubaccount` (0xb1fbd60b) function"]
+        pub fn legacy_signed_liquidate_subaccount(
+            &self,
+            p: LegacySignedLiquidateSubaccount,
+        ) -> ethers::contract::builders::ContractCall<M, LegacySignedLiquidateSubaccount> {
+            self.0
+                .method_hash([177, 251, 214, 11], (p,))
+                .expect("method not found (this should never happen)")
+        }
+        #[doc = "Calls the contract's `legacySpotTick` (0xf80f7ce5) function"]
+        pub fn legacy_spot_tick(
+            &self,
+            p: LegacySpotTick,
+        ) -> ethers::contract::builders::ContractCall<M, LegacySpotTick> {
+            self.0
+                .method_hash([248, 15, 124, 229], (p,))
+                .expect("method not found (this should never happen)")
+        }
+        #[doc = "Calls the contract's `legacyUnsignedLiquidateSubaccount` (0xdc42e61b) function"]
+        pub fn legacy_unsigned_liquidate_subaccount(
+            &self,
+            p: LegacyLiquidateSubaccount,
+        ) -> ethers::contract::builders::ContractCall<M, LegacyLiquidateSubaccount> {
+            self.0
+                .method_hash([220, 66, 230, 27], (p,))
                 .expect("method not found (this should never happen)")
         }
         #[doc = "Calls the contract's `liquidationStart` (0x8d0acc9b) function"]
@@ -334,19 +369,13 @@ pub mod endpoint {
                 .method_hash([54, 185, 12, 81], (p,))
                 .expect("method not found (this should never happen)")
         }
-        #[doc = "Calls the contract's `matchOrders` (0x45160e52) function"]
+        #[doc = "Calls the contract's `matchOrders` (0x8d3c20b1) function"]
         pub fn match_orders(
             &self,
             p: MatchOrders,
         ) -> ethers::contract::builders::ContractCall<M, MatchOrders> {
             self.0
-                .method_hash([69, 22, 14, 82], (p,))
-                .expect("method not found (this should never happen)")
-        }
-        #[doc = "Calls the contract's `migrate` (0x8fd3ab80) function"]
-        pub fn migrate(&self) -> ethers::contract::builders::ContractCall<M, ()> {
-            self.0
-                .method_hash([143, 211, 171, 128], ())
+                .method_hash([141, 60, 32, 177], (p,))
                 .expect("method not found (this should never happen)")
         }
         #[doc = "Calls the contract's `nSubmissions` (0x18ed16eb) function"]
@@ -382,6 +411,15 @@ pub mod endpoint {
                 .method_hash([135, 50, 67, 56], (sender, transaction))
                 .expect("method not found (this should never happen)")
         }
+        #[doc = "Calls the contract's `rebalanceXWithdraw` (0x9a08e535) function"]
+        pub fn rebalance_x_withdraw(
+            &self,
+            p: RebalanceXWithdraw,
+        ) -> ethers::contract::builders::ContractCall<M, RebalanceXWithdraw> {
+            self.0
+                .method_hash([154, 8, 229, 53], (p,))
+                .expect("method not found (this should never happen)")
+        }
         #[doc = "Calls the contract's `rebate` (0x42c74d1d) function"]
         pub fn rebate(&self, p: Rebate) -> ethers::contract::builders::ContractCall<M, Rebate> {
             self.0
@@ -411,37 +449,6 @@ pub mod endpoint {
         pub fn renounce_ownership(&self) -> ethers::contract::builders::ContractCall<M, ()> {
             self.0
                 .method_hash([113, 80, 24, 166], ())
-                .expect("method not found (this should never happen)")
-        }
-        #[doc = "Calls the contract's `requireSubaccount` (0xd6473aaf) function"]
-        pub fn require_subaccount(
-            &self,
-            subaccount: [u8; 32],
-        ) -> ethers::contract::builders::ContractCall<M, ()> {
-            self.0
-                .method_hash([214, 71, 58, 175], subaccount)
-                .expect("method not found (this should never happen)")
-        }
-        #[doc = "Calls the contract's `sequencerFee` (0xae3a8652) function"]
-        pub fn sequencer_fee(&self, p0: u32) -> ethers::contract::builders::ContractCall<M, i128> {
-            self.0
-                .method_hash([174, 58, 134, 82], p0)
-                .expect("method not found (this should never happen)")
-        }
-        #[doc = "Calls the contract's `sequencerFees` (0x0d3ad039) function"]
-        pub fn sequencer_fees(&self) -> ethers::contract::builders::ContractCall<M, i128> {
-            self.0
-                .method_hash([13, 58, 208, 57], ())
-                .expect("method not found (this should never happen)")
-        }
-        #[doc = "Calls the contract's `setBook` (0x39a135e7) function"]
-        pub fn set_book(
-            &self,
-            product_id: u32,
-            book: ethers::core::types::Address,
-        ) -> ethers::contract::builders::ContractCall<M, ()> {
-            self.0
-                .method_hash([57, 161, 53, 231], (product_id, book))
                 .expect("method not found (this should never happen)")
         }
         #[doc = "Calls the contract's `setPriceX18` (0x8c58e10a) function"]
@@ -527,13 +534,13 @@ pub mod endpoint {
                 .method_hash([133, 200, 62, 157], (p,))
                 .expect("method not found (this should never happen)")
         }
-        #[doc = "Calls the contract's `signedLiquidateSubaccount` (0xbf832e77) function"]
+        #[doc = "Calls the contract's `signedLiquidateSubaccount` (0x9171d08b) function"]
         pub fn signed_liquidate_subaccount(
             &self,
             p: SignedLiquidateSubaccount,
         ) -> ethers::contract::builders::ContractCall<M, SignedLiquidateSubaccount> {
             self.0
-                .method_hash([191, 131, 46, 119], (p,))
+                .method_hash([145, 113, 208, 139], (p,))
                 .expect("method not found (this should never happen)")
         }
         #[doc = "Calls the contract's `signedMintLp` (0xd38c3b9c) function"]
@@ -554,6 +561,15 @@ pub mod endpoint {
                 .method_hash([108, 69, 117, 112], (p,))
                 .expect("method not found (this should never happen)")
         }
+        #[doc = "Calls the contract's `signedTransferQuote` (0x6f3b0a72) function"]
+        pub fn signed_transfer_quote(
+            &self,
+            p: SignedTransferQuote,
+        ) -> ethers::contract::builders::ContractCall<M, SignedTransferQuote> {
+            self.0
+                .method_hash([111, 59, 10, 114], (p,))
+                .expect("method not found (this should never happen)")
+        }
         #[doc = "Calls the contract's `signedWithdrawCollateral` (0x0d55e26b) function"]
         pub fn signed_withdraw_collateral(
             &self,
@@ -563,37 +579,13 @@ pub mod endpoint {
                 .method_hash([13, 85, 226, 107], (p,))
                 .expect("method not found (this should never happen)")
         }
-        #[doc = "Calls the contract's `slowModeConfig` (0xb8043ede) function"]
-        pub fn slow_mode_config(
-            &self,
-        ) -> ethers::contract::builders::ContractCall<M, (u64, u64, u64)> {
-            self.0
-                .method_hash([184, 4, 62, 222], ())
-                .expect("method not found (this should never happen)")
-        }
-        #[doc = "Calls the contract's `slowModeTxs` (0xcf8fdb09) function"]
-        pub fn slow_mode_txs(
-            &self,
-            p0: u64,
-        ) -> ethers::contract::builders::ContractCall<
-            M,
-            (
-                u64,
-                ethers::core::types::Address,
-                ethers::core::types::Bytes,
-            ),
-        > {
-            self.0
-                .method_hash([207, 143, 219, 9], p0)
-                .expect("method not found (this should never happen)")
-        }
-        #[doc = "Calls the contract's `spotTick` (0xd9768695) function"]
+        #[doc = "Calls the contract's `spotTick` (0xb1c8ec2b) function"]
         pub fn spot_tick(
             &self,
             p: SpotTick,
         ) -> ethers::contract::builders::ContractCall<M, SpotTick> {
             self.0
-                .method_hash([217, 118, 134, 149], (p,))
+                .method_hash([177, 200, 236, 43], (p,))
                 .expect("method not found (this should never happen)")
         }
         #[doc = "Calls the contract's `submitSlowModeTransaction` (0xe604ed9e) function"]
@@ -614,14 +606,16 @@ pub mod endpoint {
                 .method_hash([31, 24, 107, 39], transactions)
                 .expect("method not found (this should never happen)")
         }
-        #[doc = "Calls the contract's `submitTransactionsChecked` (0x2715e15c) function"]
+        #[doc = "Calls the contract's `submitTransactionsChecked` (0x10f37344) function"]
         pub fn submit_transactions_checked(
             &self,
             idx: u64,
             transactions: ::std::vec::Vec<ethers::core::types::Bytes>,
+            e: [u8; 32],
+            s: [u8; 32],
         ) -> ethers::contract::builders::ContractCall<M, ()> {
             self.0
-                .method_hash([39, 21, 225, 92], (idx, transactions))
+                .method_hash([16, 243, 115, 68], (idx, transactions, e, s))
                 .expect("method not found (this should never happen)")
         }
         #[doc = "Calls the contract's `submitTransactionsCheckedWithGasLimit` (0x2f9a2744) function"]
@@ -630,7 +624,7 @@ pub mod endpoint {
             idx: u64,
             transactions: ::std::vec::Vec<ethers::core::types::Bytes>,
             gas_limit: ethers::core::types::U256,
-        ) -> ethers::contract::builders::ContractCall<M, (u64, ethers::core::types::U256)> {
+        ) -> ethers::contract::builders::ContractCall<M, ()> {
             self.0
                 .method_hash([47, 154, 39, 68], (idx, transactions, gas_limit))
                 .expect("method not found (this should never happen)")
@@ -648,6 +642,15 @@ pub mod endpoint {
         ) -> ethers::contract::builders::ContractCall<M, ()> {
             self.0
                 .method_hash([242, 253, 227, 139], new_owner)
+                .expect("method not found (this should never happen)")
+        }
+        #[doc = "Calls the contract's `transferQuote` (0x1d97d22f) function"]
+        pub fn transfer_quote(
+            &self,
+            p: TransferQuote,
+        ) -> ethers::contract::builders::ContractCall<M, TransferQuote> {
+            self.0
+                .method_hash([29, 151, 210, 47], (p,))
                 .expect("method not found (this should never happen)")
         }
         #[doc = "Calls the contract's `unsignedBurnLp` (0x06c0bafd) function"]
@@ -686,13 +689,13 @@ pub mod endpoint {
                 .method_hash([5, 228, 45, 199], (p,))
                 .expect("method not found (this should never happen)")
         }
-        #[doc = "Calls the contract's `unsignedLiquidateSubaccount` (0xf9e473fc) function"]
+        #[doc = "Calls the contract's `unsignedLiquidateSubaccount` (0x9e851424) function"]
         pub fn unsigned_liquidate_subaccount(
             &self,
             p: LiquidateSubaccount,
         ) -> ethers::contract::builders::ContractCall<M, LiquidateSubaccount> {
             self.0
-                .method_hash([249, 228, 115, 252], (p,))
+                .method_hash([158, 133, 20, 36], (p,))
                 .expect("method not found (this should never happen)")
         }
         #[doc = "Calls the contract's `unsignedMintLp` (0x910e606a) function"]
@@ -702,6 +705,15 @@ pub mod endpoint {
         ) -> ethers::contract::builders::ContractCall<M, MintLp> {
             self.0
                 .method_hash([145, 14, 96, 106], (p,))
+                .expect("method not found (this should never happen)")
+        }
+        #[doc = "Calls the contract's `unsignedTransferQuote` (0x0edaacce) function"]
+        pub fn unsigned_transfer_quote(
+            &self,
+            p: TransferQuote,
+        ) -> ethers::contract::builders::ContractCall<M, TransferQuote> {
+            self.0
+                .method_hash([14, 218, 172, 206], (p,))
                 .expect("method not found (this should never happen)")
         }
         #[doc = "Calls the contract's `unsignedWithdrawCollateral` (0xbc85ca86) function"]
@@ -900,7 +912,7 @@ pub mod endpoint {
     )]
     #[ethcall(name = "checkLpActionInner", abi = "checkLpActionInner(address,bytes)")]
     pub struct CheckLpActionInnerCall {
-        pub sender: ethers::core::types::Address,
+        pub p0: ethers::core::types::Address,
         pub transaction: ethers::core::types::Bytes,
     }
     #[doc = "Container type for all input parameters for the `checkSlowModeTxInner` function with signature `checkSlowModeTxInner(address,bytes)` and selector `[183, 14, 178, 99]`"]
@@ -1068,22 +1080,6 @@ pub mod endpoint {
         abi = "executeSlowModeTransaction()"
     )]
     pub struct ExecuteSlowModeTransactionCall;
-    #[doc = "Container type for all input parameters for the `getBook` function with signature `getBook(uint32)` and selector `[207, 152, 124, 155]`"]
-    #[derive(
-        Serialize,
-        Deserialize,
-        Clone,
-        Debug,
-        Eq,
-        PartialEq,
-        ethers :: contract :: EthCall,
-        ethers :: contract :: EthDisplay,
-        Default,
-    )]
-    #[ethcall(name = "getBook", abi = "getBook(uint32)")]
-    pub struct GetBookCall {
-        pub product_id: u32,
-    }
     #[doc = "Container type for all input parameters for the `getHealthCheckFee` function with signature `getHealthCheckFee()` and selector `[212, 222, 141, 157]`"]
     #[derive(
         Serialize,
@@ -1162,6 +1158,20 @@ pub mod endpoint {
     )]
     #[ethcall(name = "getNumSubaccounts", abi = "getNumSubaccounts()")]
     pub struct GetNumSubaccountsCall;
+    #[doc = "Container type for all input parameters for the `getOffchainExchange` function with signature `getOffchainExchange()` and selector `[143, 79, 142, 204]`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthCall,
+        ethers :: contract :: EthDisplay,
+        Default,
+    )]
+    #[ethcall(name = "getOffchainExchange", abi = "getOffchainExchange()")]
+    pub struct GetOffchainExchangeCall;
     #[doc = "Container type for all input parameters for the `getPriceX18` function with signature `getPriceX18(uint32)` and selector `[54, 142, 70, 134]`"]
     #[derive(
         Serialize,
@@ -1178,22 +1188,6 @@ pub mod endpoint {
     pub struct GetPriceX18Call {
         pub product_id: u32,
     }
-    #[doc = "Container type for all input parameters for the `getPricesX18` function with signature `getPricesX18(uint32)` and selector `[175, 165, 93, 238]`"]
-    #[derive(
-        Serialize,
-        Deserialize,
-        Clone,
-        Debug,
-        Eq,
-        PartialEq,
-        ethers :: contract :: EthCall,
-        ethers :: contract :: EthDisplay,
-        Default,
-    )]
-    #[ethcall(name = "getPricesX18", abi = "getPricesX18(uint32)")]
-    pub struct GetPricesX18Call {
-        pub health_group: u32,
-    }
     #[doc = "Container type for all input parameters for the `getSequencer` function with signature `getSequencer()` and selector `[77, 150, 169, 10]`"]
     #[derive(
         Serialize,
@@ -1208,6 +1202,22 @@ pub mod endpoint {
     )]
     #[ethcall(name = "getSequencer", abi = "getSequencer()")]
     pub struct GetSequencerCall;
+    #[doc = "Container type for all input parameters for the `getSlowModeTx` function with signature `getSlowModeTx(uint64)` and selector `[238, 82, 85, 38]`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthCall,
+        ethers :: contract :: EthDisplay,
+        Default,
+    )]
+    #[ethcall(name = "getSlowModeTx", abi = "getSlowModeTx(uint64)")]
+    pub struct GetSlowModeTxCall {
+        pub idx: u64,
+    }
     #[doc = "Container type for all input parameters for the `getSubaccountById` function with signature `getSubaccountById(uint64)` and selector `[239, 100, 237, 14]`"]
     #[derive(
         Serialize,
@@ -1300,7 +1310,7 @@ pub mod endpoint {
     )]
     #[ethcall(name = "incrementSubmissions", abi = "incrementSubmissions()")]
     pub struct IncrementSubmissionsCall;
-    #[doc = "Container type for all input parameters for the `initialize` function with signature `initialize(address,address,address,uint64,uint128,int128[])` and selector `[165, 48, 81, 188]`"]
+    #[doc = "Container type for all input parameters for the `initialize` function with signature `initialize(address,address,address,address,address,int128[])` and selector `[84, 68, 86, 157]`"]
     #[derive(
         Serialize,
         Deserialize,
@@ -1314,23 +1324,92 @@ pub mod endpoint {
     )]
     #[ethcall(
         name = "initialize",
-        abi = "initialize(address,address,address,uint64,uint128,int128[])"
+        abi = "initialize(address,address,address,address,address,int128[])"
     )]
     pub struct InitializeCall {
         pub sanctions: ethers::core::types::Address,
         pub sequencer: ethers::core::types::Address,
+        pub offchain_exchange: ethers::core::types::Address,
         pub clearinghouse: ethers::core::types::Address,
-        pub slow_mode_timeout: u64,
-        #[serde(
-            serialize_with = "serialize_u128",
-            deserialize_with = "deserialize_u128"
-        )]
-        pub time: u128,
+        pub verifier: ethers::core::types::Address,
         #[serde(
             serialize_with = "serialize_vec_i128",
             deserialize_with = "deserialize_vec_i128"
         )]
-        pub prices: ::std::vec::Vec<i128>,
+        pub initial_prices: ::std::vec::Vec<i128>,
+    }
+    #[doc = "Container type for all input parameters for the `legacyMatchOrders` function with signature `legacyMatchOrders((uint32,bool,((bytes32,int128,int128,uint64,uint64),bytes),((bytes32,int128,int128,uint64,uint64),bytes)))` and selector `[179, 100, 136, 184]`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthCall,
+        ethers :: contract :: EthDisplay,
+        Default,
+    )]
+    #[ethcall(
+        name = "legacyMatchOrders",
+        abi = "legacyMatchOrders((uint32,bool,((bytes32,int128,int128,uint64,uint64),bytes),((bytes32,int128,int128,uint64,uint64),bytes)))"
+    )]
+    pub struct LegacyMatchOrdersCall {
+        pub p: LegacyMatchOrders,
+    }
+    #[doc = "Container type for all input parameters for the `legacySignedLiquidateSubaccount` function with signature `legacySignedLiquidateSubaccount(((bytes32,bytes32,uint8,uint32,int128,uint64),bytes))` and selector `[177, 251, 214, 11]`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthCall,
+        ethers :: contract :: EthDisplay,
+        Default,
+    )]
+    #[ethcall(
+        name = "legacySignedLiquidateSubaccount",
+        abi = "legacySignedLiquidateSubaccount(((bytes32,bytes32,uint8,uint32,int128,uint64),bytes))"
+    )]
+    pub struct LegacySignedLiquidateSubaccountCall {
+        pub p: LegacySignedLiquidateSubaccount,
+    }
+    #[doc = "Container type for all input parameters for the `legacySpotTick` function with signature `legacySpotTick((uint128))` and selector `[248, 15, 124, 229]`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthCall,
+        ethers :: contract :: EthDisplay,
+        Default,
+    )]
+    #[ethcall(name = "legacySpotTick", abi = "legacySpotTick((uint128))")]
+    pub struct LegacySpotTickCall {
+        pub p: LegacySpotTick,
+    }
+    #[doc = "Container type for all input parameters for the `legacyUnsignedLiquidateSubaccount` function with signature `legacyUnsignedLiquidateSubaccount((bytes32,bytes32,uint8,uint32,int128,uint64))` and selector `[220, 66, 230, 27]`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthCall,
+        ethers :: contract :: EthDisplay,
+        Default,
+    )]
+    #[ethcall(
+        name = "legacyUnsignedLiquidateSubaccount",
+        abi = "legacyUnsignedLiquidateSubaccount((bytes32,bytes32,uint8,uint32,int128,uint64))"
+    )]
+    pub struct LegacyUnsignedLiquidateSubaccountCall {
+        pub p: LegacyLiquidateSubaccount,
     }
     #[doc = "Container type for all input parameters for the `liquidationStart` function with signature `liquidationStart(bytes)` and selector `[141, 10, 204, 155]`"]
     #[derive(
@@ -1386,7 +1465,7 @@ pub mod endpoint {
     pub struct MatchOrderAMMCall {
         pub p: MatchOrderAMM,
     }
-    #[doc = "Container type for all input parameters for the `matchOrders` function with signature `matchOrders((uint32,bool,((bytes32,int128,int128,uint64,uint64),bytes),((bytes32,int128,int128,uint64,uint64),bytes)))` and selector `[69, 22, 14, 82]`"]
+    #[doc = "Container type for all input parameters for the `matchOrders` function with signature `matchOrders((uint32,((bytes32,int128,int128,uint64,uint64),bytes),((bytes32,int128,int128,uint64,uint64),bytes)))` and selector `[141, 60, 32, 177]`"]
     #[derive(
         Serialize,
         Deserialize,
@@ -1400,25 +1479,11 @@ pub mod endpoint {
     )]
     #[ethcall(
         name = "matchOrders",
-        abi = "matchOrders((uint32,bool,((bytes32,int128,int128,uint64,uint64),bytes),((bytes32,int128,int128,uint64,uint64),bytes)))"
+        abi = "matchOrders((uint32,((bytes32,int128,int128,uint64,uint64),bytes),((bytes32,int128,int128,uint64,uint64),bytes)))"
     )]
     pub struct MatchOrdersCall {
         pub p: MatchOrders,
     }
-    #[doc = "Container type for all input parameters for the `migrate` function with signature `migrate()` and selector `[143, 211, 171, 128]`"]
-    #[derive(
-        Serialize,
-        Deserialize,
-        Clone,
-        Debug,
-        Eq,
-        PartialEq,
-        ethers :: contract :: EthCall,
-        ethers :: contract :: EthDisplay,
-        Default,
-    )]
-    #[ethcall(name = "migrate", abi = "migrate()")]
-    pub struct MigrateCall;
     #[doc = "Container type for all input parameters for the `nSubmissions` function with signature `nSubmissions()` and selector `[24, 237, 22, 235]`"]
     #[derive(
         Serialize,
@@ -1482,6 +1547,25 @@ pub mod endpoint {
     pub struct ProcessSlowModeTransactionCall {
         pub sender: ethers::core::types::Address,
         pub transaction: ethers::core::types::Bytes,
+    }
+    #[doc = "Container type for all input parameters for the `rebalanceXWithdraw` function with signature `rebalanceXWithdraw((uint32,uint128,address))` and selector `[154, 8, 229, 53]`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthCall,
+        ethers :: contract :: EthDisplay,
+        Default,
+    )]
+    #[ethcall(
+        name = "rebalanceXWithdraw",
+        abi = "rebalanceXWithdraw((uint32,uint128,address))"
+    )]
+    pub struct RebalanceXWithdrawCall {
+        pub p: RebalanceXWithdraw,
     }
     #[doc = "Container type for all input parameters for the `rebate` function with signature `rebate((bytes32[],int128[]))` and selector `[66, 199, 77, 29]`"]
     #[derive(
@@ -1547,71 +1631,6 @@ pub mod endpoint {
     )]
     #[ethcall(name = "renounceOwnership", abi = "renounceOwnership()")]
     pub struct RenounceOwnershipCall;
-    #[doc = "Container type for all input parameters for the `requireSubaccount` function with signature `requireSubaccount(bytes32)` and selector `[214, 71, 58, 175]`"]
-    #[derive(
-        Serialize,
-        Deserialize,
-        Clone,
-        Debug,
-        Eq,
-        PartialEq,
-        ethers :: contract :: EthCall,
-        ethers :: contract :: EthDisplay,
-        Default,
-    )]
-    #[ethcall(name = "requireSubaccount", abi = "requireSubaccount(bytes32)")]
-    pub struct RequireSubaccountCall {
-        #[serde(
-            serialize_with = "serialize_bytes32",
-            deserialize_with = "deserialize_bytes32"
-        )]
-        pub subaccount: [u8; 32],
-    }
-    #[doc = "Container type for all input parameters for the `sequencerFee` function with signature `sequencerFee(uint32)` and selector `[174, 58, 134, 82]`"]
-    #[derive(
-        Serialize,
-        Deserialize,
-        Clone,
-        Debug,
-        Eq,
-        PartialEq,
-        ethers :: contract :: EthCall,
-        ethers :: contract :: EthDisplay,
-        Default,
-    )]
-    #[ethcall(name = "sequencerFee", abi = "sequencerFee(uint32)")]
-    pub struct SequencerFeeCall(pub u32);
-    #[doc = "Container type for all input parameters for the `sequencerFees` function with signature `sequencerFees()` and selector `[13, 58, 208, 57]`"]
-    #[derive(
-        Serialize,
-        Deserialize,
-        Clone,
-        Debug,
-        Eq,
-        PartialEq,
-        ethers :: contract :: EthCall,
-        ethers :: contract :: EthDisplay,
-        Default,
-    )]
-    #[ethcall(name = "sequencerFees", abi = "sequencerFees()")]
-    pub struct SequencerFeesCall;
-    #[doc = "Container type for all input parameters for the `setBook` function with signature `setBook(uint32,address)` and selector `[57, 161, 53, 231]`"]
-    #[derive(
-        Serialize,
-        Deserialize,
-        Clone,
-        Debug,
-        Eq,
-        PartialEq,
-        ethers :: contract :: EthCall,
-        ethers :: contract :: EthDisplay,
-        Default,
-    )]
-    #[ethcall(name = "setBook", abi = "setBook(uint32,address)")]
-    pub struct SetBookCall {
-        pub product_id: u32,
-        pub book: ethers::core::types::Address,
-    }
     #[doc = "Container type for all input parameters for the `setPriceX18` function with signature `setPriceX18(uint32,int128)` and selector `[140, 88, 225, 10]`"]
     #[derive(
         Serialize,
@@ -1780,7 +1799,7 @@ pub mod endpoint {
     pub struct SignedLinkSignerCall {
         pub p: SignedLinkSigner,
     }
-    #[doc = "Container type for all input parameters for the `signedLiquidateSubaccount` function with signature `signedLiquidateSubaccount(((bytes32,bytes32,uint8,uint32,int128,uint64),bytes))` and selector `[191, 131, 46, 119]`"]
+    #[doc = "Container type for all input parameters for the `signedLiquidateSubaccount` function with signature `signedLiquidateSubaccount(((bytes32,bytes32,uint32,bool,int128,uint64),bytes))` and selector `[145, 113, 208, 139]`"]
     #[derive(
         Serialize,
         Deserialize,
@@ -1794,7 +1813,7 @@ pub mod endpoint {
     )]
     #[ethcall(
         name = "signedLiquidateSubaccount",
-        abi = "signedLiquidateSubaccount(((bytes32,bytes32,uint8,uint32,int128,uint64),bytes))"
+        abi = "signedLiquidateSubaccount(((bytes32,bytes32,uint32,bool,int128,uint64),bytes))"
     )]
     pub struct SignedLiquidateSubaccountCall {
         pub p: SignedLiquidateSubaccount,
@@ -1837,6 +1856,25 @@ pub mod endpoint {
     pub struct SignedOrderCall {
         pub p: SignedOrder,
     }
+    #[doc = "Container type for all input parameters for the `signedTransferQuote` function with signature `signedTransferQuote(((bytes32,bytes32,uint128,uint64),bytes))` and selector `[111, 59, 10, 114]`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthCall,
+        ethers :: contract :: EthDisplay,
+        Default,
+    )]
+    #[ethcall(
+        name = "signedTransferQuote",
+        abi = "signedTransferQuote(((bytes32,bytes32,uint128,uint64),bytes))"
+    )]
+    pub struct SignedTransferQuoteCall {
+        pub p: SignedTransferQuote,
+    }
     #[doc = "Container type for all input parameters for the `signedWithdrawCollateral` function with signature `signedWithdrawCollateral(((bytes32,uint32,uint128,uint64),bytes))` and selector `[13, 85, 226, 107]`"]
     #[derive(
         Serialize,
@@ -1856,7 +1894,7 @@ pub mod endpoint {
     pub struct SignedWithdrawCollateralCall {
         pub p: SignedWithdrawCollateral,
     }
-    #[doc = "Container type for all input parameters for the `slowModeConfig` function with signature `slowModeConfig()` and selector `[184, 4, 62, 222]`"]
+    #[doc = "Container type for all input parameters for the `spotTick` function with signature `spotTick((uint128,int128[]))` and selector `[177, 200, 236, 43]`"]
     #[derive(
         Serialize,
         Deserialize,
@@ -1868,35 +1906,7 @@ pub mod endpoint {
         ethers :: contract :: EthDisplay,
         Default,
     )]
-    #[ethcall(name = "slowModeConfig", abi = "slowModeConfig()")]
-    pub struct SlowModeConfigCall;
-    #[doc = "Container type for all input parameters for the `slowModeTxs` function with signature `slowModeTxs(uint64)` and selector `[207, 143, 219, 9]`"]
-    #[derive(
-        Serialize,
-        Deserialize,
-        Clone,
-        Debug,
-        Eq,
-        PartialEq,
-        ethers :: contract :: EthCall,
-        ethers :: contract :: EthDisplay,
-        Default,
-    )]
-    #[ethcall(name = "slowModeTxs", abi = "slowModeTxs(uint64)")]
-    pub struct SlowModeTxsCall(pub u64);
-    #[doc = "Container type for all input parameters for the `spotTick` function with signature `spotTick((uint128))` and selector `[217, 118, 134, 149]`"]
-    #[derive(
-        Serialize,
-        Deserialize,
-        Clone,
-        Debug,
-        Eq,
-        PartialEq,
-        ethers :: contract :: EthCall,
-        ethers :: contract :: EthDisplay,
-        Default,
-    )]
-    #[ethcall(name = "spotTick", abi = "spotTick((uint128))")]
+    #[ethcall(name = "spotTick", abi = "spotTick((uint128,int128[]))")]
     pub struct SpotTickCall {
         pub p: SpotTick,
     }
@@ -1935,7 +1945,7 @@ pub mod endpoint {
     pub struct SubmitTransactionsCall {
         pub transactions: ::std::vec::Vec<ethers::core::types::Bytes>,
     }
-    #[doc = "Container type for all input parameters for the `submitTransactionsChecked` function with signature `submitTransactionsChecked(uint64,bytes[])` and selector `[39, 21, 225, 92]`"]
+    #[doc = "Container type for all input parameters for the `submitTransactionsChecked` function with signature `submitTransactionsChecked(uint64,bytes[],bytes32,bytes32)` and selector `[16, 243, 115, 68]`"]
     #[derive(
         Serialize,
         Deserialize,
@@ -1949,11 +1959,21 @@ pub mod endpoint {
     )]
     #[ethcall(
         name = "submitTransactionsChecked",
-        abi = "submitTransactionsChecked(uint64,bytes[])"
+        abi = "submitTransactionsChecked(uint64,bytes[],bytes32,bytes32)"
     )]
     pub struct SubmitTransactionsCheckedCall {
         pub idx: u64,
         pub transactions: ::std::vec::Vec<ethers::core::types::Bytes>,
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
+        pub e: [u8; 32],
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
+        pub s: [u8; 32],
     }
     #[doc = "Container type for all input parameters for the `submitTransactionsCheckedWithGasLimit` function with signature `submitTransactionsCheckedWithGasLimit(uint64,bytes[],uint256)` and selector `[47, 154, 39, 68]`"]
     #[derive(
@@ -2011,6 +2031,25 @@ pub mod endpoint {
     #[ethcall(name = "transferOwnership", abi = "transferOwnership(address)")]
     pub struct TransferOwnershipCall {
         pub new_owner: ethers::core::types::Address,
+    }
+    #[doc = "Container type for all input parameters for the `transferQuote` function with signature `transferQuote((bytes32,bytes32,uint128,uint64))` and selector `[29, 151, 210, 47]`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthCall,
+        ethers :: contract :: EthDisplay,
+        Default,
+    )]
+    #[ethcall(
+        name = "transferQuote",
+        abi = "transferQuote((bytes32,bytes32,uint128,uint64))"
+    )]
+    pub struct TransferQuoteCall {
+        pub p: TransferQuote,
     }
     #[doc = "Container type for all input parameters for the `unsignedBurnLp` function with signature `unsignedBurnLp((bytes32,uint32,uint128,uint64))` and selector `[6, 192, 186, 253]`"]
     #[derive(
@@ -2088,7 +2127,7 @@ pub mod endpoint {
     pub struct UnsignedLinkSignerCall {
         pub p: LinkSigner,
     }
-    #[doc = "Container type for all input parameters for the `unsignedLiquidateSubaccount` function with signature `unsignedLiquidateSubaccount((bytes32,bytes32,uint8,uint32,int128,uint64))` and selector `[249, 228, 115, 252]`"]
+    #[doc = "Container type for all input parameters for the `unsignedLiquidateSubaccount` function with signature `unsignedLiquidateSubaccount((bytes32,bytes32,uint32,bool,int128,uint64))` and selector `[158, 133, 20, 36]`"]
     #[derive(
         Serialize,
         Deserialize,
@@ -2102,7 +2141,7 @@ pub mod endpoint {
     )]
     #[ethcall(
         name = "unsignedLiquidateSubaccount",
-        abi = "unsignedLiquidateSubaccount((bytes32,bytes32,uint8,uint32,int128,uint64))"
+        abi = "unsignedLiquidateSubaccount((bytes32,bytes32,uint32,bool,int128,uint64))"
     )]
     pub struct UnsignedLiquidateSubaccountCall {
         pub p: LiquidateSubaccount,
@@ -2125,6 +2164,25 @@ pub mod endpoint {
     )]
     pub struct UnsignedMintLpCall {
         pub p: MintLp,
+    }
+    #[doc = "Container type for all input parameters for the `unsignedTransferQuote` function with signature `unsignedTransferQuote((bytes32,bytes32,uint128,uint64))` and selector `[14, 218, 172, 206]`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthCall,
+        ethers :: contract :: EthDisplay,
+        Default,
+    )]
+    #[ethcall(
+        name = "unsignedTransferQuote",
+        abi = "unsignedTransferQuote((bytes32,bytes32,uint128,uint64))"
+    )]
+    pub struct UnsignedTransferQuoteCall {
+        pub p: TransferQuote,
     }
     #[doc = "Container type for all input parameters for the `unsignedWithdrawCollateral` function with signature `unsignedWithdrawCollateral((bytes32,uint32,uint128,uint64))` and selector `[188, 133, 202, 134]`"]
     #[derive(
@@ -2213,15 +2271,15 @@ pub mod endpoint {
             DepositCollateralWithReferralWithSubaccountNameAndProductIdAndAmountCall,
         ),
         ExecuteSlowModeTransaction(ExecuteSlowModeTransactionCall),
-        GetBook(GetBookCall),
         GetHealthCheckFee(GetHealthCheckFeeCall),
         GetLinkedSigner(GetLinkedSignerCall),
         GetLiquidationFee(GetLiquidationFeeCall),
         GetNonce(GetNonceCall),
         GetNumSubaccounts(GetNumSubaccountsCall),
+        GetOffchainExchange(GetOffchainExchangeCall),
         GetPriceX18(GetPriceX18Call),
-        GetPricesX18(GetPricesX18Call),
         GetSequencer(GetSequencerCall),
+        GetSlowModeTx(GetSlowModeTxCall),
         GetSubaccountById(GetSubaccountByIdCall),
         GetSubaccountId(GetSubaccountIdCall),
         GetTakerSequencerFee(GetTakerSequencerFeeCall),
@@ -2229,23 +2287,23 @@ pub mod endpoint {
         GetVersion(GetVersionCall),
         IncrementSubmissions(IncrementSubmissionsCall),
         Initialize(InitializeCall),
+        LegacyMatchOrders(LegacyMatchOrdersCall),
+        LegacySignedLiquidateSubaccount(LegacySignedLiquidateSubaccountCall),
+        LegacySpotTick(LegacySpotTickCall),
+        LegacyUnsignedLiquidateSubaccount(LegacyUnsignedLiquidateSubaccountCall),
         LiquidationStart(LiquidationStartCall),
         ManualAssert(ManualAssertCall),
         MatchOrderAMM(MatchOrderAMMCall),
         MatchOrders(MatchOrdersCall),
-        Migrate(MigrateCall),
         Nsubmissions(NsubmissionsCall),
         Owner(OwnerCall),
         PerpTick(PerpTickCall),
         ProcessSlowModeTransaction(ProcessSlowModeTransactionCall),
+        RebalanceXWithdraw(RebalanceXWithdrawCall),
         Rebate(RebateCall),
         ReferralCodes(ReferralCodesCall),
         RegisterTransferableWallet(RegisterTransferableWalletCall),
         RenounceOwnership(RenounceOwnershipCall),
-        RequireSubaccount(RequireSubaccountCall),
-        SequencerFee(SequencerFeeCall),
-        SequencerFees(SequencerFeesCall),
-        SetBook(SetBookCall),
         SetPriceX18(SetPriceX18Call),
         SetSequencer(SetSequencerCall),
         SetSlowModeConfig(SetSlowModeConfigCall),
@@ -2258,9 +2316,8 @@ pub mod endpoint {
         SignedLiquidateSubaccount(SignedLiquidateSubaccountCall),
         SignedMintLp(SignedMintLpCall),
         SignedOrder(SignedOrderCall),
+        SignedTransferQuote(SignedTransferQuoteCall),
         SignedWithdrawCollateral(SignedWithdrawCollateralCall),
-        SlowModeConfig(SlowModeConfigCall),
-        SlowModeTxs(SlowModeTxsCall),
         SpotTick(SpotTickCall),
         SubmitSlowModeTransaction(SubmitSlowModeTransactionCall),
         SubmitTransactions(SubmitTransactionsCall),
@@ -2268,12 +2325,14 @@ pub mod endpoint {
         SubmitTransactionsCheckedWithGasLimit(SubmitTransactionsCheckedWithGasLimitCall),
         SwapAMM(SwapAMMCall),
         TransferOwnership(TransferOwnershipCall),
+        TransferQuote(TransferQuoteCall),
         UnsignedBurnLp(UnsignedBurnLpCall),
         UnsignedDepositCollateral(UnsignedDepositCollateralCall),
         UnsignedDepositInsurance(UnsignedDepositInsuranceCall),
         UnsignedLinkSigner(UnsignedLinkSignerCall),
         UnsignedLiquidateSubaccount(UnsignedLiquidateSubaccountCall),
         UnsignedMintLp(UnsignedMintLpCall),
+        UnsignedTransferQuote(UnsignedTransferQuoteCall),
         UnsignedWithdrawCollateral(UnsignedWithdrawCollateralCall),
         UpdateFeeRates(UpdateFeeRatesCall),
         UpdatePrice(UpdatePriceCall),
@@ -2341,11 +2400,6 @@ pub mod endpoint {
                 return Ok(EndpointCalls::ExecuteSlowModeTransaction(decoded));
             }
             if let Ok(decoded) =
-                <GetBookCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
-            {
-                return Ok(EndpointCalls::GetBook(decoded));
-            }
-            if let Ok(decoded) =
                 <GetHealthCheckFeeCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
             {
                 return Ok(EndpointCalls::GetHealthCheckFee(decoded));
@@ -2371,19 +2425,24 @@ pub mod endpoint {
                 return Ok(EndpointCalls::GetNumSubaccounts(decoded));
             }
             if let Ok(decoded) =
+                <GetOffchainExchangeCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
+            {
+                return Ok(EndpointCalls::GetOffchainExchange(decoded));
+            }
+            if let Ok(decoded) =
                 <GetPriceX18Call as ethers::core::abi::AbiDecode>::decode(data.as_ref())
             {
                 return Ok(EndpointCalls::GetPriceX18(decoded));
             }
             if let Ok(decoded) =
-                <GetPricesX18Call as ethers::core::abi::AbiDecode>::decode(data.as_ref())
-            {
-                return Ok(EndpointCalls::GetPricesX18(decoded));
-            }
-            if let Ok(decoded) =
                 <GetSequencerCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
             {
                 return Ok(EndpointCalls::GetSequencer(decoded));
+            }
+            if let Ok(decoded) =
+                <GetSlowModeTxCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
+            {
+                return Ok(EndpointCalls::GetSlowModeTx(decoded));
             }
             if let Ok(decoded) =
                 <GetSubaccountByIdCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
@@ -2421,6 +2480,30 @@ pub mod endpoint {
                 return Ok(EndpointCalls::Initialize(decoded));
             }
             if let Ok(decoded) =
+                <LegacyMatchOrdersCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
+            {
+                return Ok(EndpointCalls::LegacyMatchOrders(decoded));
+            }
+            if let Ok(decoded) =
+                <LegacySignedLiquidateSubaccountCall as ethers::core::abi::AbiDecode>::decode(
+                    data.as_ref(),
+                )
+            {
+                return Ok(EndpointCalls::LegacySignedLiquidateSubaccount(decoded));
+            }
+            if let Ok(decoded) =
+                <LegacySpotTickCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
+            {
+                return Ok(EndpointCalls::LegacySpotTick(decoded));
+            }
+            if let Ok(decoded) =
+                <LegacyUnsignedLiquidateSubaccountCall as ethers::core::abi::AbiDecode>::decode(
+                    data.as_ref(),
+                )
+            {
+                return Ok(EndpointCalls::LegacyUnsignedLiquidateSubaccount(decoded));
+            }
+            if let Ok(decoded) =
                 <LiquidationStartCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
             {
                 return Ok(EndpointCalls::LiquidationStart(decoded));
@@ -2439,11 +2522,6 @@ pub mod endpoint {
                 <MatchOrdersCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
             {
                 return Ok(EndpointCalls::MatchOrders(decoded));
-            }
-            if let Ok(decoded) =
-                <MigrateCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
-            {
-                return Ok(EndpointCalls::Migrate(decoded));
             }
             if let Ok(decoded) =
                 <NsubmissionsCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
@@ -2466,6 +2544,11 @@ pub mod endpoint {
             {
                 return Ok(EndpointCalls::ProcessSlowModeTransaction(decoded));
             }
+            if let Ok(decoded) =
+                <RebalanceXWithdrawCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
+            {
+                return Ok(EndpointCalls::RebalanceXWithdraw(decoded));
+            }
             if let Ok(decoded) = <RebateCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
             {
                 return Ok(EndpointCalls::Rebate(decoded));
@@ -2486,26 +2569,6 @@ pub mod endpoint {
                 <RenounceOwnershipCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
             {
                 return Ok(EndpointCalls::RenounceOwnership(decoded));
-            }
-            if let Ok(decoded) =
-                <RequireSubaccountCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
-            {
-                return Ok(EndpointCalls::RequireSubaccount(decoded));
-            }
-            if let Ok(decoded) =
-                <SequencerFeeCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
-            {
-                return Ok(EndpointCalls::SequencerFee(decoded));
-            }
-            if let Ok(decoded) =
-                <SequencerFeesCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
-            {
-                return Ok(EndpointCalls::SequencerFees(decoded));
-            }
-            if let Ok(decoded) =
-                <SetBookCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
-            {
-                return Ok(EndpointCalls::SetBook(decoded));
             }
             if let Ok(decoded) =
                 <SetPriceX18Call as ethers::core::abi::AbiDecode>::decode(data.as_ref())
@@ -2572,21 +2635,16 @@ pub mod endpoint {
                 return Ok(EndpointCalls::SignedOrder(decoded));
             }
             if let Ok(decoded) =
+                <SignedTransferQuoteCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
+            {
+                return Ok(EndpointCalls::SignedTransferQuote(decoded));
+            }
+            if let Ok(decoded) =
                 <SignedWithdrawCollateralCall as ethers::core::abi::AbiDecode>::decode(
                     data.as_ref(),
                 )
             {
                 return Ok(EndpointCalls::SignedWithdrawCollateral(decoded));
-            }
-            if let Ok(decoded) =
-                <SlowModeConfigCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
-            {
-                return Ok(EndpointCalls::SlowModeConfig(decoded));
-            }
-            if let Ok(decoded) =
-                <SlowModeTxsCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
-            {
-                return Ok(EndpointCalls::SlowModeTxs(decoded));
             }
             if let Ok(decoded) =
                 <SpotTickCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
@@ -2632,6 +2690,11 @@ pub mod endpoint {
                 return Ok(EndpointCalls::TransferOwnership(decoded));
             }
             if let Ok(decoded) =
+                <TransferQuoteCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
+            {
+                return Ok(EndpointCalls::TransferQuote(decoded));
+            }
+            if let Ok(decoded) =
                 <UnsignedBurnLpCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
             {
                 return Ok(EndpointCalls::UnsignedBurnLp(decoded));
@@ -2668,6 +2731,11 @@ pub mod endpoint {
                 return Ok(EndpointCalls::UnsignedMintLp(decoded));
             }
             if let Ok(decoded) =
+                <UnsignedTransferQuoteCall as ethers::core::abi::AbiDecode>::decode(data.as_ref())
+            {
+                return Ok(EndpointCalls::UnsignedTransferQuote(decoded));
+            }
+            if let Ok(decoded) =
                 <UnsignedWithdrawCollateralCall as ethers::core::abi::AbiDecode>::decode(
                     data.as_ref(),
                 )
@@ -2694,12 +2762,12 @@ pub mod endpoint {
     }
     impl ethers::core::abi::AbiEncode for EndpointCalls {
         fn encode(self) -> Vec<u8> {
-            match self { EndpointCalls :: BurnLpAndTransfer (element) => element . encode () , EndpointCalls :: CheckLpAction (element) => element . encode () , EndpointCalls :: CheckLpActionInner (element) => element . encode () , EndpointCalls :: CheckSlowModeTxInner (element) => element . encode () , EndpointCalls :: CheckSlowModeTxLinkSigner (element) => element . encode () , EndpointCalls :: ClaimSequencerFees (element) => element . encode () , EndpointCalls :: Clearinghouse (element) => element . encode () , EndpointCalls :: DepositCollateral (element) => element . encode () , EndpointCalls :: DepositCollateralWithReferral (element) => element . encode () , EndpointCalls :: DepositCollateralWithReferralWithSubaccountNameAndProductIdAndAmount (element) => element . encode () , EndpointCalls :: ExecuteSlowModeTransaction (element) => element . encode () , EndpointCalls :: GetBook (element) => element . encode () , EndpointCalls :: GetHealthCheckFee (element) => element . encode () , EndpointCalls :: GetLinkedSigner (element) => element . encode () , EndpointCalls :: GetLiquidationFee (element) => element . encode () , EndpointCalls :: GetNonce (element) => element . encode () , EndpointCalls :: GetNumSubaccounts (element) => element . encode () , EndpointCalls :: GetPriceX18 (element) => element . encode () , EndpointCalls :: GetPricesX18 (element) => element . encode () , EndpointCalls :: GetSequencer (element) => element . encode () , EndpointCalls :: GetSubaccountById (element) => element . encode () , EndpointCalls :: GetSubaccountId (element) => element . encode () , EndpointCalls :: GetTakerSequencerFee (element) => element . encode () , EndpointCalls :: GetTime (element) => element . encode () , EndpointCalls :: GetVersion (element) => element . encode () , EndpointCalls :: IncrementSubmissions (element) => element . encode () , EndpointCalls :: Initialize (element) => element . encode () , EndpointCalls :: LiquidationStart (element) => element . encode () , EndpointCalls :: ManualAssert (element) => element . encode () , EndpointCalls :: MatchOrderAMM (element) => element . encode () , EndpointCalls :: MatchOrders (element) => element . encode () , EndpointCalls :: Migrate (element) => element . encode () , EndpointCalls :: Nsubmissions (element) => element . encode () , EndpointCalls :: Owner (element) => element . encode () , EndpointCalls :: PerpTick (element) => element . encode () , EndpointCalls :: ProcessSlowModeTransaction (element) => element . encode () , EndpointCalls :: Rebate (element) => element . encode () , EndpointCalls :: ReferralCodes (element) => element . encode () , EndpointCalls :: RegisterTransferableWallet (element) => element . encode () , EndpointCalls :: RenounceOwnership (element) => element . encode () , EndpointCalls :: RequireSubaccount (element) => element . encode () , EndpointCalls :: SequencerFee (element) => element . encode () , EndpointCalls :: SequencerFees (element) => element . encode () , EndpointCalls :: SetBook (element) => element . encode () , EndpointCalls :: SetPriceX18 (element) => element . encode () , EndpointCalls :: SetSequencer (element) => element . encode () , EndpointCalls :: SetSlowModeConfig (element) => element . encode () , EndpointCalls :: SetSlowModeTx (element) => element . encode () , EndpointCalls :: SettlePnl (element) => element . encode () , EndpointCalls :: SignedBurnLp (element) => element . encode () , EndpointCalls :: SignedCancellation (element) => element . encode () , EndpointCalls :: SignedCancellationProducts (element) => element . encode () , EndpointCalls :: SignedLinkSigner (element) => element . encode () , EndpointCalls :: SignedLiquidateSubaccount (element) => element . encode () , EndpointCalls :: SignedMintLp (element) => element . encode () , EndpointCalls :: SignedOrder (element) => element . encode () , EndpointCalls :: SignedWithdrawCollateral (element) => element . encode () , EndpointCalls :: SlowModeConfig (element) => element . encode () , EndpointCalls :: SlowModeTxs (element) => element . encode () , EndpointCalls :: SpotTick (element) => element . encode () , EndpointCalls :: SubmitSlowModeTransaction (element) => element . encode () , EndpointCalls :: SubmitTransactions (element) => element . encode () , EndpointCalls :: SubmitTransactionsChecked (element) => element . encode () , EndpointCalls :: SubmitTransactionsCheckedWithGasLimit (element) => element . encode () , EndpointCalls :: SwapAMM (element) => element . encode () , EndpointCalls :: TransferOwnership (element) => element . encode () , EndpointCalls :: UnsignedBurnLp (element) => element . encode () , EndpointCalls :: UnsignedDepositCollateral (element) => element . encode () , EndpointCalls :: UnsignedDepositInsurance (element) => element . encode () , EndpointCalls :: UnsignedLinkSigner (element) => element . encode () , EndpointCalls :: UnsignedLiquidateSubaccount (element) => element . encode () , EndpointCalls :: UnsignedMintLp (element) => element . encode () , EndpointCalls :: UnsignedWithdrawCollateral (element) => element . encode () , EndpointCalls :: UpdateFeeRates (element) => element . encode () , EndpointCalls :: UpdatePrice (element) => element . encode () , EndpointCalls :: UpdateProduct (element) => element . encode () }
+            match self { EndpointCalls :: BurnLpAndTransfer (element) => element . encode () , EndpointCalls :: CheckLpAction (element) => element . encode () , EndpointCalls :: CheckLpActionInner (element) => element . encode () , EndpointCalls :: CheckSlowModeTxInner (element) => element . encode () , EndpointCalls :: CheckSlowModeTxLinkSigner (element) => element . encode () , EndpointCalls :: ClaimSequencerFees (element) => element . encode () , EndpointCalls :: Clearinghouse (element) => element . encode () , EndpointCalls :: DepositCollateral (element) => element . encode () , EndpointCalls :: DepositCollateralWithReferral (element) => element . encode () , EndpointCalls :: DepositCollateralWithReferralWithSubaccountNameAndProductIdAndAmount (element) => element . encode () , EndpointCalls :: ExecuteSlowModeTransaction (element) => element . encode () , EndpointCalls :: GetHealthCheckFee (element) => element . encode () , EndpointCalls :: GetLinkedSigner (element) => element . encode () , EndpointCalls :: GetLiquidationFee (element) => element . encode () , EndpointCalls :: GetNonce (element) => element . encode () , EndpointCalls :: GetNumSubaccounts (element) => element . encode () , EndpointCalls :: GetOffchainExchange (element) => element . encode () , EndpointCalls :: GetPriceX18 (element) => element . encode () , EndpointCalls :: GetSequencer (element) => element . encode () , EndpointCalls :: GetSlowModeTx (element) => element . encode () , EndpointCalls :: GetSubaccountById (element) => element . encode () , EndpointCalls :: GetSubaccountId (element) => element . encode () , EndpointCalls :: GetTakerSequencerFee (element) => element . encode () , EndpointCalls :: GetTime (element) => element . encode () , EndpointCalls :: GetVersion (element) => element . encode () , EndpointCalls :: IncrementSubmissions (element) => element . encode () , EndpointCalls :: Initialize (element) => element . encode () , EndpointCalls :: LegacyMatchOrders (element) => element . encode () , EndpointCalls :: LegacySignedLiquidateSubaccount (element) => element . encode () , EndpointCalls :: LegacySpotTick (element) => element . encode () , EndpointCalls :: LegacyUnsignedLiquidateSubaccount (element) => element . encode () , EndpointCalls :: LiquidationStart (element) => element . encode () , EndpointCalls :: ManualAssert (element) => element . encode () , EndpointCalls :: MatchOrderAMM (element) => element . encode () , EndpointCalls :: MatchOrders (element) => element . encode () , EndpointCalls :: Nsubmissions (element) => element . encode () , EndpointCalls :: Owner (element) => element . encode () , EndpointCalls :: PerpTick (element) => element . encode () , EndpointCalls :: ProcessSlowModeTransaction (element) => element . encode () , EndpointCalls :: RebalanceXWithdraw (element) => element . encode () , EndpointCalls :: Rebate (element) => element . encode () , EndpointCalls :: ReferralCodes (element) => element . encode () , EndpointCalls :: RegisterTransferableWallet (element) => element . encode () , EndpointCalls :: RenounceOwnership (element) => element . encode () , EndpointCalls :: SetPriceX18 (element) => element . encode () , EndpointCalls :: SetSequencer (element) => element . encode () , EndpointCalls :: SetSlowModeConfig (element) => element . encode () , EndpointCalls :: SetSlowModeTx (element) => element . encode () , EndpointCalls :: SettlePnl (element) => element . encode () , EndpointCalls :: SignedBurnLp (element) => element . encode () , EndpointCalls :: SignedCancellation (element) => element . encode () , EndpointCalls :: SignedCancellationProducts (element) => element . encode () , EndpointCalls :: SignedLinkSigner (element) => element . encode () , EndpointCalls :: SignedLiquidateSubaccount (element) => element . encode () , EndpointCalls :: SignedMintLp (element) => element . encode () , EndpointCalls :: SignedOrder (element) => element . encode () , EndpointCalls :: SignedTransferQuote (element) => element . encode () , EndpointCalls :: SignedWithdrawCollateral (element) => element . encode () , EndpointCalls :: SpotTick (element) => element . encode () , EndpointCalls :: SubmitSlowModeTransaction (element) => element . encode () , EndpointCalls :: SubmitTransactions (element) => element . encode () , EndpointCalls :: SubmitTransactionsChecked (element) => element . encode () , EndpointCalls :: SubmitTransactionsCheckedWithGasLimit (element) => element . encode () , EndpointCalls :: SwapAMM (element) => element . encode () , EndpointCalls :: TransferOwnership (element) => element . encode () , EndpointCalls :: TransferQuote (element) => element . encode () , EndpointCalls :: UnsignedBurnLp (element) => element . encode () , EndpointCalls :: UnsignedDepositCollateral (element) => element . encode () , EndpointCalls :: UnsignedDepositInsurance (element) => element . encode () , EndpointCalls :: UnsignedLinkSigner (element) => element . encode () , EndpointCalls :: UnsignedLiquidateSubaccount (element) => element . encode () , EndpointCalls :: UnsignedMintLp (element) => element . encode () , EndpointCalls :: UnsignedTransferQuote (element) => element . encode () , EndpointCalls :: UnsignedWithdrawCollateral (element) => element . encode () , EndpointCalls :: UpdateFeeRates (element) => element . encode () , EndpointCalls :: UpdatePrice (element) => element . encode () , EndpointCalls :: UpdateProduct (element) => element . encode () }
         }
     }
     impl ::std::fmt::Display for EndpointCalls {
         fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-            match self { EndpointCalls :: BurnLpAndTransfer (element) => element . fmt (f) , EndpointCalls :: CheckLpAction (element) => element . fmt (f) , EndpointCalls :: CheckLpActionInner (element) => element . fmt (f) , EndpointCalls :: CheckSlowModeTxInner (element) => element . fmt (f) , EndpointCalls :: CheckSlowModeTxLinkSigner (element) => element . fmt (f) , EndpointCalls :: ClaimSequencerFees (element) => element . fmt (f) , EndpointCalls :: Clearinghouse (element) => element . fmt (f) , EndpointCalls :: DepositCollateral (element) => element . fmt (f) , EndpointCalls :: DepositCollateralWithReferral (element) => element . fmt (f) , EndpointCalls :: DepositCollateralWithReferralWithSubaccountNameAndProductIdAndAmount (element) => element . fmt (f) , EndpointCalls :: ExecuteSlowModeTransaction (element) => element . fmt (f) , EndpointCalls :: GetBook (element) => element . fmt (f) , EndpointCalls :: GetHealthCheckFee (element) => element . fmt (f) , EndpointCalls :: GetLinkedSigner (element) => element . fmt (f) , EndpointCalls :: GetLiquidationFee (element) => element . fmt (f) , EndpointCalls :: GetNonce (element) => element . fmt (f) , EndpointCalls :: GetNumSubaccounts (element) => element . fmt (f) , EndpointCalls :: GetPriceX18 (element) => element . fmt (f) , EndpointCalls :: GetPricesX18 (element) => element . fmt (f) , EndpointCalls :: GetSequencer (element) => element . fmt (f) , EndpointCalls :: GetSubaccountById (element) => element . fmt (f) , EndpointCalls :: GetSubaccountId (element) => element . fmt (f) , EndpointCalls :: GetTakerSequencerFee (element) => element . fmt (f) , EndpointCalls :: GetTime (element) => element . fmt (f) , EndpointCalls :: GetVersion (element) => element . fmt (f) , EndpointCalls :: IncrementSubmissions (element) => element . fmt (f) , EndpointCalls :: Initialize (element) => element . fmt (f) , EndpointCalls :: LiquidationStart (element) => element . fmt (f) , EndpointCalls :: ManualAssert (element) => element . fmt (f) , EndpointCalls :: MatchOrderAMM (element) => element . fmt (f) , EndpointCalls :: MatchOrders (element) => element . fmt (f) , EndpointCalls :: Migrate (element) => element . fmt (f) , EndpointCalls :: Nsubmissions (element) => element . fmt (f) , EndpointCalls :: Owner (element) => element . fmt (f) , EndpointCalls :: PerpTick (element) => element . fmt (f) , EndpointCalls :: ProcessSlowModeTransaction (element) => element . fmt (f) , EndpointCalls :: Rebate (element) => element . fmt (f) , EndpointCalls :: ReferralCodes (element) => element . fmt (f) , EndpointCalls :: RegisterTransferableWallet (element) => element . fmt (f) , EndpointCalls :: RenounceOwnership (element) => element . fmt (f) , EndpointCalls :: RequireSubaccount (element) => element . fmt (f) , EndpointCalls :: SequencerFee (element) => element . fmt (f) , EndpointCalls :: SequencerFees (element) => element . fmt (f) , EndpointCalls :: SetBook (element) => element . fmt (f) , EndpointCalls :: SetPriceX18 (element) => element . fmt (f) , EndpointCalls :: SetSequencer (element) => element . fmt (f) , EndpointCalls :: SetSlowModeConfig (element) => element . fmt (f) , EndpointCalls :: SetSlowModeTx (element) => element . fmt (f) , EndpointCalls :: SettlePnl (element) => element . fmt (f) , EndpointCalls :: SignedBurnLp (element) => element . fmt (f) , EndpointCalls :: SignedCancellation (element) => element . fmt (f) , EndpointCalls :: SignedCancellationProducts (element) => element . fmt (f) , EndpointCalls :: SignedLinkSigner (element) => element . fmt (f) , EndpointCalls :: SignedLiquidateSubaccount (element) => element . fmt (f) , EndpointCalls :: SignedMintLp (element) => element . fmt (f) , EndpointCalls :: SignedOrder (element) => element . fmt (f) , EndpointCalls :: SignedWithdrawCollateral (element) => element . fmt (f) , EndpointCalls :: SlowModeConfig (element) => element . fmt (f) , EndpointCalls :: SlowModeTxs (element) => element . fmt (f) , EndpointCalls :: SpotTick (element) => element . fmt (f) , EndpointCalls :: SubmitSlowModeTransaction (element) => element . fmt (f) , EndpointCalls :: SubmitTransactions (element) => element . fmt (f) , EndpointCalls :: SubmitTransactionsChecked (element) => element . fmt (f) , EndpointCalls :: SubmitTransactionsCheckedWithGasLimit (element) => element . fmt (f) , EndpointCalls :: SwapAMM (element) => element . fmt (f) , EndpointCalls :: TransferOwnership (element) => element . fmt (f) , EndpointCalls :: UnsignedBurnLp (element) => element . fmt (f) , EndpointCalls :: UnsignedDepositCollateral (element) => element . fmt (f) , EndpointCalls :: UnsignedDepositInsurance (element) => element . fmt (f) , EndpointCalls :: UnsignedLinkSigner (element) => element . fmt (f) , EndpointCalls :: UnsignedLiquidateSubaccount (element) => element . fmt (f) , EndpointCalls :: UnsignedMintLp (element) => element . fmt (f) , EndpointCalls :: UnsignedWithdrawCollateral (element) => element . fmt (f) , EndpointCalls :: UpdateFeeRates (element) => element . fmt (f) , EndpointCalls :: UpdatePrice (element) => element . fmt (f) , EndpointCalls :: UpdateProduct (element) => element . fmt (f) }
+            match self { EndpointCalls :: BurnLpAndTransfer (element) => element . fmt (f) , EndpointCalls :: CheckLpAction (element) => element . fmt (f) , EndpointCalls :: CheckLpActionInner (element) => element . fmt (f) , EndpointCalls :: CheckSlowModeTxInner (element) => element . fmt (f) , EndpointCalls :: CheckSlowModeTxLinkSigner (element) => element . fmt (f) , EndpointCalls :: ClaimSequencerFees (element) => element . fmt (f) , EndpointCalls :: Clearinghouse (element) => element . fmt (f) , EndpointCalls :: DepositCollateral (element) => element . fmt (f) , EndpointCalls :: DepositCollateralWithReferral (element) => element . fmt (f) , EndpointCalls :: DepositCollateralWithReferralWithSubaccountNameAndProductIdAndAmount (element) => element . fmt (f) , EndpointCalls :: ExecuteSlowModeTransaction (element) => element . fmt (f) , EndpointCalls :: GetHealthCheckFee (element) => element . fmt (f) , EndpointCalls :: GetLinkedSigner (element) => element . fmt (f) , EndpointCalls :: GetLiquidationFee (element) => element . fmt (f) , EndpointCalls :: GetNonce (element) => element . fmt (f) , EndpointCalls :: GetNumSubaccounts (element) => element . fmt (f) , EndpointCalls :: GetOffchainExchange (element) => element . fmt (f) , EndpointCalls :: GetPriceX18 (element) => element . fmt (f) , EndpointCalls :: GetSequencer (element) => element . fmt (f) , EndpointCalls :: GetSlowModeTx (element) => element . fmt (f) , EndpointCalls :: GetSubaccountById (element) => element . fmt (f) , EndpointCalls :: GetSubaccountId (element) => element . fmt (f) , EndpointCalls :: GetTakerSequencerFee (element) => element . fmt (f) , EndpointCalls :: GetTime (element) => element . fmt (f) , EndpointCalls :: GetVersion (element) => element . fmt (f) , EndpointCalls :: IncrementSubmissions (element) => element . fmt (f) , EndpointCalls :: Initialize (element) => element . fmt (f) , EndpointCalls :: LegacyMatchOrders (element) => element . fmt (f) , EndpointCalls :: LegacySignedLiquidateSubaccount (element) => element . fmt (f) , EndpointCalls :: LegacySpotTick (element) => element . fmt (f) , EndpointCalls :: LegacyUnsignedLiquidateSubaccount (element) => element . fmt (f) , EndpointCalls :: LiquidationStart (element) => element . fmt (f) , EndpointCalls :: ManualAssert (element) => element . fmt (f) , EndpointCalls :: MatchOrderAMM (element) => element . fmt (f) , EndpointCalls :: MatchOrders (element) => element . fmt (f) , EndpointCalls :: Nsubmissions (element) => element . fmt (f) , EndpointCalls :: Owner (element) => element . fmt (f) , EndpointCalls :: PerpTick (element) => element . fmt (f) , EndpointCalls :: ProcessSlowModeTransaction (element) => element . fmt (f) , EndpointCalls :: RebalanceXWithdraw (element) => element . fmt (f) , EndpointCalls :: Rebate (element) => element . fmt (f) , EndpointCalls :: ReferralCodes (element) => element . fmt (f) , EndpointCalls :: RegisterTransferableWallet (element) => element . fmt (f) , EndpointCalls :: RenounceOwnership (element) => element . fmt (f) , EndpointCalls :: SetPriceX18 (element) => element . fmt (f) , EndpointCalls :: SetSequencer (element) => element . fmt (f) , EndpointCalls :: SetSlowModeConfig (element) => element . fmt (f) , EndpointCalls :: SetSlowModeTx (element) => element . fmt (f) , EndpointCalls :: SettlePnl (element) => element . fmt (f) , EndpointCalls :: SignedBurnLp (element) => element . fmt (f) , EndpointCalls :: SignedCancellation (element) => element . fmt (f) , EndpointCalls :: SignedCancellationProducts (element) => element . fmt (f) , EndpointCalls :: SignedLinkSigner (element) => element . fmt (f) , EndpointCalls :: SignedLiquidateSubaccount (element) => element . fmt (f) , EndpointCalls :: SignedMintLp (element) => element . fmt (f) , EndpointCalls :: SignedOrder (element) => element . fmt (f) , EndpointCalls :: SignedTransferQuote (element) => element . fmt (f) , EndpointCalls :: SignedWithdrawCollateral (element) => element . fmt (f) , EndpointCalls :: SpotTick (element) => element . fmt (f) , EndpointCalls :: SubmitSlowModeTransaction (element) => element . fmt (f) , EndpointCalls :: SubmitTransactions (element) => element . fmt (f) , EndpointCalls :: SubmitTransactionsChecked (element) => element . fmt (f) , EndpointCalls :: SubmitTransactionsCheckedWithGasLimit (element) => element . fmt (f) , EndpointCalls :: SwapAMM (element) => element . fmt (f) , EndpointCalls :: TransferOwnership (element) => element . fmt (f) , EndpointCalls :: TransferQuote (element) => element . fmt (f) , EndpointCalls :: UnsignedBurnLp (element) => element . fmt (f) , EndpointCalls :: UnsignedDepositCollateral (element) => element . fmt (f) , EndpointCalls :: UnsignedDepositInsurance (element) => element . fmt (f) , EndpointCalls :: UnsignedLinkSigner (element) => element . fmt (f) , EndpointCalls :: UnsignedLiquidateSubaccount (element) => element . fmt (f) , EndpointCalls :: UnsignedMintLp (element) => element . fmt (f) , EndpointCalls :: UnsignedTransferQuote (element) => element . fmt (f) , EndpointCalls :: UnsignedWithdrawCollateral (element) => element . fmt (f) , EndpointCalls :: UpdateFeeRates (element) => element . fmt (f) , EndpointCalls :: UpdatePrice (element) => element . fmt (f) , EndpointCalls :: UpdateProduct (element) => element . fmt (f) }
         }
     }
     impl ::std::convert::From<BurnLpAndTransferCall> for EndpointCalls {
@@ -2763,11 +2831,6 @@ pub mod endpoint {
             EndpointCalls::ExecuteSlowModeTransaction(var)
         }
     }
-    impl ::std::convert::From<GetBookCall> for EndpointCalls {
-        fn from(var: GetBookCall) -> Self {
-            EndpointCalls::GetBook(var)
-        }
-    }
     impl ::std::convert::From<GetHealthCheckFeeCall> for EndpointCalls {
         fn from(var: GetHealthCheckFeeCall) -> Self {
             EndpointCalls::GetHealthCheckFee(var)
@@ -2793,19 +2856,24 @@ pub mod endpoint {
             EndpointCalls::GetNumSubaccounts(var)
         }
     }
+    impl ::std::convert::From<GetOffchainExchangeCall> for EndpointCalls {
+        fn from(var: GetOffchainExchangeCall) -> Self {
+            EndpointCalls::GetOffchainExchange(var)
+        }
+    }
     impl ::std::convert::From<GetPriceX18Call> for EndpointCalls {
         fn from(var: GetPriceX18Call) -> Self {
             EndpointCalls::GetPriceX18(var)
         }
     }
-    impl ::std::convert::From<GetPricesX18Call> for EndpointCalls {
-        fn from(var: GetPricesX18Call) -> Self {
-            EndpointCalls::GetPricesX18(var)
-        }
-    }
     impl ::std::convert::From<GetSequencerCall> for EndpointCalls {
         fn from(var: GetSequencerCall) -> Self {
             EndpointCalls::GetSequencer(var)
+        }
+    }
+    impl ::std::convert::From<GetSlowModeTxCall> for EndpointCalls {
+        fn from(var: GetSlowModeTxCall) -> Self {
+            EndpointCalls::GetSlowModeTx(var)
         }
     }
     impl ::std::convert::From<GetSubaccountByIdCall> for EndpointCalls {
@@ -2843,6 +2911,26 @@ pub mod endpoint {
             EndpointCalls::Initialize(var)
         }
     }
+    impl ::std::convert::From<LegacyMatchOrdersCall> for EndpointCalls {
+        fn from(var: LegacyMatchOrdersCall) -> Self {
+            EndpointCalls::LegacyMatchOrders(var)
+        }
+    }
+    impl ::std::convert::From<LegacySignedLiquidateSubaccountCall> for EndpointCalls {
+        fn from(var: LegacySignedLiquidateSubaccountCall) -> Self {
+            EndpointCalls::LegacySignedLiquidateSubaccount(var)
+        }
+    }
+    impl ::std::convert::From<LegacySpotTickCall> for EndpointCalls {
+        fn from(var: LegacySpotTickCall) -> Self {
+            EndpointCalls::LegacySpotTick(var)
+        }
+    }
+    impl ::std::convert::From<LegacyUnsignedLiquidateSubaccountCall> for EndpointCalls {
+        fn from(var: LegacyUnsignedLiquidateSubaccountCall) -> Self {
+            EndpointCalls::LegacyUnsignedLiquidateSubaccount(var)
+        }
+    }
     impl ::std::convert::From<LiquidationStartCall> for EndpointCalls {
         fn from(var: LiquidationStartCall) -> Self {
             EndpointCalls::LiquidationStart(var)
@@ -2861,11 +2949,6 @@ pub mod endpoint {
     impl ::std::convert::From<MatchOrdersCall> for EndpointCalls {
         fn from(var: MatchOrdersCall) -> Self {
             EndpointCalls::MatchOrders(var)
-        }
-    }
-    impl ::std::convert::From<MigrateCall> for EndpointCalls {
-        fn from(var: MigrateCall) -> Self {
-            EndpointCalls::Migrate(var)
         }
     }
     impl ::std::convert::From<NsubmissionsCall> for EndpointCalls {
@@ -2888,6 +2971,11 @@ pub mod endpoint {
             EndpointCalls::ProcessSlowModeTransaction(var)
         }
     }
+    impl ::std::convert::From<RebalanceXWithdrawCall> for EndpointCalls {
+        fn from(var: RebalanceXWithdrawCall) -> Self {
+            EndpointCalls::RebalanceXWithdraw(var)
+        }
+    }
     impl ::std::convert::From<RebateCall> for EndpointCalls {
         fn from(var: RebateCall) -> Self {
             EndpointCalls::Rebate(var)
@@ -2906,26 +2994,6 @@ pub mod endpoint {
     impl ::std::convert::From<RenounceOwnershipCall> for EndpointCalls {
         fn from(var: RenounceOwnershipCall) -> Self {
             EndpointCalls::RenounceOwnership(var)
-        }
-    }
-    impl ::std::convert::From<RequireSubaccountCall> for EndpointCalls {
-        fn from(var: RequireSubaccountCall) -> Self {
-            EndpointCalls::RequireSubaccount(var)
-        }
-    }
-    impl ::std::convert::From<SequencerFeeCall> for EndpointCalls {
-        fn from(var: SequencerFeeCall) -> Self {
-            EndpointCalls::SequencerFee(var)
-        }
-    }
-    impl ::std::convert::From<SequencerFeesCall> for EndpointCalls {
-        fn from(var: SequencerFeesCall) -> Self {
-            EndpointCalls::SequencerFees(var)
-        }
-    }
-    impl ::std::convert::From<SetBookCall> for EndpointCalls {
-        fn from(var: SetBookCall) -> Self {
-            EndpointCalls::SetBook(var)
         }
     }
     impl ::std::convert::From<SetPriceX18Call> for EndpointCalls {
@@ -2988,19 +3056,14 @@ pub mod endpoint {
             EndpointCalls::SignedOrder(var)
         }
     }
+    impl ::std::convert::From<SignedTransferQuoteCall> for EndpointCalls {
+        fn from(var: SignedTransferQuoteCall) -> Self {
+            EndpointCalls::SignedTransferQuote(var)
+        }
+    }
     impl ::std::convert::From<SignedWithdrawCollateralCall> for EndpointCalls {
         fn from(var: SignedWithdrawCollateralCall) -> Self {
             EndpointCalls::SignedWithdrawCollateral(var)
-        }
-    }
-    impl ::std::convert::From<SlowModeConfigCall> for EndpointCalls {
-        fn from(var: SlowModeConfigCall) -> Self {
-            EndpointCalls::SlowModeConfig(var)
-        }
-    }
-    impl ::std::convert::From<SlowModeTxsCall> for EndpointCalls {
-        fn from(var: SlowModeTxsCall) -> Self {
-            EndpointCalls::SlowModeTxs(var)
         }
     }
     impl ::std::convert::From<SpotTickCall> for EndpointCalls {
@@ -3038,6 +3101,11 @@ pub mod endpoint {
             EndpointCalls::TransferOwnership(var)
         }
     }
+    impl ::std::convert::From<TransferQuoteCall> for EndpointCalls {
+        fn from(var: TransferQuoteCall) -> Self {
+            EndpointCalls::TransferQuote(var)
+        }
+    }
     impl ::std::convert::From<UnsignedBurnLpCall> for EndpointCalls {
         fn from(var: UnsignedBurnLpCall) -> Self {
             EndpointCalls::UnsignedBurnLp(var)
@@ -3066,6 +3134,11 @@ pub mod endpoint {
     impl ::std::convert::From<UnsignedMintLpCall> for EndpointCalls {
         fn from(var: UnsignedMintLpCall) -> Self {
             EndpointCalls::UnsignedMintLp(var)
+        }
+    }
+    impl ::std::convert::From<UnsignedTransferQuoteCall> for EndpointCalls {
+        fn from(var: UnsignedTransferQuoteCall) -> Self {
+            EndpointCalls::UnsignedTransferQuote(var)
         }
     }
     impl ::std::convert::From<UnsignedWithdrawCollateralCall> for EndpointCalls {
@@ -3179,19 +3252,6 @@ pub mod endpoint {
         Default,
     )]
     pub struct ClearinghouseReturn(pub ethers::core::types::Address);
-    #[doc = "Container type for all return fields from the `getBook` function with signature `getBook(uint32)` and selector `[207, 152, 124, 155]`"]
-    #[derive(
-        Serialize,
-        Deserialize,
-        Clone,
-        Debug,
-        Eq,
-        PartialEq,
-        ethers :: contract :: EthAbiType,
-        ethers :: contract :: EthAbiCodec,
-        Default,
-    )]
-    pub struct GetBookReturn(pub ethers::core::types::Address);
     #[doc = "Container type for all return fields from the `getHealthCheckFee` function with signature `getHealthCheckFee()` and selector `[212, 222, 141, 157]`"]
     #[derive(
         Serialize,
@@ -3257,6 +3317,19 @@ pub mod endpoint {
         Default,
     )]
     pub struct GetNumSubaccountsReturn(pub u64);
+    #[doc = "Container type for all return fields from the `getOffchainExchange` function with signature `getOffchainExchange()` and selector `[143, 79, 142, 204]`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthAbiType,
+        ethers :: contract :: EthAbiCodec,
+        Default,
+    )]
+    pub struct GetOffchainExchangeReturn(pub ethers::core::types::Address);
     #[doc = "Container type for all return fields from the `getPriceX18` function with signature `getPriceX18(uint32)` and selector `[54, 142, 70, 134]`"]
     #[derive(
         Serialize,
@@ -3276,19 +3349,6 @@ pub mod endpoint {
         )]
         pub price_x18: i128,
     }
-    #[doc = "Container type for all return fields from the `getPricesX18` function with signature `getPricesX18(uint32)` and selector `[175, 165, 93, 238]`"]
-    #[derive(
-        Serialize,
-        Deserialize,
-        Clone,
-        Debug,
-        Eq,
-        PartialEq,
-        ethers :: contract :: EthAbiType,
-        ethers :: contract :: EthAbiCodec,
-        Default,
-    )]
-    pub struct GetPricesX18Return(pub Prices);
     #[doc = "Container type for all return fields from the `getSequencer` function with signature `getSequencer()` and selector `[77, 150, 169, 10]`"]
     #[derive(
         Serialize,
@@ -3302,6 +3362,19 @@ pub mod endpoint {
         Default,
     )]
     pub struct GetSequencerReturn(pub ethers::core::types::Address);
+    #[doc = "Container type for all return fields from the `getSlowModeTx` function with signature `getSlowModeTx(uint64)` and selector `[238, 82, 85, 38]`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthAbiType,
+        ethers :: contract :: EthAbiCodec,
+        Default,
+    )]
+    pub struct GetSlowModeTxReturn(pub SlowModeTx, pub u64, pub u64);
     #[doc = "Container type for all return fields from the `getSubaccountById` function with signature `getSubaccountById(uint64)` and selector `[239, 100, 237, 14]`"]
     #[derive(
         Serialize,
@@ -3367,6 +3440,58 @@ pub mod endpoint {
         Default,
     )]
     pub struct GetVersionReturn(pub u64);
+    #[doc = "Container type for all return fields from the `legacyMatchOrders` function with signature `legacyMatchOrders((uint32,bool,((bytes32,int128,int128,uint64,uint64),bytes),((bytes32,int128,int128,uint64,uint64),bytes)))` and selector `[179, 100, 136, 184]`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthAbiType,
+        ethers :: contract :: EthAbiCodec,
+        Default,
+    )]
+    pub struct LegacyMatchOrdersReturn(pub LegacyMatchOrders);
+    #[doc = "Container type for all return fields from the `legacySignedLiquidateSubaccount` function with signature `legacySignedLiquidateSubaccount(((bytes32,bytes32,uint8,uint32,int128,uint64),bytes))` and selector `[177, 251, 214, 11]`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthAbiType,
+        ethers :: contract :: EthAbiCodec,
+        Default,
+    )]
+    pub struct LegacySignedLiquidateSubaccountReturn(pub LegacySignedLiquidateSubaccount);
+    #[doc = "Container type for all return fields from the `legacySpotTick` function with signature `legacySpotTick((uint128))` and selector `[248, 15, 124, 229]`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthAbiType,
+        ethers :: contract :: EthAbiCodec,
+        Default,
+    )]
+    pub struct LegacySpotTickReturn(pub LegacySpotTick);
+    #[doc = "Container type for all return fields from the `legacyUnsignedLiquidateSubaccount` function with signature `legacyUnsignedLiquidateSubaccount((bytes32,bytes32,uint8,uint32,int128,uint64))` and selector `[220, 66, 230, 27]`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthAbiType,
+        ethers :: contract :: EthAbiCodec,
+        Default,
+    )]
+    pub struct LegacyUnsignedLiquidateSubaccountReturn(pub LegacyLiquidateSubaccount);
     #[doc = "Container type for all return fields from the `manualAssert` function with signature `manualAssert((int128[],int128[],int128[]))` and selector `[44, 140, 111, 251]`"]
     #[derive(
         Serialize,
@@ -3393,7 +3518,7 @@ pub mod endpoint {
         Default,
     )]
     pub struct MatchOrderAMMReturn(pub MatchOrderAMM);
-    #[doc = "Container type for all return fields from the `matchOrders` function with signature `matchOrders((uint32,bool,((bytes32,int128,int128,uint64,uint64),bytes),((bytes32,int128,int128,uint64,uint64),bytes)))` and selector `[69, 22, 14, 82]`"]
+    #[doc = "Container type for all return fields from the `matchOrders` function with signature `matchOrders((uint32,((bytes32,int128,int128,uint64,uint64),bytes),((bytes32,int128,int128,uint64,uint64),bytes)))` and selector `[141, 60, 32, 177]`"]
     #[derive(
         Serialize,
         Deserialize,
@@ -3445,6 +3570,19 @@ pub mod endpoint {
         Default,
     )]
     pub struct PerpTickReturn(pub PerpTick);
+    #[doc = "Container type for all return fields from the `rebalanceXWithdraw` function with signature `rebalanceXWithdraw((uint32,uint128,address))` and selector `[154, 8, 229, 53]`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthAbiType,
+        ethers :: contract :: EthAbiCodec,
+        Default,
+    )]
+    pub struct RebalanceXWithdrawReturn(pub RebalanceXWithdraw);
     #[doc = "Container type for all return fields from the `rebate` function with signature `rebate((bytes32[],int128[]))` and selector `[66, 199, 77, 29]`"]
     #[derive(
         Serialize,
@@ -3471,32 +3609,6 @@ pub mod endpoint {
         Default,
     )]
     pub struct ReferralCodesReturn(pub String);
-    #[doc = "Container type for all return fields from the `sequencerFee` function with signature `sequencerFee(uint32)` and selector `[174, 58, 134, 82]`"]
-    #[derive(
-        Serialize,
-        Deserialize,
-        Clone,
-        Debug,
-        Eq,
-        PartialEq,
-        ethers :: contract :: EthAbiType,
-        ethers :: contract :: EthAbiCodec,
-        Default,
-    )]
-    pub struct SequencerFeeReturn(pub i128);
-    #[doc = "Container type for all return fields from the `sequencerFees` function with signature `sequencerFees()` and selector `[13, 58, 208, 57]`"]
-    #[derive(
-        Serialize,
-        Deserialize,
-        Clone,
-        Debug,
-        Eq,
-        PartialEq,
-        ethers :: contract :: EthAbiType,
-        ethers :: contract :: EthAbiCodec,
-        Default,
-    )]
-    pub struct SequencerFeesReturn(pub i128);
     #[doc = "Container type for all return fields from the `settlePnl` function with signature `settlePnl((bytes32[],uint256[]))` and selector `[178, 187, 99, 103]`"]
     #[derive(
         Serialize,
@@ -3562,7 +3674,7 @@ pub mod endpoint {
         Default,
     )]
     pub struct SignedLinkSignerReturn(pub SignedLinkSigner);
-    #[doc = "Container type for all return fields from the `signedLiquidateSubaccount` function with signature `signedLiquidateSubaccount(((bytes32,bytes32,uint8,uint32,int128,uint64),bytes))` and selector `[191, 131, 46, 119]`"]
+    #[doc = "Container type for all return fields from the `signedLiquidateSubaccount` function with signature `signedLiquidateSubaccount(((bytes32,bytes32,uint32,bool,int128,uint64),bytes))` and selector `[145, 113, 208, 139]`"]
     #[derive(
         Serialize,
         Deserialize,
@@ -3601,6 +3713,19 @@ pub mod endpoint {
         Default,
     )]
     pub struct SignedOrderReturn(pub SignedOrder);
+    #[doc = "Container type for all return fields from the `signedTransferQuote` function with signature `signedTransferQuote(((bytes32,bytes32,uint128,uint64),bytes))` and selector `[111, 59, 10, 114]`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthAbiType,
+        ethers :: contract :: EthAbiCodec,
+        Default,
+    )]
+    pub struct SignedTransferQuoteReturn(pub SignedTransferQuote);
     #[doc = "Container type for all return fields from the `signedWithdrawCollateral` function with signature `signedWithdrawCollateral(((bytes32,uint32,uint128,uint64),bytes))` and selector `[13, 85, 226, 107]`"]
     #[derive(
         Serialize,
@@ -3614,41 +3739,7 @@ pub mod endpoint {
         Default,
     )]
     pub struct SignedWithdrawCollateralReturn(pub SignedWithdrawCollateral);
-    #[doc = "Container type for all return fields from the `slowModeConfig` function with signature `slowModeConfig()` and selector `[184, 4, 62, 222]`"]
-    #[derive(
-        Serialize,
-        Deserialize,
-        Clone,
-        Debug,
-        Eq,
-        PartialEq,
-        ethers :: contract :: EthAbiType,
-        ethers :: contract :: EthAbiCodec,
-        Default,
-    )]
-    pub struct SlowModeConfigReturn {
-        pub timeout: u64,
-        pub tx_count: u64,
-        pub tx_up_to: u64,
-    }
-    #[doc = "Container type for all return fields from the `slowModeTxs` function with signature `slowModeTxs(uint64)` and selector `[207, 143, 219, 9]`"]
-    #[derive(
-        Serialize,
-        Deserialize,
-        Clone,
-        Debug,
-        Eq,
-        PartialEq,
-        ethers :: contract :: EthAbiType,
-        ethers :: contract :: EthAbiCodec,
-        Default,
-    )]
-    pub struct SlowModeTxsReturn {
-        pub executable_at: u64,
-        pub sender: ethers::core::types::Address,
-        pub tx: ethers::core::types::Bytes,
-    }
-    #[doc = "Container type for all return fields from the `spotTick` function with signature `spotTick((uint128))` and selector `[217, 118, 134, 149]`"]
+    #[doc = "Container type for all return fields from the `spotTick` function with signature `spotTick((uint128,int128[]))` and selector `[177, 200, 236, 43]`"]
     #[derive(
         Serialize,
         Deserialize,
@@ -3661,19 +3752,6 @@ pub mod endpoint {
         Default,
     )]
     pub struct SpotTickReturn(pub SpotTick);
-    #[doc = "Container type for all return fields from the `submitTransactionsCheckedWithGasLimit` function with signature `submitTransactionsCheckedWithGasLimit(uint64,bytes[],uint256)` and selector `[47, 154, 39, 68]`"]
-    #[derive(
-        Serialize,
-        Deserialize,
-        Clone,
-        Debug,
-        Eq,
-        PartialEq,
-        ethers :: contract :: EthAbiType,
-        ethers :: contract :: EthAbiCodec,
-        Default,
-    )]
-    pub struct SubmitTransactionsCheckedWithGasLimitReturn(pub u64, pub ethers::core::types::U256);
     #[doc = "Container type for all return fields from the `swapAMM` function with signature `swapAMM((bytes32,uint32,int128,int128))` and selector `[15, 75, 80, 157]`"]
     #[derive(
         Serialize,
@@ -3687,6 +3765,19 @@ pub mod endpoint {
         Default,
     )]
     pub struct SwapAMMReturn(pub SwapAMM);
+    #[doc = "Container type for all return fields from the `transferQuote` function with signature `transferQuote((bytes32,bytes32,uint128,uint64))` and selector `[29, 151, 210, 47]`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthAbiType,
+        ethers :: contract :: EthAbiCodec,
+        Default,
+    )]
+    pub struct TransferQuoteReturn(pub TransferQuote);
     #[doc = "Container type for all return fields from the `unsignedBurnLp` function with signature `unsignedBurnLp((bytes32,uint32,uint128,uint64))` and selector `[6, 192, 186, 253]`"]
     #[derive(
         Serialize,
@@ -3739,7 +3830,7 @@ pub mod endpoint {
         Default,
     )]
     pub struct UnsignedLinkSignerReturn(pub LinkSigner);
-    #[doc = "Container type for all return fields from the `unsignedLiquidateSubaccount` function with signature `unsignedLiquidateSubaccount((bytes32,bytes32,uint8,uint32,int128,uint64))` and selector `[249, 228, 115, 252]`"]
+    #[doc = "Container type for all return fields from the `unsignedLiquidateSubaccount` function with signature `unsignedLiquidateSubaccount((bytes32,bytes32,uint32,bool,int128,uint64))` and selector `[158, 133, 20, 36]`"]
     #[derive(
         Serialize,
         Deserialize,
@@ -3765,6 +3856,19 @@ pub mod endpoint {
         Default,
     )]
     pub struct UnsignedMintLpReturn(pub MintLp);
+    #[doc = "Container type for all return fields from the `unsignedTransferQuote` function with signature `unsignedTransferQuote((bytes32,bytes32,uint128,uint64))` and selector `[14, 218, 172, 206]`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthAbiType,
+        ethers :: contract :: EthAbiCodec,
+        Default,
+    )]
+    pub struct UnsignedTransferQuoteReturn(pub TransferQuote);
     #[doc = "Container type for all return fields from the `unsignedWithdrawCollateral` function with signature `unsignedWithdrawCollateral((bytes32,uint32,uint128,uint64))` and selector `[188, 133, 202, 134]`"]
     #[derive(
         Serialize,
@@ -4011,6 +4115,91 @@ pub mod endpoint {
         )]
         pub amount: u128,
     }
+    #[doc = "`LegacyLiquidateSubaccount(bytes32,bytes32,uint8,uint32,int128,uint64)`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Default,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthAbiType,
+        ethers :: contract :: EthAbiCodec,
+    )]
+    pub struct LegacyLiquidateSubaccount {
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
+        pub sender: [u8; 32],
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
+        pub liquidatee: [u8; 32],
+        pub mode: u8,
+        pub health_group: u32,
+        #[serde(
+            serialize_with = "serialize_i128",
+            deserialize_with = "deserialize_i128"
+        )]
+        pub amount: i128,
+        pub nonce: u64,
+    }
+    #[doc = "`LegacyMatchOrders(uint32,bool,((bytes32,int128,int128,uint64,uint64),bytes),((bytes32,int128,int128,uint64,uint64),bytes))`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Default,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthAbiType,
+        ethers :: contract :: EthAbiCodec,
+    )]
+    pub struct LegacyMatchOrders {
+        pub product_id: u32,
+        pub amm: bool,
+        pub taker: SignedOrder,
+        pub maker: SignedOrder,
+    }
+    #[doc = "`LegacySignedLiquidateSubaccount((bytes32,bytes32,uint8,uint32,int128,uint64),bytes)`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Default,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthAbiType,
+        ethers :: contract :: EthAbiCodec,
+    )]
+    pub struct LegacySignedLiquidateSubaccount {
+        pub tx: LegacyLiquidateSubaccount,
+        pub signature: ethers::core::types::Bytes,
+    }
+    #[doc = "`LegacySpotTick(uint128)`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Default,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthAbiType,
+        ethers :: contract :: EthAbiCodec,
+    )]
+    pub struct LegacySpotTick {
+        #[serde(
+            serialize_with = "serialize_u128",
+            deserialize_with = "deserialize_u128"
+        )]
+        pub time: u128,
+    }
     #[doc = "`LinkSigner(bytes32,bytes32,uint64)`"]
     #[derive(
         Serialize,
@@ -4036,7 +4225,7 @@ pub mod endpoint {
         pub signer: [u8; 32],
         pub nonce: u64,
     }
-    #[doc = "`LiquidateSubaccount(bytes32,bytes32,uint8,uint32,int128,uint64)`"]
+    #[doc = "`LiquidateSubaccount(bytes32,bytes32,uint32,bool,int128,uint64)`"]
     #[derive(
         Serialize,
         Deserialize,
@@ -4059,8 +4248,8 @@ pub mod endpoint {
             deserialize_with = "deserialize_bytes32"
         )]
         pub liquidatee: [u8; 32],
-        pub mode: u8,
-        pub health_group: u32,
+        pub product_id: u32,
+        pub is_encoded_spread: bool,
         #[serde(
             serialize_with = "serialize_i128",
             deserialize_with = "deserialize_i128"
@@ -4123,7 +4312,7 @@ pub mod endpoint {
         pub quote_delta: i128,
         pub taker: SignedOrder,
     }
-    #[doc = "`MatchOrders(uint32,bool,((bytes32,int128,int128,uint64,uint64),bytes),((bytes32,int128,int128,uint64,uint64),bytes))`"]
+    #[doc = "`MatchOrders(uint32,((bytes32,int128,int128,uint64,uint64),bytes),((bytes32,int128,int128,uint64,uint64),bytes))`"]
     #[derive(
         Serialize,
         Deserialize,
@@ -4137,7 +4326,6 @@ pub mod endpoint {
     )]
     pub struct MatchOrders {
         pub product_id: u32,
-        pub amm: bool,
         pub taker: SignedOrder,
         pub maker: SignedOrder,
     }
@@ -4232,7 +4420,7 @@ pub mod endpoint {
         )]
         pub avg_price_diffs: Vec<i128>,
     }
-    #[doc = "`Prices(int128,int128)`"]
+    #[doc = "`RebalanceXWithdraw(uint32,uint128,address)`"]
     #[derive(
         Serialize,
         Deserialize,
@@ -4244,17 +4432,14 @@ pub mod endpoint {
         ethers :: contract :: EthAbiType,
         ethers :: contract :: EthAbiCodec,
     )]
-    pub struct Prices {
+    pub struct RebalanceXWithdraw {
+        pub product_id: u32,
         #[serde(
-            serialize_with = "serialize_i128",
-            deserialize_with = "deserialize_i128"
+            serialize_with = "serialize_u128",
+            deserialize_with = "deserialize_u128"
         )]
-        pub spot_price_x18: i128,
-        #[serde(
-            serialize_with = "serialize_i128",
-            deserialize_with = "deserialize_i128"
-        )]
-        pub perp_price_x18: i128,
+        pub amount: u128,
+        pub send_to: ethers::core::types::Address,
     }
     #[doc = "`Rebate(bytes32[],int128[])`"]
     #[derive(
@@ -4324,7 +4509,7 @@ pub mod endpoint {
         pub tx: LinkSigner,
         pub signature: ethers::core::types::Bytes,
     }
-    #[doc = "`SignedLiquidateSubaccount((bytes32,bytes32,uint8,uint32,int128,uint64),bytes)`"]
+    #[doc = "`SignedLiquidateSubaccount((bytes32,bytes32,uint32,bool,int128,uint64),bytes)`"]
     #[derive(
         Serialize,
         Deserialize,
@@ -4370,6 +4555,22 @@ pub mod endpoint {
     )]
     pub struct SignedOrder {
         pub order: Order,
+        pub signature: ethers::core::types::Bytes,
+    }
+    #[doc = "`SignedTransferQuote((bytes32,bytes32,uint128,uint64),bytes)`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Default,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthAbiType,
+        ethers :: contract :: EthAbiCodec,
+    )]
+    pub struct SignedTransferQuote {
+        pub tx: TransferQuote,
         pub signature: ethers::core::types::Bytes,
     }
     #[doc = "`SignedWithdrawCollateral((bytes32,uint32,uint128,uint64),bytes)`"]
@@ -4422,7 +4623,7 @@ pub mod endpoint {
         pub sender: ethers::core::types::Address,
         pub tx: ethers::core::types::Bytes,
     }
-    #[doc = "`SpotTick(uint128)`"]
+    #[doc = "`SpotTick(uint128,int128[])`"]
     #[derive(
         Serialize,
         Deserialize,
@@ -4440,6 +4641,11 @@ pub mod endpoint {
             deserialize_with = "deserialize_u128"
         )]
         pub time: u128,
+        #[serde(
+            serialize_with = "serialize_vec_i128",
+            deserialize_with = "deserialize_vec_i128"
+        )]
+        pub utilization_ratios_x18: Vec<i128>,
     }
     #[doc = "`SwapAMM(bytes32,uint32,int128,int128)`"]
     #[derive(
@@ -4470,6 +4676,36 @@ pub mod endpoint {
             deserialize_with = "deserialize_i128"
         )]
         pub price_x18: i128,
+    }
+    #[doc = "`TransferQuote(bytes32,bytes32,uint128,uint64)`"]
+    #[derive(
+        Serialize,
+        Deserialize,
+        Clone,
+        Debug,
+        Default,
+        Eq,
+        PartialEq,
+        ethers :: contract :: EthAbiType,
+        ethers :: contract :: EthAbiCodec,
+    )]
+    pub struct TransferQuote {
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
+        pub sender: [u8; 32],
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
+        pub recipient: [u8; 32],
+        #[serde(
+            serialize_with = "serialize_u128",
+            deserialize_with = "deserialize_u128"
+        )]
+        pub amount: u128,
+        pub nonce: u64,
     }
     #[doc = "`UpdateFeeRates(address,uint32,int64,int64)`"]
     #[derive(

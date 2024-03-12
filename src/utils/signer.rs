@@ -114,6 +114,6 @@ impl<'a, V: VertexBase> VertexSigner<'a, V> {
 }
 
 pub fn wallet_with_chain_id(private_key: &str, chain_id: U256) -> Result<Wallet<SigningKey>> {
-    let wallet = Wallet::from_str(&private_key)?;
+    let wallet = Wallet::from_str(private_key)?;
     Ok(wallet.with_chain_id(chain_id.as_u64()))
 }

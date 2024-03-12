@@ -2,21 +2,22 @@ use std::collections::HashMap;
 use std::sync::atomic::{AtomicU8, Ordering};
 // #![allow(dead_code, clippy::blacklisted_name)]
 use crate::bindings::querier::{
-    BookInfo, HealthInfo, PerpBalance, PerpProduct, ProductInfo, Risk, SpotBalance, SubaccountInfo,
+    BookInfo, HealthInfo, LegacyRisk, PerpBalance, PerpProduct, ProductInfo, SpotBalance,
+    SubaccountInfo,
 };
 use crate::bindings::spot_engine;
 use crate::eip712_structs::{
     BurnLp, Cancellation, CancellationProducts, LinkSigner, LiquidateSubaccount, MintLp, Order,
-    WithdrawCollateral,
+    TransferQuote, WithdrawCollateral,
 };
 use crate::math::f64_to_x18;
 use crate::product::Product;
 use crate::serialize_utils::{
     deserialize_bytes20, deserialize_bytes32, deserialize_i128, deserialize_nested_vec_i128,
-    deserialize_option_bytes32, deserialize_option_vec_u8, deserialize_u128, deserialize_u64,
+    deserialize_option_bytes32, deserialize_option_vec_u8, deserialize_u64,
     deserialize_vec_bytes20, deserialize_vec_i128, deserialize_vec_u8,
     serialize_bytes20, serialize_bytes32, serialize_i128, serialize_nested_vec_i128,
-    serialize_option_bytes32, serialize_option_vec_u8, serialize_u128, serialize_u64,
+    serialize_option_bytes32, serialize_option_vec_u8, serialize_u64,
     serialize_vec_bytes20, serialize_vec_i128, serialize_vec_u8, str_or_u32,
 };
 use rkyv::{Archive, Deserialize as RkyvDeserialize, Serialize as RkyvSerialize};
@@ -34,11 +35,31 @@ pub enum Direction {
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct ProductDelta {
+    pub product_id: u32,
+    #[serde(
+        serialize_with = "serialize_bytes32",
+        deserialize_with = "deserialize_bytes32"
+    )]
+    pub subaccount: [u8; 32],
+    #[serde(
+        serialize_with = "serialize_i128",
+        deserialize_with = "deserialize_i128"
+    )]
+    pub amount_delta: i128,
+    #[serde(
+        serialize_with = "serialize_i128",
+        deserialize_with = "deserialize_i128"
+    )]
+    pub v_quote_delta: i128,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum Txn {
     MintLp(spot_engine::MintLpCall),
     BurnLp(spot_engine::BurnLpCall),
-    ApplyDelta(spot_engine::ProductDelta),
+    ApplyDelta(ProductDelta),
 }
 
 #[derive(Archive, RkyvDeserialize, RkyvSerialize, Serialize, Deserialize, Debug, Clone)]
@@ -307,14 +328,33 @@ pub enum Execute {
         cancel_signature: Vec<u8>,
         place_order: PlaceOrder,
     },
+    SubmitPrivateBatch {
+        orders: Vec<[PlaceOrder; 2]>,
+    },
+
+    TransferQuote {
+        tx: TransferQuote,
+        #[serde(
+            serialize_with = "serialize_vec_u8",
+            deserialize_with = "deserialize_vec_u8"
+        )]
+        signature: Vec<u8>,
+    },
 }
 
 #[derive(Archive, RkyvDeserialize, RkyvSerialize, Serialize, Deserialize, Debug)]
 #[serde(untagged)]
 #[archive(check_bytes)]
-pub enum WsMessage {
+pub enum EngineMessage {
     Query(Query),
     Execute(Execute),
+}
+
+#[derive(Archive, RkyvDeserialize, RkyvSerialize, Serialize, Deserialize, Debug)]
+#[archive(check_bytes)]
+pub struct LabeledEngineMessage {
+    pub chain_id: u64,
+    pub msg: EngineMessage,
 }
 
 #[derive(
@@ -390,7 +430,7 @@ pub struct SpotProduct {
         deserialize_with = "deserialize_i128"
     )]
     pub oracle_price_x18: i128,
-    pub risk: Risk,
+    pub risk: LegacyRisk,
     pub config: Config,
     pub state: crate::bindings::spot_engine::State,
     pub lp_state: crate::bindings::spot_engine::LpState,
@@ -510,16 +550,11 @@ impl From<SubaccountInfo> for SubaccountInfoResponse {
     RkyvDeserialize,
 )]
 #[archive(check_bytes)]
-// #[ts(export)]
-// #[ts(export_to = "tsBindings/msgResponses/")]
 pub struct ContractsResponse {
-    #[serde(
-        serialize_with = "serialize_u128",
-        deserialize_with = "deserialize_u128"
-    )]
+    #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
     // Should be fine to use u128 here.
     // see https://gist.github.com/rekmarks/a47bd5f2525936c4b8eee31a16345553
-    pub chain_id: u128,
+    pub chain_id: u64,
     #[serde(
         serialize_with = "serialize_bytes20",
         deserialize_with = "deserialize_bytes20"
@@ -953,26 +988,24 @@ pub struct InsuranceResponse {
 #[archive(check_bytes)]
 pub struct Versions {
     pub endpoint: u64,
-    pub fee_calculator: u64,
     pub clearinghouse: u64,
     pub clearinghouse_liq: u64,
     pub spot_engine: u64,
     pub perp_engine: u64,
     pub querier: u64,
-    pub books: Vec<u64>,
+    pub offchain_exchange: u64,
 }
 
 impl Versions {
     pub fn default() -> Self {
         Self {
             endpoint: 0,
-            fee_calculator: 0,
             clearinghouse: 0,
             clearinghouse_liq: 0,
             spot_engine: 0,
             perp_engine: 0,
             querier: 0,
-            books: vec![0],
+            offchain_exchange: 0,
         }
     }
 }
@@ -1061,6 +1094,15 @@ pub struct SymbolsResponseData {
     pub long_weight_maintenance_x18: i128,
 }
 
+impl SymbolsResponseData {
+    pub fn placeholder() -> Self {
+        Self {
+            product_type: "placeholder".to_string(),
+            ..Self::default()
+        }
+    }
+}
+
 impl From<&Product> for SymbolsResponseData {
     fn from(product: &Product) -> Self {
         let product_type = match product {
@@ -1076,6 +1118,7 @@ impl From<&Product> for SymbolsResponseData {
                 size_increment,
                 price_increment,
                 min_size,
+                product_id,
                 ..
             }
             | Product::Perp {
@@ -1085,10 +1128,11 @@ impl From<&Product> for SymbolsResponseData {
                 size_increment,
                 price_increment,
                 min_size,
+                product_id,
                 ..
             } => SymbolsResponseData {
                 product_type,
-                product_id: 0,
+                product_id: *product_id,
                 symbol: symbol.clone(),
                 price_increment_x18: f64_to_x18(*price_increment),
                 min_size: f64_to_x18(*min_size),
@@ -1343,7 +1387,7 @@ pub struct PlaceOrderResponse {
 )]
 #[serde(untagged)]
 #[archive(check_bytes)]
-pub enum WsResponse {
+pub enum EngineResponse {
     Query(QueryResponse),
     Execute(ExecuteResponse),
 }
@@ -1361,17 +1405,6 @@ pub enum QueryV2 {
     Assets {},
 }
 
-impl QueryV2 {
-    pub fn request_type(&self) -> String {
-        let request_type = match self {
-            QueryV2::Orderbook(..) => "orderbook",
-            QueryV2::Pairs(..) => "pairs",
-            QueryV2::Assets {} => "trades",
-        }
-        .to_string();
-        format!("query_v2_{request_type}")
-    }
-}
 #[derive(Archive, RkyvDeserialize, RkyvSerialize, Clone, Serialize, Deserialize, Debug)]
 #[archive(check_bytes)]
 #[serde(rename_all = "snake_case")]
@@ -1461,6 +1494,7 @@ pub type MarketPairsResponse = Vec<MarketPair>;
 // #[ts(export)]
 // #[ts(export_to = "tsBindings/msgResponses/")]
 pub struct Asset {
+    pub product_id: u32,
     pub ticker_id: Option<String>,
     pub market_type: Option<String>,
     pub name: String,

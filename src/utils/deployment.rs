@@ -12,5 +12,5 @@ pub struct Deployment {
     pub spot_engine: H160,
     pub perp_engine: H160,
     pub querier: H160,
-    pub fee_calculator: H160,
+    pub offchain_exchange: H160,
 }
