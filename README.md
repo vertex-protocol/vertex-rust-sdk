@@ -4,8 +4,8 @@
 This is the Rust SDK for the [Vertex Protocol API](https://vertex-protocol.gitbook.io/docs/developer-resources/api).
 
 ## Quickstart
-After instantiating a client, most requests look like the below example. Generally, we use the builder 
-pattern to build and send requests with many parameters easy to write and keep track of. Simple queries like `get_market_price`,
+After instantiating a client, most requests look like the below example. We use the builder 
+pattern to build and send requests with many parameters. Simple queries like `get_market_price`,
 with only one parameter can be made directly from the client.
 
 
