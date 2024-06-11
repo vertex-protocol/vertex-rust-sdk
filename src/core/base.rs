@@ -53,6 +53,8 @@ pub trait VertexBase: Clone + Sync {
 
     fn endpoint_addr(&self) -> H160;
 
+    fn querier_addr(&self) -> H160;
+
     fn chain_id(&self) -> Result<U256>;
 
     fn book_addr(&self, product_id: u32) -> Result<H160>;

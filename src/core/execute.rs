@@ -38,7 +38,10 @@ macro_rules! map_response_type {
 pub trait VertexExecute: VertexQuery {
     async fn execute(&self, execute: Execute) -> Result<Option<ExecuteResponseData>>;
 
-    async fn execute_trigger(&self, execute: trigger::Execute) -> Result<()>;
+    async fn execute_trigger(
+        &self,
+        execute: trigger::Execute,
+    ) -> Result<Option<ExecuteResponseData>>;
 
     async fn submit_slow_mode_tx(
         &self,
@@ -54,9 +57,10 @@ pub trait VertexExecute: VertexQuery {
     async fn place_trigger_order(
         &self,
         place_trigger_order: trigger::PlaceTriggerOrder,
-    ) -> Result<()> {
+    ) -> Result<Option<PlaceOrderResponse>> {
         let execute = trigger::Execute::PlaceOrder(place_trigger_order);
-        self.execute_trigger(execute).await
+        let execute_response_data = self.execute_trigger(execute).await?;
+        map_response_type!(execute_response_data, ExecuteResponseData::PlaceOrder => PlaceOrderResponse)
     }
 
     async fn cancel_orders(&self, tx: Cancellation) -> Result<Option<CancelOrdersResponse>> {
@@ -69,7 +73,8 @@ pub trait VertexExecute: VertexQuery {
     async fn cancel_trigger_orders(&self, tx: Cancellation) -> Result<()> {
         let signature: Bytes = self.endpoint_signature(&tx)?.into();
         let execute = trigger::Execute::CancelOrders { tx, signature };
-        self.execute_trigger(execute).await
+        self.execute_trigger(execute).await?;
+        Ok(())
     }
 
     async fn cancel_product_orders(
@@ -90,7 +95,8 @@ pub trait VertexExecute: VertexQuery {
     async fn cancel_product_trigger_orders(&self, tx: CancellationProducts) -> Result<()> {
         let signature: Bytes = self.endpoint_signature(&tx)?.into();
         let execute = trigger::Execute::CancelProductOrders { tx, signature };
-        self.execute_trigger(execute).await
+        self.execute_trigger(execute).await?;
+        Ok(())
     }
 
     async fn cancel_and_place(
@@ -218,7 +224,7 @@ pub trait VertexExecute: VertexQuery {
 
     fn querier(&self) -> Result<Querier<VertexProvider>> {
         let provider = provider_with_signer(self)?;
-        let endpoint = Querier::new(self.endpoint_addr(), provider);
+        let endpoint = Querier::new(self.querier_addr(), provider);
         Ok(endpoint)
     }
 }

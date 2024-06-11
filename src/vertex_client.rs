@@ -116,6 +116,10 @@ impl VertexBase for VertexClient {
         self.deployment.endpoint
     }
 
+    fn querier_addr(&self) -> H160 {
+        self.deployment.querier
+    }
+
     fn chain_id(&self) -> Result<U256> {
         fields_to_vars!(self, chain_id);
         Ok(chain_id)
@@ -147,11 +151,13 @@ impl VertexExecute for VertexClient {
         extract_response_data!(response, engine::ExecuteResponse => engine::ExecuteResponseData)
     }
 
-    async fn execute_trigger(&self, execute: trigger::Execute) -> Result<()> {
+    async fn execute_trigger(
+        &self,
+        execute: trigger::Execute,
+    ) -> Result<Option<engine::ExecuteResponseData>> {
         let url = format!("{}/execute", self.trigger_url);
         let response: ExecuteResponse = self.client.post_request(&url, &execute).await?;
-        extract_response_data!(response, engine::ExecuteResponse => engine::ExecuteResponseData)?;
-        Ok(())
+        extract_response_data!(response, engine::ExecuteResponse => engine::ExecuteResponseData)
     }
 
     async fn submit_slow_mode_tx(

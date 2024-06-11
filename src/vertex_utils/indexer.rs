@@ -8,6 +8,7 @@ use crate::serialize_utils::{
 use crate::tx::{TxType, VertexTx};
 use ethers::types::H160;
 use ethers_core::types::Bytes;
+use eyre::{eyre, Result};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
@@ -24,6 +25,10 @@ impl TimestampOrTimestamps {
             TimestampOrTimestamps::Timestamp(ts) => vec![ts.0],
             TimestampOrTimestamps::Timestamps(ts) => ts.iter().map(|t| t.0).collect(),
         }
+    }
+
+    pub fn is_single(&self) -> bool {
+        matches!(self, Self::Timestamp(_))
     }
 }
 
@@ -56,7 +61,7 @@ pub enum Query {
 
     ProductSnapshots {
         product_ids: Vec<WrappedU32>,
-        max_time: Option<WrappedU64>,
+        max_time: Option<TimestampOrTimestamps>,
     },
 
     Events {
@@ -189,6 +194,43 @@ pub enum Query {
         address: H160,
         start: Option<WrappedU32>,
         limit: Option<WrappedU32>,
+    },
+
+    InitialDropConditions {
+        address: H160,
+    },
+
+    BlitzPoints {
+        address: H160,
+    },
+
+    BlastPoints {
+        address: H160,
+    },
+
+    BlitzPointsLeaderboard {
+        start: Option<u32>,
+        limit: Option<u32>,
+    },
+
+    Leaderboard {
+        contest_id: WrappedU32,
+        rank_type: LeaderboardType,
+        start: Option<WrappedU64>,
+        limit: Option<WrappedU64>,
+    },
+
+    LeaderboardRank {
+        contest_id: WrappedU32,
+        #[serde(
+            deserialize_with = "deserialize_bytes32",
+            serialize_with = "serialize_bytes32"
+        )]
+        subaccount: [u8; 32],
+    },
+
+    LeaderboardContests {
+        contest_ids: Vec<WrappedU32>,
     },
 }
 
@@ -450,12 +492,30 @@ pub struct CandlesticksResponse {
     pub candlesticks: Vec<Candlestick>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Eq, PartialEq)]
 pub struct ProductSnapshot {
     pub product_id: u32,
     #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
     pub submission_idx: u64,
     pub product: Product,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+#[serde(untagged)]
+pub enum ProductSnapshotsResponse {
+    TsToProductSnapshots(HashMap<WrappedU64, HashMap<u32, ProductSnapshot>>),
+    ProductSnapshots(HashMap<u32, ProductSnapshot>),
+}
+
+impl ProductSnapshotsResponse {
+    pub fn product_snapshots(self) -> Result<HashMap<u32, ProductSnapshot>> {
+        match self {
+            ProductSnapshotsResponse::ProductSnapshots(ps) => Ok(ps),
+            ProductSnapshotsResponse::TsToProductSnapshots(_) => {
+                Err(eyre!("expected product_snapshots response"))
+            }
+        }
+    }
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -609,6 +669,56 @@ pub struct ArbRewardsResponse {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
+pub struct InitialDropConditionsResponse {
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub amount: f64,
+    #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
+    pub deadline: u64,
+    pub account_value_reached: bool,
+    pub perp_trades_done: bool,
+    pub tweeted: bool,
+    pub claimed: bool,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct BlitzPointsResponse {
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub initial_points: f64,
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub trading_points: f64,
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub referral_points: f64,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct BlastPointsResponse {
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub points: f64,
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub gold: f64,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct BlitzPointsLeaderboardPosition {
+    #[serde(
+        serialize_with = "serialize_bytes20",
+        deserialize_with = "deserialize_bytes20"
+    )]
+    pub address: [u8; 20],
+    pub rank: u32,
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub trading_point: f64,
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub referral_point: f64,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct BlitzPointsLeaderboardResponse {
+    pub positions: Vec<BlitzPointsLeaderboardPosition>,
+    pub total: u32,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
 #[serde(untagged)]
 pub enum EventsOrTsToEvents {
     Events(Vec<Event>),
@@ -707,32 +817,6 @@ pub struct Subaccount {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct SubaccountsResponse {
     pub subaccounts: Vec<Subaccount>,
-}
-
-#[derive(Serialize, Deserialize, Debug)]
-pub struct LeaderboardPosition {
-    #[serde(
-        serialize_with = "serialize_bytes32",
-        deserialize_with = "deserialize_bytes32"
-    )]
-    pub subaccount: [u8; 32],
-    pub rank: u32,
-    #[serde(
-        serialize_with = "serialize_i128",
-        deserialize_with = "deserialize_i128"
-    )]
-    pub pnl: i128,
-    #[serde(
-        serialize_with = "serialize_i128",
-        deserialize_with = "deserialize_i128"
-    )]
-    pub percent_pnl: i128,
-}
-
-#[derive(Serialize, Deserialize, Debug)]
-pub struct LeaderboardResponse {
-    pub positions: Vec<LeaderboardPosition>,
-    pub total: u32,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -978,7 +1062,7 @@ pub struct VrtxParams {
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(untagged)]
 pub enum VrtxResponse {
-    TotalSupply(u32),
+    TotalSupply(f64),
     CirculatingSupply(f64),
 }
 
@@ -1048,4 +1132,75 @@ pub struct Interval {
     pub count: u64,
     pub granularity: u64,
     pub max_time: Option<WrappedU64>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "lowercase")]
+pub enum LeaderboardType {
+    PNL,
+    ROI,
+}
+
+impl LeaderboardType {
+    pub fn to_str(&self) -> &str {
+        match self {
+            LeaderboardType::PNL => "pnl",
+            LeaderboardType::ROI => "roi",
+        }
+    }
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct LeaderboardPosition {
+    #[serde(
+        serialize_with = "serialize_bytes32",
+        deserialize_with = "deserialize_bytes32"
+    )]
+    pub subaccount: [u8; 32],
+    pub contest_id: u32,
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub pnl: f64,
+    #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
+    pub pnl_rank: u64,
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub roi: f64,
+    #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
+    pub roi_rank: u64,
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub account_value: f64,
+    #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
+    pub update_time: u64,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct LeaderboardContest {
+    pub contest_id: u32,
+    #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
+    pub start_time: u64,
+    #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
+    pub end_time: u64,
+    #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
+    pub timeframe: u64,
+    #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
+    pub count: u64,
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub threshold: f64,
+    #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
+    pub last_updated: u64,
+    pub active: bool,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct LeaderboardResponse {
+    pub positions: Vec<LeaderboardPosition>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct LeaderboardRankResponse {
+    pub position: Option<LeaderboardPosition>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct LeaderboardContestsResponse {
+    pub contests: Vec<LeaderboardContest>,
 }

@@ -212,6 +212,7 @@ pub enum Query {
         pending: bool,
         max_update_time: Option<u64>,
         max_digest: Option<WrappedBytes32>,
+        digests: Option<Vec<WrappedBytes32>>,
         limit: Option<u32>,
     },
 }

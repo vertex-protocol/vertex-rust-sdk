@@ -1,5 +1,5 @@
 {
-    "nodeUrl": "https://mainnet-rpc.blast.io",
+    "nodeUrl": "https://rpc.blast.io",
     "explorerUrl": "https://blastscan.io",
     "startBlock": 184008,
     "quote": "0x4300000000000000000000000000000000000003",

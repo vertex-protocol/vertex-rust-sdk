@@ -1,7 +1,7 @@
-pub mod arb_gas_info;
 pub mod clearinghouse;
 pub mod clearinghouse_liq;
 pub mod endpoint;
+pub mod gas_info;
 pub mod mock_erc20;
 pub mod offchain_exchange;
 pub mod perp_engine;
@@ -30,6 +30,17 @@ impl BindingGenerator {
         let output_path = format!("{}/{}", self.output_root, output_path);
         Abigen::new(name, input_path)
             .unwrap()
+            .emit_cargo_directives(true)
+            // .add_derive("serde::Serialize")
+            // .unwrap()
+            // .add_derive("serde::Deserialize")
+            // .unwrap()
+            // .add_derive("rkyv::Serialize")
+            // .unwrap()
+            // .add_derive("rkyv::Deserialize")
+            // .unwrap()
+            // .add_derive("rkyv::Archive")
+            // .unwrap()
             .generate()
             .unwrap()
             .write_to_file(output_path)
@@ -40,7 +51,7 @@ impl BindingGenerator {
 pub fn create_bindings(source_dir: String, output_dir: String) {
     let generator = BindingGenerator::new(&source_dir, &output_dir);
     generator.generate("MockERC20", "MockERC20.json", "mock_erc20.rs");
-    generator.generate("ArbGasInfo", "ArbGasInfo.json", "arb_gas_info.rs");
+    generator.generate("GasInfo", "GasInfo.json", "gas_info.rs");
     generator.generate(
         "OffchainExchange",
         "FOffchainExchange.json",

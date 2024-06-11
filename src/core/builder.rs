@@ -9,6 +9,7 @@ use crate::builders::execute::mint_lp::MintLpBuilder;
 use crate::builders::execute::place_order::PlaceOrderBuilder;
 use crate::builders::execute::slow_mode::SubmitSlowModeTxBuilder;
 use crate::builders::execute::withdraw_collateral::WithdrawCollateralBuilder;
+use crate::builders::indexer::account_snapshots::AccountSnapshotsBuilder;
 use crate::builders::indexer::candlesticks::CandlesticksBuilder;
 use crate::builders::indexer::events::EventsBuilder;
 use crate::builders::indexer::historical_orders::HistoricalOrdersBuilder;
@@ -16,6 +17,7 @@ use crate::builders::indexer::interest_and_funding::InterestAndFundingTicksBuild
 use crate::builders::indexer::maker_statistics::MakerStatisticsBuilder;
 use crate::builders::indexer::market_snapshots::MarketSnapshotsBuilder;
 use crate::builders::indexer::matches::MatchesBuilder;
+use crate::builders::indexer::multi_product_snapshots::MultiProductSnapshotsBuilder;
 use crate::builders::indexer::product_snapshots::ProductSnapshotsBuilder;
 use crate::builders::indexer::subaccounts::SubaccountsBuilder;
 use crate::builders::indexer::trades::TradesParamsBuilder;
@@ -66,6 +68,11 @@ pub trait VertexBuilder: VertexExecute + VertexIndexer {
     get_vertex_builder!(get_maker_statistics_builder, MakerStatisticsBuilder);
     get_vertex_builder!(get_matches_builder, MatchesBuilder);
     get_vertex_builder!(get_product_snapshots_builder, ProductSnapshotsBuilder);
+    get_vertex_builder!(
+        get_multi_product_snapshots_builder,
+        MultiProductSnapshotsBuilder
+    );
+    get_vertex_builder!(get_account_snapshots_builder, AccountSnapshotsBuilder);
     get_vertex_builder!(get_subaccounts_builder, SubaccountsBuilder);
     get_vertex_builder!(
         get_interest_and_funding_builder,
