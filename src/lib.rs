@@ -44,5 +44,7 @@ pub mod prelude {
 
     pub use crate::utils::client_mode::ClientMode;
 
+    pub use crate::math::{to_i128_x18, to_i128_x6};
+    pub use crate::utils::private_key;
     pub use crate::vertex_client::VertexClient;
 }
