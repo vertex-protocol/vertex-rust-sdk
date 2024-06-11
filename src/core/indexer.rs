@@ -5,18 +5,18 @@ use ethers::prelude::H160;
 use eyre::Result;
 use serde::de::DeserializeOwned;
 
+use crate::core::base::VertexBase;
 use crate::indexer::LiquidatableAccount;
 use crate::indexer::{
-    ArbRewardsResponse, CandlesticksResponse, EventsResponse, FundingRateResponse,
-    InterestAndFundingTicksResponse, LinkedSignerRateLimitResponse, LinkedSignerResponse,
-    MakerStatisticsResponse, MarketSnapshotsResponse, MatchesResponse, MerkleProofsResponse,
-    OraclePriceResponse, OrdersResponse, PerpContractResponse, PerpPriceResponse, ProductsResponse,
-    Query, QueryV2, ReferralCodeResponse, RewardsResponse, SubaccountsResponse, SummaryResponse,
-    TickerResponse, TickersParams, TimestampOrTimestamps, TradesResponse, UsdcPriceResponse,
+    AccountSnapshotsResponse, ArbRewardsResponse, CandlesticksResponse, EventsResponse,
+    FundingRateResponse, InterestAndFundingTicksResponse, LinkedSignerRateLimitResponse,
+    LinkedSignerResponse, MakerStatisticsResponse, MarketSnapshotsResponse, MatchesResponse,
+    MerkleProofsResponse, OraclePriceResponse, OrdersResponse, PerpContractResponse,
+    PerpPriceResponse, ProductSnapshot, ProductsResponse, Query, QueryV2, ReferralCodeResponse,
+    RewardsResponse, SubaccountsResponse, SummaryResponse, TickerResponse, TickersParams,
+    TimestampOrTimestamps, TradesResponse, UsdcPriceResponse,
 };
-use crate::serialize_utils::WrappedU32;
-
-use crate::core::base::VertexBase;
+use crate::serialize_utils::{WrappedU32, WrappedU64};
 use crate::utils::wrapped_option_utils::wrapped_option_u64;
 
 #[async_trait]
@@ -55,6 +55,27 @@ pub trait VertexIndexer: VertexBase {
         product_snapshots_query: Query,
     ) -> Result<ProductsResponse> {
         self.query(product_snapshots_query).await
+    }
+
+    async fn get_multi_product_snapshots(
+        &self,
+        product_snapshots_query: Query,
+    ) -> Result<HashMap<u32, ProductSnapshot>> {
+        self.query(product_snapshots_query).await
+    }
+
+    async fn get_multi_timestamp_product_snapshots(
+        &self,
+        product_snapshots_query: Query,
+    ) -> Result<HashMap<WrappedU64, HashMap<u32, ProductSnapshot>>> {
+        self.query(product_snapshots_query).await
+    }
+
+    async fn get_account_snapshots(
+        &self,
+        account_snapshots_query: Query,
+    ) -> Result<AccountSnapshotsResponse> {
+        self.query(account_snapshots_query).await
     }
 
     async fn get_events(&self, events_query: Query) -> Result<EventsResponse> {

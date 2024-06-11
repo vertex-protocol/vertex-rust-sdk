@@ -110,7 +110,6 @@ pub enum VertexTx {
     PerpTick(endpoint::PerpTick),
     SpotTick(endpoint::SpotTick),
     UpdatePrice(endpoint::UpdatePrice),
-
     ManualAssert(endpoint::ManualAssert),
 
     MatchOrders(endpoint::MatchOrders),
@@ -122,6 +121,8 @@ pub enum VertexTx {
     MatchOrdersRFQ(endpoint::MatchOrders),
     TransferQuote(endpoint::TransferQuote),
     RebalanceXWithdraw(endpoint::RebalanceXWithdraw),
+    DumpFees,
+    ClaimSequencerFees(endpoint::ClaimSequencerFees),
     Other,
 }
 
@@ -146,6 +147,8 @@ impl VertexTx {
             VertexTx::MatchOrdersRFQ(_) => TxType::MatchOrdersRFQ,
             VertexTx::TransferQuote(_) => TxType::TransferQuote,
             VertexTx::RebalanceXWithdraw(_) => TxType::RebalanceXWithdraw,
+            VertexTx::DumpFees => TxType::DumpFees,
+            VertexTx::ClaimSequencerFees(_) => TxType::ClaimSequencerFees,
             VertexTx::Other => panic!("Other is not a valid tx type"),
         }
     }

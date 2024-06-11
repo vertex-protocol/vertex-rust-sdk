@@ -28,6 +28,7 @@ pub enum Product {
         decimals: u8,
         price_asset_id: String,
         min_size: f64,
+        feed_id: Option<String>,
     },
     #[serde(rename_all = "camelCase")]
     Perp {
@@ -49,6 +50,7 @@ pub enum Product {
         min_size: f64,
         // 0 for no limit
         max_open_interest: Option<f64>,
+        feed_id: Option<String>,
     },
 }
 
@@ -70,5 +72,26 @@ impl Product {
 
     pub fn is_spot(&self) -> bool {
         matches!(self, Product::Spot { .. })
+    }
+
+    pub fn quote(&self) -> String {
+        match self {
+            Product::Spot { quote, .. } => quote.clone(),
+            Product::Perp { quote, .. } => quote.clone(),
+        }
+    }
+
+    pub fn feed_id(&self) -> Option<String> {
+        match self {
+            Product::Spot { feed_id, .. } => feed_id.clone(),
+            Product::Perp { feed_id, .. } => feed_id.clone(),
+        }
+    }
+
+    pub fn asset_id(&self) -> String {
+        match self {
+            Product::Spot { price_asset_id, .. } => price_asset_id.clone(),
+            Product::Perp { price_asset_id, .. } => price_asset_id.clone(),
+        }
     }
 }

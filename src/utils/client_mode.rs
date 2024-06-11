@@ -8,8 +8,10 @@ static CONFIGS: Dir = include_dir!("$CARGO_MANIFEST_DIR/src/vertex_utils/configs
 pub enum ClientMode {
     Prod,
     BlastProd,
+    MantleProd,
     SepoliaTest,
     BlastTest,
+    MantleTest,
     Local,
     LocalAlt,
 }
@@ -59,8 +61,24 @@ impl ClientMode {
             Self::BlastTest => "blast-test",
             Self::Prod => "prod",
             Self::BlastProd => "blast-prod",
+            Self::MantleTest => "mantle-test",
+            Self::MantleProd => "mantle-prod",
         }
         .to_string()
+    }
+
+    pub fn from_envtag(envtag: &str) -> Self {
+        match envtag {
+            "local" => Self::Local,
+            "local-alt" => Self::LocalAlt,
+            "sepolia-test" => Self::SepoliaTest,
+            "blast-test" => Self::BlastTest,
+            "prod" => Self::Prod,
+            "blast-prod" => Self::BlastProd,
+            "mantle-test" => Self::MantleTest,
+            "mantle-prod" => Self::MantleProd,
+            _ => panic!("Unknown envtag: {}", envtag),
+        }
     }
 
     pub fn deployment(&self) -> Deployment {

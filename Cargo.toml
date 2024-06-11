@@ -36,17 +36,16 @@ path = "examples/orders.rs"
 async-trait = "0.1.58"
 bincode = { version = "1.3.3", features = [] }
 dotenv = "0.15.0"
-ethers = { version = "=1.0.2", features = ["abigen"] }
-ethers-contract = { version = "=1.0.2", features = ["abigen"] }
-ethers-core = "=1.0.2"
-ethers-derive-eip712 = "=1.0.2"
-ethers-middleware = "=1.0.2"
-ethers-providers = "=1.0.2"
-ethers-signers = "=1.0.2"
+ethers = { version = "2.0.14", features = ["abigen"] }
+ethers-contract = { version = "2.0.14", features = ["abigen"] }
+ethers-core = "2.0.14"
+ethers-middleware = "2.0.14"
+ethers-providers = "2.0.14"
+ethers-signers = "2.0.14"
 eyre = "0.6.8"
 include_dir = "0.7.3"
 rand = "0.8.4"
-reqwest = "0.11.14"
+reqwest = { version = "0.12.4", features = ["json"] }
 rkyv = { version = "0.7.7", features = ["validation"] }
 
 serde = { version = "1.0.144", features = ["derive"] }

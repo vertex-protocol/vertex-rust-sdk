@@ -92,6 +92,7 @@ vertex_builder!(
     }
 );
 
+#[derive(Debug, Clone)]
 pub struct DepositCollateralParams {
     pub product_id: u32,
     pub subaccount: [u8; 32],

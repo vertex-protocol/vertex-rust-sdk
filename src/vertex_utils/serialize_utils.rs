@@ -1,5 +1,5 @@
 use ethers::types::{H160, H256, I256, U256};
-use ethers_core::types::Bytes;
+use ethers_core::types::{Bytes, H512};
 use eyre::Result;
 use serde::de::{Error, SeqAccess, Visitor};
 use serde::ser::SerializeSeq;
@@ -50,11 +50,13 @@ where
     #[serde(untagged)]
     enum StrOrU64<'a> {
         Str(&'a str),
+        String(String),
         U64(u64),
     }
 
     let v = match StrOrU64::deserialize(deserializer)? {
         StrOrU64::Str(v) => v.parse().unwrap_or(0), // Ignoring parsing errors
+        StrOrU64::String(v) => v.parse().unwrap_or(0),
         StrOrU64::U64(v) => v,
     };
     if u64_in_i64_range(v) {
@@ -276,6 +278,30 @@ where
     I256::from_dec_str(&s).map_err(|_| D::Error::custom("invalid i256 value"))
 }
 
+pub fn serialize_bytes64<S>(value: &[u8; 64], serializer: S) -> Result<S::Ok, S::Error>
+where
+    S: Serializer,
+{
+    let mut hex = [0u8; 130];
+    hex[0] = b'0';
+    hex[1] = b'x';
+    for i in 0..64 {
+        hex[i * 2 + 2] = MAP[(value[i] >> 4) as usize];
+        hex[i * 2 + 1 + 2] = MAP[(value[i] & 0xf) as usize];
+    }
+    serializer.serialize_str(from_utf8(&hex).unwrap())
+}
+
+pub fn deserialize_bytes64<'de, D>(deserializer: D) -> Result<[u8; 64], D::Error>
+where
+    D: Deserializer<'de>,
+{
+    let s = String::deserialize(deserializer)?;
+    Ok(H512::from_str(&s)
+        .map_err(|_| D::Error::custom("invalid H256 value"))?
+        .to_fixed_bytes())
+}
+
 pub fn serialize_bytes32<S>(value: &[u8; 32], serializer: S) -> Result<S::Ok, S::Error>
 where
     S: Serializer,
@@ -386,7 +412,27 @@ pub struct WrappedBytes32(
     pub [u8; 32],
 );
 
-#[derive(Hash, Clone, Debug, Eq, PartialEq, Deserialize, Serialize)]
+#[derive(
+    Hash,
+    Clone,
+    Debug,
+    Eq,
+    PartialEq,
+    Serialize,
+    Deserialize,
+    rkyv::Archive,
+    rkyv::Deserialize,
+    rkyv::Serialize,
+)]
+pub struct WrappedBytes64(
+    #[serde(
+        serialize_with = "serialize_bytes64",
+        deserialize_with = "deserialize_bytes64"
+    )]
+    pub [u8; 64],
+);
+
+#[derive(Hash, Clone, Debug, Eq, PartialEq, Deserialize, Serialize, Default)]
 pub struct WrappedU64(
     #[serde(deserialize_with = "str_or_u64", serialize_with = "serialize_u64")] pub u64,
 );
@@ -428,6 +474,29 @@ where
 {
     if let Some(value) = value {
         serialize_bytes32(value, serializer)
+    } else {
+        serializer.serialize_none()
+    }
+}
+
+pub fn deserialize_option_bytes64<'de, D>(deserializer: D) -> Result<Option<[u8; 64]>, D::Error>
+where
+    D: Deserializer<'de>,
+{
+    Option::<WrappedBytes64>::deserialize(deserializer).map(
+        |opt_wrapped: Option<WrappedBytes64>| opt_wrapped.map(|wrapped: WrappedBytes64| wrapped.0),
+    )
+}
+
+pub fn serialize_option_bytes64<S>(
+    value: &Option<[u8; 64]>,
+    serializer: S,
+) -> Result<S::Ok, S::Error>
+where
+    S: Serializer,
+{
+    if let Some(value) = value {
+        serialize_bytes64(value, serializer)
     } else {
         serializer.serialize_none()
     }
@@ -533,4 +602,20 @@ where
 {
     let s = String::deserialize(deserializer)?;
     f64::from_str(&s).map_err(|_| D::Error::custom("invalid f64 value"))
+}
+
+pub fn str_or_i64<'de, D>(deserializer: D) -> Result<i64, D::Error>
+where
+    D: Deserializer<'de>,
+{
+    #[derive(Deserialize)]
+    #[serde(untagged)]
+    enum StrOrU64<'a> {
+        Str(&'a str),
+        I64(i64),
+    }
+    Ok(match StrOrU64::deserialize(deserializer)? {
+        StrOrU64::Str(v) => v.parse().unwrap_or(0), // Ignoring parsing errors
+        StrOrU64::I64(v) => v,
+    })
 }

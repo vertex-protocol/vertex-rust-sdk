@@ -8,7 +8,7 @@ use crate::eip712_structs;
 use crate::trigger;
 use crate::trigger::ListTriggerOrdersResponse;
 use crate::utils::client_error::none_error;
-use crate::utils::wrapped_option_utils::wrapped_option_bytes32;
+use crate::utils::wrapped_option_utils::{wrapped_option_bytes32, wrapped_option_vec_bytes32};
 
 vertex_builder!(
     ListTriggerOrdersBuilder ,
@@ -17,6 +17,7 @@ vertex_builder!(
     product_id: u32,
     linked_sender: [u8; 32],
     pending: bool,
+    digests: Vec<[u8; 32]>,
     max_digest: [u8; 32],
     max_update_time: u64,
     limit: u32;
@@ -33,6 +34,7 @@ vertex_builder!(
             signature,
             product_id: self.product_id,
             pending,
+            digests: wrapped_option_vec_bytes32(self.digests.clone()),
             max_update_time: self.max_update_time,
             max_digest: wrapped_option_bytes32(self.max_digest),
             limit: self.limit,

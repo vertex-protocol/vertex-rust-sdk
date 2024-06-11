@@ -33,7 +33,7 @@ vertex_builder!(
 
     build_and_call!(self, execute, place_order => Option<PlaceOrderResponse>);
 
-    pub async fn execute_trigger(&self) -> Result<()> {
+    pub async fn execute_trigger(&self) -> Result<Option<PlaceOrderResponse>> {
         self.vertex.place_trigger_order(self.build_trigger()?).await
     }
 
