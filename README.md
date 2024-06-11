@@ -3,10 +3,16 @@
 
 This is the Rust SDK for the [Vertex Protocol API](https://vertex-protocol.gitbook.io/docs/developer-resources/api).
 
+[Documentation](https://docs.rs/vertex-sdk/latest/vertex_sdk/)
+
 ## Quickstart
-After instantiating a client, most requests look like the below example. We use the builder 
-pattern to build and send requests with many parameters. Simple queries like `get_market_price`,
-with only one parameter can be made directly from the client.
+Instantiate a client on the chain you would like to interact with. 
+For example, `ClientMode::Prod` to use Arbitrum and `ClientMode::BlastProd` to use Blast.
+A signer (private key) is required for executes. 
+A signer is not required for queries.
+For requests with many parameters, use the client to build and send requests.
+For simple queries (1-2 params) like `get_market_price`, call directly from the client.
+
 
 
 See [`basic_usage.rs`](examples/basic_usage.rs) for an E2E example including depositing into Vertex. 
@@ -48,7 +54,7 @@ async fn main() {
 }
 ```
 
-[Documentation](https://docs.rs/vertex-sdk/latest/vertex_sdk/)
+
 ## Installation
 
 Add the following line to your Cargo.toml file:
