@@ -9,7 +9,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.2.0](https://github.com/vertex-protocol/vertex-rust-sdk/compare/v0.1.3...v0.2.0) - 2024-06-11
 
 ### Other
-- v0.1.4 ([#9](https://github.com/vertex-protocol/vertex-rust-sdk/pull/9))
 
 ## [0.1.1](https://github.com/vertex-protocol/vertex-rust-sdk/compare/v0.1.0...v0.1.1) - 2024-01-10
 
