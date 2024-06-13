@@ -17,7 +17,9 @@ vertex_builder!(
     tx: Bytes,
     mints_fee: bool,
     approves_fee: bool,
-    sleep_secs: u64;
+    sleep_secs: u64,
+    erc20_sleep_secs: u64,
+    gas_price: u128;
 
     pub async fn execute_and_sleep(&self) -> Result<Option<TransactionReceipt>> {
         let tx_hash = self.execute().await?;
@@ -59,6 +61,8 @@ vertex_builder!(
             tx,
             mints_fee,
             approves_fee,
+            erc20_sleep_secs: self.erc20_sleep_secs,
+            gas_price: self.gas_price,
         })
     }
 
@@ -68,6 +72,8 @@ pub struct SubmitSlowModeTxParams {
     pub tx: Bytes,
     pub mints_fee: bool,
     pub approves_fee: bool,
+    pub erc20_sleep_secs: Option<u64>,
+    pub gas_price: Option<u128>,
 }
 
 fn swap_amm_bytes(swap_amm: endpoint::SwapAMM) -> Bytes {

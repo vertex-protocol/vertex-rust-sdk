@@ -16,7 +16,9 @@ vertex_builder!(
     mints_tokens: bool,
     approves_allowance: bool,
     on_behalf_of: [u8; 32],
-    risk_check_sleep_secs: u64;
+    risk_check_sleep_secs: u64,
+    erc20_sleep_secs: u64,
+    gas_price: u128;
 
     build_and_call!(self, execute, deposit_collateral => Option<TransactionReceipt>);
 
@@ -79,6 +81,8 @@ vertex_builder!(
             referral_code,
             approves_allowance,
             mints_tokens,
+            erc20_sleep_secs: self.erc20_sleep_secs,
+            gas_price: self.gas_price,
         })
     }
 
@@ -100,4 +104,6 @@ pub struct DepositCollateralParams {
     pub referral_code: Option<String>,
     pub approves_allowance: bool,
     pub mints_tokens: bool,
+    pub erc20_sleep_secs: Option<u64>,
+    pub gas_price: Option<u128>,
 }
