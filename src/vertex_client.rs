@@ -6,6 +6,7 @@ use ethers_signers::Wallet;
 use eyre::eyre;
 use eyre::Result;
 use serde::de::DeserializeOwned;
+use std::time::Duration;
 
 use engine::Status;
 
@@ -166,12 +167,23 @@ impl VertexExecute for VertexClient {
     ) -> Result<Option<TransactionReceipt>> {
         if params.mints_fee {
             self.mint_mock_erc20(0, SLOW_MODE_FEE).await?;
+            if let Some(sleep_secs) = params.erc20_sleep_secs {
+                println!("sleeping for {}s (erc20)", sleep_secs);
+                tokio::time::sleep(Duration::from_secs(sleep_secs)).await;
+            }
         }
         if params.approves_fee {
             self.approve_allowance(0, SLOW_MODE_FEE).await?;
+            if let Some(sleep_secs) = params.erc20_sleep_secs {
+                println!("sleeping for {}s (erc20)", sleep_secs);
+                tokio::time::sleep(Duration::from_secs(sleep_secs)).await;
+            }
         }
         let endpoint = self.endpoint()?;
-        let tx = endpoint.submit_slow_mode_transaction(params.tx);
+        let mut tx = endpoint.submit_slow_mode_transaction(params.tx);
+        if let Some(gas_price) = params.gas_price {
+            tx = tx.gas_price(gas_price)
+        }
         let tx_receipt = tx.send().await?.log_msg("pending tx").await?;
         Ok(tx_receipt)
     }

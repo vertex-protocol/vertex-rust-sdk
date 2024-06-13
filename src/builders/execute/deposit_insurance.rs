@@ -20,7 +20,9 @@ vertex_builder!(
     VertexExecute,
     amount: u128,
     mints_tokens: bool,
-    approves_allowance: bool;
+    approves_allowance: bool,
+    erc20_sleep_secs: u64,
+    gas_price: u128;
 
     pub async fn deposit_and_await_balance(&self) -> Result<Option<TransactionReceipt>> {
         let expected_balance = self.calculate_expected_balance().await?;
@@ -34,11 +36,14 @@ vertex_builder!(
 
     async fn handle_erc20(&self) -> Result<()> {
         fields_to_vars!(self, amount);
+        let sleep = self.erc20_sleep_secs.unwrap_or_default();
         if self.mints_tokens.unwrap_or(false) {
             self.vertex.mint_mock_erc20(0, amount).await?;
+            tokio::time::sleep(Duration::from_secs(sleep)).await;
         }
         if self.approves_allowance.unwrap_or(false) {
             self.vertex.approve_allowance(0, amount).await?;
+            tokio::time::sleep(Duration::from_secs(sleep)).await;
         }
         Ok(())
     }
@@ -74,6 +79,8 @@ vertex_builder!(
             tx,
             mints_fee: false,
             approves_fee: false,
+            erc20_sleep_secs: self.erc20_sleep_secs,
+            gas_price: self.gas_price
         })
     }
 

@@ -21,6 +21,8 @@ async fn main() {
         .product_id(USDC)
         .amount(to_u128_x6(1000)) // scale by token decimals (USDC has 6 decimals)
         .mints_tokens(true) // testnet only (mints specified amount of token before depositing)
+        .erc20_sleep_secs(1)
+        .gas_price(100_000_000)
         .deposit_and_await_balance() // waits for change in balance
         .await
         .unwrap();

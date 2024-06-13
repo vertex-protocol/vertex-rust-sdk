@@ -21,10 +21,18 @@ pub async fn deposit_collateral<V: VertexExecute + Sync>(
 
     if deposit_collateral_params.mints_tokens {
         vertex.mint_mock_erc20(product_id, amount).await?;
+        if let Some(sleep_secs) = deposit_collateral_params.erc20_sleep_secs {
+            println!("sleeping for {}s (erc20)", sleep_secs);
+            tokio::time::sleep(Duration::from_secs(sleep_secs)).await;
+        }
     }
 
     if deposit_collateral_params.approves_allowance {
         vertex.approve_allowance(product_id, amount).await?;
+        if let Some(sleep_secs) = deposit_collateral_params.erc20_sleep_secs {
+            println!("sleeping for {}s (erc20)", sleep_secs);
+            tokio::time::sleep(Duration::from_secs(sleep_secs)).await;
+        }
     }
 
     endpoint_deposit_call(vertex, &deposit_collateral_params).await
@@ -58,13 +66,18 @@ pub async fn endpoint_deposit_call<V: VertexExecute>(
     let subaccount = deposit_collateral_params.subaccount;
 
     let endpoint: Endpoint<VertexProvider> = vertex.endpoint()?;
-    let tx = if let Some(referral_code) = deposit_collateral_params.referral_code.clone() {
+    let mut tx = if let Some(referral_code) = deposit_collateral_params.referral_code.clone() {
         endpoint.deposit_collateral_with_referral(subaccount, product_id, amount, referral_code)
     } else {
         let (_, subaccount_name) = from_bytes32(subaccount);
         let subaccount_name = to_bytes12(subaccount_name.as_str());
         endpoint.deposit_collateral(subaccount_name, product_id, amount)
     };
+
+    if let Some(gas_price) = deposit_collateral_params.gas_price {
+        tx = tx.gas_price(gas_price);
+    }
+
     let tx_receipt = tx
         .send()
         .await?

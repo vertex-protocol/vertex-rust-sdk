@@ -399,6 +399,8 @@ pub struct Order {
     pub product_id: i32,
     #[serde(serialize_with = "serialize_i64", deserialize_with = "deserialize_i64")]
     pub submission_idx: i64,
+    #[serde(serialize_with = "serialize_i64", deserialize_with = "deserialize_i64")]
+    pub last_fill_submission_idx: i64,
     #[serde(
         serialize_with = "serialize_i128",
         deserialize_with = "deserialize_i128"
