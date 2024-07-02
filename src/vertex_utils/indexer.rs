@@ -178,12 +178,24 @@ pub enum Query {
         address: H160,
     },
 
+    // TODO: remove this after FE uses the new one.
     ArbMerkleProofs {
         address: H160,
     },
 
+    // TODO: remove this after FE uses the new one.
     ArbRewards {
         address: H160,
+    },
+
+    FoundationRewardsMerkleProofs {
+        address: H160,
+    },
+
+    FoundationTakerRewards {
+        address: H160,
+        start: Option<WrappedU32>,
+        limit: Option<WrappedU32>,
     },
 
     Signatures {
@@ -629,7 +641,7 @@ pub struct TakerRewardsResponse {
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct ArbGlobalReward {
+pub struct FoundationGlobalReward {
     pub product_id: u32,
     #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
     pub taker_volumes: f64,
@@ -640,7 +652,7 @@ pub struct ArbGlobalReward {
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct ArbAddressReward {
+pub struct FoundationAddressReward {
     pub product_id: u32,
     #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
     pub taker_volume: f64,
@@ -651,21 +663,29 @@ pub struct ArbAddressReward {
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct ArbReward {
+pub struct FoundationTakerReward {
     pub week: u32,
     #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
     pub start_time: u64,
     #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
     pub period: u64,
-    pub address_rewards: Vec<ArbAddressReward>,
-    pub global_rewards: Vec<ArbGlobalReward>,
+    pub address_rewards: Vec<FoundationAddressReward>,
+    pub global_rewards: Vec<FoundationGlobalReward>,
 }
 
-pub type ArbRewardResponse = ArbReward;
+pub type FoundationTakerRewardResponse = FoundationTakerReward;
+pub type ArbRewardResponse = FoundationTakerReward;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ArbRewardsResponse {
     pub arb_rewards: Vec<ArbRewardResponse>,
+    #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
+    pub update_time: u64,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct FoundationTakerRewardsResponse {
+    pub foundation_taker_rewards: Vec<FoundationTakerRewardResponse>,
     #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
     pub update_time: u64,
 }

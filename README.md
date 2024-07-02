@@ -60,7 +60,7 @@ async fn main() {
 Add the following line to your Cargo.toml file:
 ```toml
 [dependencies]
-vertex_sdk = "0.2.1"
+vertex_sdk = "0.2.2"
 ```
 
 ## Usage 

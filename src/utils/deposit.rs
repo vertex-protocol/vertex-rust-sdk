@@ -4,11 +4,13 @@ use crate::builders::execute::deposit_collateral::DepositCollateralParams;
 use crate::core::execute::VertexExecute;
 use crate::eip712_structs::{from_bytes32, to_bytes12};
 use crate::provider::VertexProvider;
+use crate::revert::parse_provider_error;
 use crate::utils::constants::DEFAULT_PENDING_TX_RETIRES;
+use ethers_contract::ContractError;
 use ethers_core::types::TransactionReceipt;
 use ethers_middleware::SignerMiddleware;
 use ethers_providers::Provider;
-use eyre::Result;
+use eyre::{eyre, Result};
 use std::sync::Arc;
 use std::time::Duration;
 
@@ -78,11 +80,19 @@ pub async fn endpoint_deposit_call<V: VertexExecute>(
         tx = tx.gas_price(gas_price);
     }
 
-    let tx_receipt = tx
-        .send()
-        .await?
+    let pending_tx = tx.send().await;
+    let pending_tx = match pending_tx {
+        Ok(tx) => tx,
+        Err(e) => return Err(eyre!(parse_provider_error(e))),
+    };
+    let tx_receipt = pending_tx
         .retries(DEFAULT_PENDING_TX_RETIRES)
         .log_msg("pending tx")
-        .await?;
-    Ok(tx_receipt)
+        .await;
+    match tx_receipt {
+        Ok(receipt) => Ok(receipt),
+        Err(e) => Err(eyre!(parse_provider_error(
+            ContractError::<VertexProvider>::ProviderError { e }
+        ))),
+    }
 }

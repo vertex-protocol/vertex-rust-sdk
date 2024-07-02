@@ -19,6 +19,7 @@ use crate::serialize_utils::{
     serialize_bytes20, serialize_bytes32, serialize_i128, serialize_nested_vec_i128,
     serialize_option_bytes32, serialize_option_vec_u8, serialize_u64,
     serialize_vec_bytes20, serialize_vec_i128, serialize_vec_u8, str_or_u32,
+    WrappedI128,
 };
 use rkyv::{Archive, Deserialize as RkyvDeserialize, Serialize as RkyvSerialize};
 use serde::{Deserialize, Serialize};
@@ -213,6 +214,8 @@ pub enum Query {
         product_ids: Option<Vec<u32>>,
         product_type: Option<String>,
     },
+
+    MinDepositRates {},
 }
 
 #[derive(Archive, RkyvDeserialize, RkyvSerialize, Clone, Serialize, Deserialize, Debug)]
@@ -1092,6 +1095,7 @@ pub struct SymbolsResponseData {
         deserialize_with = "deserialize_i128"
     )]
     pub long_weight_maintenance_x18: i128,
+    pub max_open_interest_x18: Option<WrappedI128>,
 }
 
 impl SymbolsResponseData {
@@ -1110,6 +1114,14 @@ impl From<&Product> for SymbolsResponseData {
             Product::Perp { .. } => "perp",
         }
         .to_string();
+        let max_open_interest = product.max_open_interest().and_then(|oi| {
+            if oi == 0.0 {
+                None
+            } else {
+                Some(WrappedI128(f64_to_x18(oi)))
+            }
+        });
+
         match product {
             Product::Spot {
                 symbol,
@@ -1139,10 +1151,50 @@ impl From<&Product> for SymbolsResponseData {
                 size_increment: f64_to_x18(*size_increment),
                 long_weight_initial_x18: f64_to_x18(*long_weight_initial),
                 long_weight_maintenance_x18: f64_to_x18(*long_weight_maintenance),
+                max_open_interest_x18: max_open_interest,
                 ..Self::default()
             },
         }
     }
+}
+
+#[derive(
+    Clone,
+    Debug,
+    Default,
+    Eq,
+    PartialEq,
+    Serialize,
+    Deserialize,
+    Archive,
+    RkyvSerialize,
+    RkyvDeserialize,
+)]
+#[archive(check_bytes)]
+pub struct MinDepositRate {
+    #[serde(
+        serialize_with = "serialize_i128",
+        deserialize_with = "deserialize_i128"
+    )]
+    pub min_deposit_rate_x18: i128,
+    pub product_id: u32,
+}
+
+#[derive(
+    Clone,
+    Debug,
+    Default,
+    Eq,
+    PartialEq,
+    Serialize,
+    Deserialize,
+    Archive,
+    RkyvSerialize,
+    RkyvDeserialize,
+)]
+#[archive(check_bytes)]
+pub struct MinDepositRateResponse {
+    pub min_deposit_rates: HashMap<u32, MinDepositRate>,
 }
 
 #[derive(
@@ -1300,6 +1352,7 @@ pub enum QueryResponseData {
     Insurance(InsuranceResponse),
     Versions(VersionsResponse),
     Symbols(SymbolsResponse),
+    MinDepositRates(MinDepositRateResponse),
     Error(String),
 }
 

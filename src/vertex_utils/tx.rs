@@ -38,6 +38,7 @@ pub enum TxType {
     // need to confirm expected behavior, handling, etc
     TransferQuote = 23,
     RebalanceXWithdraw = 24,
+    UpdateMinDepositRate = 25,
 }
 
 impl TxType {
@@ -68,6 +69,7 @@ impl TxType {
             22 => Self::MatchOrdersRFQ,
             23 => Self::TransferQuote,
             24 => Self::RebalanceXWithdraw,
+            25 => Self::UpdateMinDepositRate,
             _ => panic!("Invalid TxType"),
         }
     }
@@ -121,6 +123,7 @@ pub enum VertexTx {
     MatchOrdersRFQ(endpoint::MatchOrders),
     TransferQuote(endpoint::TransferQuote),
     RebalanceXWithdraw(endpoint::RebalanceXWithdraw),
+    UpdateMinDepositRate(endpoint::UpdateMinDepositRate),
     DumpFees,
     ClaimSequencerFees(endpoint::ClaimSequencerFees),
     Other,
@@ -147,6 +150,7 @@ impl VertexTx {
             VertexTx::MatchOrdersRFQ(_) => TxType::MatchOrdersRFQ,
             VertexTx::TransferQuote(_) => TxType::TransferQuote,
             VertexTx::RebalanceXWithdraw(_) => TxType::RebalanceXWithdraw,
+            VertexTx::UpdateMinDepositRate(_) => TxType::UpdateMinDepositRate,
             VertexTx::DumpFees => TxType::DumpFees,
             VertexTx::ClaimSequencerFees(_) => TxType::ClaimSequencerFees,
             VertexTx::Other => panic!("Other is not a valid tx type"),
