@@ -94,4 +94,13 @@ impl Product {
             Product::Perp { price_asset_id, .. } => price_asset_id.clone(),
         }
     }
+
+    pub fn max_open_interest(&self) -> Option<f64> {
+        match self {
+            Product::Perp {
+                max_open_interest, ..
+            } => max_open_interest.clone(),
+            _ => None,
+        }
+    }
 }
