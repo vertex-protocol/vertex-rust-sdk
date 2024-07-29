@@ -3,12 +3,13 @@
     "explorerUrl": "",
     "startBlock": 0,
     "quote": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-    "querier": "0x7a2088a1bFc9d81c55368AE168C2C02570cB814F",
+    "querier": "0x67d269191c92Caf3cD7723F116c85e6E9bf55933",
     "clearinghouse": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
     "endpoint": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
     "spotEngine": "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
     "perpEngine": "0x0B306BF915C4d645ff596e518fAf3F9669b97016",
-    "foundationRewardsAirdrop": "0xc3e53F4d16Ae77Db1c982e75a937B9f60FE63690",
+    "foundationRewardsAirdrop": "0xa82fF9aFd8f496c3d6ac40E2a0F282E47488CFc9",
     "offchainExchange": "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e",
-    "verifier": "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE"
+    "verifier": "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE",
+    "withdrawPool": "0x3Aa5ebB10DC797CAC828524e59A333d0A371443c"
 }

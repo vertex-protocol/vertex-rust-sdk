@@ -42,7 +42,7 @@ vertex_builder!(
             tokio::time::sleep(Duration::from_secs(sleep)).await;
         }
         if self.approves_allowance.unwrap_or(false) {
-            self.vertex.approve_allowance(0, amount).await?;
+            self.vertex.approve_endpoint_allowance(0, amount).await?;
             tokio::time::sleep(Duration::from_secs(sleep)).await;
         }
         Ok(())

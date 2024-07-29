@@ -10,6 +10,7 @@ pub mod spot_engine;
 pub mod token;
 
 pub mod verifier;
+pub mod withdraw_pool;
 
 use ethers_contract::Abigen;
 
@@ -68,6 +69,7 @@ pub fn create_bindings(source_dir: String, output_dir: String) {
     generator.generate("Endpoint", "FEndpoint.json", "endpoint.rs");
     generator.generate("Verifier", "Verifier.json", "verifier.rs");
     generator.generate("Querier", "FQuerier.json", "querier.rs");
+    generator.generate("WithdrawPool", "WithdrawPool.json", "withdraw_pool.rs");
 
     // EngineToken because there is a collision with Token
     generator.generate("EngineToken", "FToken.json", "token.rs");

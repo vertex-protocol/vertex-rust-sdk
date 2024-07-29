@@ -30,7 +30,9 @@ pub async fn deposit_collateral<V: VertexExecute + Sync>(
     }
 
     if deposit_collateral_params.approves_allowance {
-        vertex.approve_allowance(product_id, amount).await?;
+        vertex
+            .approve_endpoint_allowance(product_id, amount)
+            .await?;
         if let Some(sleep_secs) = deposit_collateral_params.erc20_sleep_secs {
             println!("sleeping for {}s (erc20)", sleep_secs);
             tokio::time::sleep(Duration::from_secs(sleep_secs)).await;

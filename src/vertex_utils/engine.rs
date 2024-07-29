@@ -977,45 +977,6 @@ pub struct InsuranceResponse {
 }
 
 #[derive(
-    Archive,
-    RkyvDeserialize,
-    RkyvSerialize,
-    Clone,
-    Debug,
-    Default,
-    Eq,
-    PartialEq,
-    Serialize,
-    Deserialize,
-)]
-#[archive(check_bytes)]
-pub struct Versions {
-    pub endpoint: u64,
-    pub clearinghouse: u64,
-    pub clearinghouse_liq: u64,
-    pub spot_engine: u64,
-    pub perp_engine: u64,
-    pub querier: u64,
-    pub offchain_exchange: u64,
-}
-
-impl Versions {
-    pub fn default() -> Self {
-        Self {
-            endpoint: 0,
-            clearinghouse: 0,
-            clearinghouse_liq: 0,
-            spot_engine: 0,
-            perp_engine: 0,
-            querier: 0,
-            offchain_exchange: 0,
-        }
-    }
-}
-
-pub type VersionsResponse = Versions;
-
-#[derive(
     Clone,
     Debug,
     Default,
@@ -1193,8 +1154,9 @@ pub struct MinDepositRate {
     RkyvDeserialize,
 )]
 #[archive(check_bytes)]
-pub struct MinDepositRateResponse {
-    pub min_deposit_rates: HashMap<u32, MinDepositRate>,
+pub struct MinDepositRatesResponse {
+    // product_id -> MinDepositRate
+    pub min_deposit_rates: HashMap<String, MinDepositRate>,
 }
 
 #[derive(
@@ -1350,9 +1312,8 @@ pub enum QueryResponseData {
     MaxLpMintable(MaxLpMintableResponse),
     HealthGroups(HealthGroupsResponse),
     Insurance(InsuranceResponse),
-    Versions(VersionsResponse),
     Symbols(SymbolsResponse),
-    MinDepositRates(MinDepositRateResponse),
+    MinDepositRates(MinDepositRatesResponse),
     Error(String),
 }
 
@@ -1456,6 +1417,8 @@ pub enum QueryV2 {
     Pairs(MarketPairsParams),
 
     Assets {},
+
+    Apr {},
 }
 
 #[derive(Archive, RkyvDeserialize, RkyvSerialize, Clone, Serialize, Deserialize, Debug)]
@@ -1531,6 +1494,21 @@ pub struct MarketPair {
 }
 
 pub type MarketPairsResponse = Vec<MarketPair>;
+
+#[derive(
+    Clone, Debug, Default, Serialize, Deserialize, Archive, RkyvSerialize, RkyvDeserialize,
+)]
+#[archive(check_bytes)]
+pub struct MarketApr {
+    pub name: String,
+    pub symbol: String,
+    pub product_id: u32,
+    pub deposit_apr: f64,
+    pub borrow_apr: f64,
+    pub tvl: f64,
+}
+
+pub type MarketsAprResponse = Vec<MarketApr>;
 
 #[derive(
     Clone,

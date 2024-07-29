@@ -30,9 +30,6 @@ pub async fn query_sanity_check() -> Result<()> {
     let assets = client.get_assets().await?;
     print_json!(assets);
 
-    let versions = client.get_versions().await?;
-    print_json!(versions);
-
     let symbols = client.get_symbols(None, None).await?;
     print_json!(symbols);
 

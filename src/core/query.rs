@@ -9,7 +9,7 @@ use crate::engine::{
     MarketPairsParams, MarketPairsResponse, MarketPriceResponse, MarketPricesResponse,
     MaxLpMintableResponse, MaxOrderSizeResponse, MaxWithdrawableResponse, NoncesResponse,
     OrderResponse, OrderbookParams, OrderbookResponse, Query, QueryResponseData, QueryV2,
-    SubaccountInfoResponse, SubaccountOrdersResponse, SymbolsResponse, Txn, VersionsResponse,
+    SubaccountInfoResponse, SubaccountOrdersResponse, SymbolsResponse, Txn,
 };
 use crate::trigger;
 use crate::trigger::ListTriggerOrdersResponse;
@@ -161,11 +161,6 @@ pub trait VertexQuery: VertexBase + Sync {
     async fn get_insurance(&self) -> Result<InsuranceResponse> {
         let query_response = self.query(Query::Insurance {}).await?;
         map_response!(query_response, QueryResponseData::Insurance)
-    }
-
-    async fn get_versions(&self) -> Result<VersionsResponse> {
-        let query_response = self.query(Query::Versions {}).await?;
-        map_response!(query_response, QueryResponseData::Versions)
     }
 
     async fn get_symbols(

@@ -1,11 +1,14 @@
 use async_trait::async_trait;
-use ethers::prelude::U256;
+use ethers::prelude::{Address, U256};
 use ethers_core::types::{Bytes, TransactionReceipt};
 use ethers_signers::Signer;
 use eyre::{eyre, Result};
 
 use crate::bindings::endpoint::Endpoint;
 use crate::bindings::querier::Querier;
+use crate::builders::execute::deposit_collateral::DepositCollateralParams;
+use crate::builders::execute::slow_mode::SubmitSlowModeTxParams;
+use crate::core::query::VertexQuery;
 use crate::eip712_structs::{
     BurnLp, Cancellation, CancellationProducts, LinkSigner, LiquidateSubaccount, MintLp,
     WithdrawCollateral,
@@ -15,10 +18,6 @@ use crate::engine::{
 };
 use crate::provider::VertexProvider;
 use crate::trigger;
-
-use crate::builders::execute::deposit_collateral::DepositCollateralParams;
-use crate::builders::execute::slow_mode::SubmitSlowModeTxParams;
-use crate::core::query::VertexQuery;
 use crate::utils::deposit::{erc20_client, provider_with_signer};
 use crate::utils::response::match_cancel_orders_response;
 
@@ -173,13 +172,34 @@ pub trait VertexExecute: VertexQuery {
         deposit_collateral_params: DepositCollateralParams,
     ) -> Result<Option<TransactionReceipt>>;
 
+    async fn approve_endpoint_allowance(
+        &self,
+        product_id: u32,
+        amount: u128,
+    ) -> Result<Option<TransactionReceipt>> {
+        self.approve(self.endpoint_addr(), product_id, amount).await
+    }
+
+    #[deprecated(
+        since = "0.2.2",
+        note = "please use `approve_endpoint_allowance` or `approve` instead"
+    )]
     async fn approve_allowance(
         &self,
         product_id: u32,
         amount: u128,
     ) -> Result<Option<TransactionReceipt>> {
+        self.approve(self.endpoint_addr(), product_id, amount).await
+    }
+
+    async fn approve(
+        &self,
+        spender: Address,
+        product_id: u32,
+        amount: u128,
+    ) -> Result<Option<TransactionReceipt>> {
         let erc20_client = erc20_client(self, product_id).await?;
-        let tx = erc20_client.approve(self.endpoint_addr(), U256::from(amount));
+        let tx = erc20_client.approve(spender, U256::from(amount));
         let tx_receipt = tx.send().await?.await?;
         println!("approved: {amount} of product id: {product_id}");
         Ok(tx_receipt)

@@ -10,5 +10,6 @@
     "perpEngine": "0xb74C78cca0FADAFBeE52B2f48A67eE8c834b5fd1",
     "foundationRewardsAirdrop": "0x75A99528b5FC4D328473032c9f390db7C8BabdF1",
     "offchainExchange": "0xA4369d8E3dC847aEDf17F4125f1ABB1BC18FC060",
-    "verifier": "0xBfaB5f629C40751F557503d986b2E7696806E7f4"
+    "verifier": "0xBfaB5f629C40751F557503d986b2E7696806E7f4",
+    "withdrawPool": "0x3567a1f8d79046A7e93Fd76d71104A978cDC6d05"
 }

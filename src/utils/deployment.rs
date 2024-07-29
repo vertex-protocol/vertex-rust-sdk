@@ -13,4 +13,5 @@ pub struct Deployment {
     pub perp_engine: H160,
     pub querier: H160,
     pub offchain_exchange: H160,
+    pub verifier: H160,
 }

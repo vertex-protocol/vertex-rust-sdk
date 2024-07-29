@@ -2,9 +2,9 @@
 
 use crate::bindings::{endpoint, offchain_exchange};
 use crate::serialize_utils::{
-    deserialize_bytes32, deserialize_i128, deserialize_u128, deserialize_u64,
-    deserialize_vec_bytes32, serialize_bytes32, serialize_i128, serialize_u128, serialize_u64,
-    serialize_vec_bytes32,
+    deserialize_bytes20, deserialize_bytes32, deserialize_i128, deserialize_u128, deserialize_u64,
+    deserialize_vec_bytes32, serialize_bytes20, serialize_bytes32, serialize_i128, serialize_u128,
+    serialize_u64, serialize_vec_bytes32,
 };
 use ethers::prelude::*;
 use rkyv::{Archive, Deserialize as RkyvDeserialize, Serialize as RkyvSerialize};
@@ -637,6 +637,30 @@ pub struct StreamAuthentication {
         deserialize_with = "deserialize_bytes32"
     )]
     pub sender: [u8; 32],
+    #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
+    pub expiration: u64,
+}
+
+#[derive(
+    Serialize,
+    Deserialize,
+    Clone,
+    Debug,
+    Default,
+    Eq,
+    PartialEq,
+    Eip712,
+    ethers :: contract :: EthAbiType,
+    ethers :: contract :: EthAbiCodec,
+)]
+#[eip712()]
+#[allow(non_snake_case)]
+pub struct TaskAuthentication {
+    #[serde(
+        serialize_with = "serialize_bytes20",
+        deserialize_with = "deserialize_bytes20"
+    )]
+    pub sender: [u8; 20],
     #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
     pub expiration: u64,
 }
