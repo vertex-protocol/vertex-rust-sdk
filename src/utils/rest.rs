@@ -33,10 +33,21 @@ impl RestClient {
     ) -> Result<R> {
         request(self.client.post(url).json(payload)).await
     }
+
+    pub async fn debug_request<T: Serialize>(&self, url: &str, payload: &T) -> Result<()> {
+        debug_request(self.client.post(url).json(payload)).await
+    }
 }
 
 async fn request<R: DeserializeOwned + Send>(request: RequestBuilder) -> Result<R> {
     let response = request.send().await?;
     let response_data: VertexRestResponse<R> = response.json().await?;
     response_data.extract_response()
+}
+
+async fn debug_request(request: RequestBuilder) -> Result<()> {
+    let response = request.send().await?;
+    let response_data = response.text().await?;
+    println!("response_data: {:?}", response_data);
+    Ok(())
 }

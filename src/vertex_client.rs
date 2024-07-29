@@ -10,15 +10,18 @@ use std::time::Duration;
 
 use engine::Status;
 
+use crate::bindings::clearinghouse::Clearinghouse;
+use crate::bindings::withdraw_pool::WithdrawPool;
 use crate::builders::execute::deposit_collateral::DepositCollateralParams;
 use crate::builders::execute::slow_mode::SubmitSlowModeTxParams;
 use crate::eip712_structs::to_bytes12;
 use crate::engine::{ExecuteResponse, QueryV2};
 use crate::prelude::*;
+use crate::provider::VertexProvider;
 use crate::utils::client_error::{none_error, ClientError};
 use crate::utils::constants::SLOW_MODE_FEE;
 use crate::utils::deployment::Deployment;
-use crate::utils::deposit::deposit_collateral;
+use crate::utils::deposit::{deposit_collateral, provider_with_signer};
 use crate::utils::rest::RestClient;
 use crate::utils::signer::wallet_with_chain_id;
 use crate::{engine, indexer, trigger};
@@ -73,6 +76,14 @@ impl VertexClient {
             trigger_url,
             ..self.clone()
         }
+    }
+
+    pub async fn withdraw_pool(&self) -> Result<WithdrawPool<VertexProvider>> {
+        let provider = provider_with_signer(self)?;
+        let clearinghouse = Clearinghouse::new(self.deployment.clearinghouse, provider.clone());
+        let withdraw_pool_address = clearinghouse.get_withdraw_pool().call().await?;
+        let withdraw_pool = WithdrawPool::new(withdraw_pool_address, provider);
+        Ok(withdraw_pool)
     }
 }
 
@@ -173,7 +184,7 @@ impl VertexExecute for VertexClient {
             }
         }
         if params.approves_fee {
-            self.approve_allowance(0, SLOW_MODE_FEE).await?;
+            self.approve_endpoint_allowance(0, SLOW_MODE_FEE).await?;
             if let Some(sleep_secs) = params.erc20_sleep_secs {
                 println!("sleeping for {}s (erc20)", sleep_secs);
                 tokio::time::sleep(Duration::from_secs(sleep_secs)).await;

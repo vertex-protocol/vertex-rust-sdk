@@ -12,6 +12,7 @@ pub enum ClientMode {
     SepoliaTest,
     BlastTest,
     MantleTest,
+    SeiTest,
     Local,
     LocalAlt,
 }
@@ -58,10 +59,11 @@ impl ClientMode {
             Self::Local => "local",
             Self::LocalAlt => "local-alt",
             Self::SepoliaTest => "sepolia-test",
+            Self::MantleTest => "mantle-test",
             Self::BlastTest => "blast-test",
+            Self::SeiTest => "sei-test",
             Self::Prod => "prod",
             Self::BlastProd => "blast-prod",
-            Self::MantleTest => "mantle-test",
             Self::MantleProd => "mantle-prod",
         }
         .to_string()
@@ -73,6 +75,7 @@ impl ClientMode {
             "local-alt" => Self::LocalAlt,
             "sepolia-test" => Self::SepoliaTest,
             "blast-test" => Self::BlastTest,
+            "sei-test" => Self::SeiTest,
             "prod" => Self::Prod,
             "blast-prod" => Self::BlastProd,
             "mantle-test" => Self::MantleTest,

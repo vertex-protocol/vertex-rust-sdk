@@ -1,9 +1,11 @@
+use crate::bindings::endpoint::WithdrawCollateral;
 use crate::bindings::querier::{PerpBalance, PerpProduct, SpotBalance, SpotProduct};
 use crate::eip712_structs;
 use crate::serialize_utils::{
     deserialize_bytes20, deserialize_bytes32, deserialize_f64, deserialize_i128, deserialize_i64,
-    deserialize_u64, serialize_bytes20, serialize_bytes32, serialize_f64, serialize_i128,
-    serialize_i64, serialize_u64, WrappedBytes32, WrappedI128, WrappedU32, WrappedU64,
+    deserialize_u64, deserialize_vec_bytes20, serialize_bytes20, serialize_bytes32, serialize_f64,
+    serialize_i128, serialize_i64, serialize_u64, serialize_vec_bytes20, WrappedBytes32,
+    WrappedI128, WrappedU32, WrappedU64,
 };
 use crate::tx::{TxType, VertexTx};
 use ethers::types::H160;
@@ -243,6 +245,16 @@ pub enum Query {
 
     LeaderboardContests {
         contest_ids: Vec<WrappedU32>,
+    },
+
+    FastWithdrawalSignature {
+        idx: WrappedU64,
+    },
+
+    ActiveUsers {
+        start_time: WrappedU64,
+        end_time: WrappedU64,
+        api_key: String,
     },
 }
 
@@ -640,6 +652,15 @@ pub struct TakerRewardsResponse {
     pub total_referrals: u64,
 }
 
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ActiveUsersResponse {
+    #[serde(
+        serialize_with = "serialize_vec_bytes20",
+        deserialize_with = "deserialize_vec_bytes20"
+    )]
+    pub addresses: Vec<[u8; 20]>,
+}
+
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct FoundationGlobalReward {
     pub product_id: u32,
@@ -703,6 +724,19 @@ pub struct InitialDropConditionsResponse {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
+pub struct Phase2BlitzPoints {
+    pub epoch: u32,
+    #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
+    pub start_time: u64,
+    #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
+    pub period: u64,
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub trading_points: f64,
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub referral_points: f64,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
 pub struct BlitzPointsResponse {
     #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
     pub initial_points: f64,
@@ -710,6 +744,7 @@ pub struct BlitzPointsResponse {
     pub trading_points: f64,
     #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
     pub referral_points: f64,
+    pub phase2_points: Vec<Phase2BlitzPoints>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -1225,4 +1260,12 @@ pub struct LeaderboardRankResponse {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct LeaderboardContestsResponse {
     pub contests: Vec<LeaderboardContest>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct FastWithdrawalSignatureResponse {
+    pub idx: WrappedU64,
+    pub tx: WithdrawCollateral,
+    pub tx_bytes: Bytes,
+    pub signatures: Vec<Bytes>,
 }

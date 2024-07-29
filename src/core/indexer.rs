@@ -6,16 +6,17 @@ use eyre::Result;
 use serde::de::DeserializeOwned;
 
 use crate::core::base::VertexBase;
-use crate::indexer::LiquidatableAccount;
+use crate::indexer::Query::FastWithdrawalSignature;
 use crate::indexer::{
     AccountSnapshotsResponse, ArbRewardsResponse, CandlesticksResponse, EventsResponse,
-    FundingRateResponse, InterestAndFundingTicksResponse, LinkedSignerRateLimitResponse,
-    LinkedSignerResponse, MakerStatisticsResponse, MarketSnapshotsResponse, MatchesResponse,
-    MerkleProofsResponse, OraclePriceResponse, OrdersResponse, PerpContractResponse,
-    PerpPriceResponse, ProductSnapshot, ProductsResponse, Query, QueryV2, ReferralCodeResponse,
-    RewardsResponse, SubaccountsResponse, SummaryResponse, TickerResponse, TickersParams,
-    TimestampOrTimestamps, TradesResponse, UsdcPriceResponse,
+    FundingRateResponse, InterestAndFundingTicksResponse, LeaderboardResponse,
+    LinkedSignerRateLimitResponse, LinkedSignerResponse, MakerStatisticsResponse,
+    MarketSnapshotsResponse, MatchesResponse, MerkleProofsResponse, OraclePriceResponse,
+    OrdersResponse, PerpContractResponse, PerpPriceResponse, ProductSnapshot, ProductsResponse,
+    Query, QueryV2, ReferralCodeResponse, RewardsResponse, SubaccountsResponse, SummaryResponse,
+    TickerResponse, TickersParams, TimestampOrTimestamps, TradesResponse, UsdcPriceResponse,
 };
+use crate::indexer::{FastWithdrawalSignatureResponse, LiquidatableAccount};
 use crate::serialize_utils::{WrappedU32, WrappedU64};
 use crate::utils::wrapped_option_utils::wrapped_option_u64;
 
@@ -207,5 +208,19 @@ pub trait VertexIndexer: VertexBase {
 
     async fn get_contracts_v2(&self) -> Result<HashMap<String, PerpContractResponse>> {
         self.query_v2("/contracts", QueryV2::Contracts {}).await
+    }
+
+    async fn get_leaderboard(&self, query: Query) -> Result<LeaderboardResponse> {
+        self.query(query).await
+    }
+
+    async fn get_fast_withdrawal_signature(
+        &self,
+        idx: u64,
+    ) -> Result<FastWithdrawalSignatureResponse> {
+        self.query(FastWithdrawalSignature {
+            idx: WrappedU64(idx),
+        })
+        .await
     }
 }

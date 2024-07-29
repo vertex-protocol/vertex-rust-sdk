@@ -14,6 +14,7 @@ use crate::builders::indexer::candlesticks::CandlesticksBuilder;
 use crate::builders::indexer::events::EventsBuilder;
 use crate::builders::indexer::historical_orders::HistoricalOrdersBuilder;
 use crate::builders::indexer::interest_and_funding::InterestAndFundingTicksBuilder;
+use crate::builders::indexer::leaderboard::LeaderboardBuilder;
 use crate::builders::indexer::maker_statistics::MakerStatisticsBuilder;
 use crate::builders::indexer::market_snapshots::MarketSnapshotsBuilder;
 use crate::builders::indexer::matches::MatchesBuilder;
@@ -26,6 +27,7 @@ use crate::builders::query::max_order_size::MaxOrderSizeBuilder;
 use crate::builders::query::max_withdrawable::MaxWithdrawableBuilder;
 use crate::builders::trigger::list_trigger_orders::ListTriggerOrdersBuilder;
 use crate::builders::utils::fee_calculator::FeeCalculator;
+
 use crate::core::execute::VertexExecute;
 use crate::core::indexer::VertexIndexer;
 
@@ -81,4 +83,5 @@ pub trait VertexBuilder: VertexExecute + VertexIndexer {
     get_vertex_builder!(get_market_snapshots_builder, MarketSnapshotsBuilder);
     get_vertex_builder!(get_trades_builder, TradesParamsBuilder);
     get_vertex_builder!(fee_calculator, FeeCalculator);
+    get_vertex_builder!(get_leaderboard_builder, LeaderboardBuilder);
 }
