@@ -1,6 +1,7 @@
 pub mod account_snapshots;
 pub mod candlesticks;
 pub mod events;
+pub mod foundation_taker_rewards;
 pub mod historical_orders;
 pub mod interest_and_funding;
 pub mod leaderboard;
