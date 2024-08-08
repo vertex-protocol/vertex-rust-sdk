@@ -12,6 +12,7 @@ use crate::builders::execute::withdraw_collateral::WithdrawCollateralBuilder;
 use crate::builders::indexer::account_snapshots::AccountSnapshotsBuilder;
 use crate::builders::indexer::candlesticks::CandlesticksBuilder;
 use crate::builders::indexer::events::EventsBuilder;
+use crate::builders::indexer::foundation_taker_rewards::FoundationTakerRewardsBuilder;
 use crate::builders::indexer::historical_orders::HistoricalOrdersBuilder;
 use crate::builders::indexer::interest_and_funding::InterestAndFundingTicksBuilder;
 use crate::builders::indexer::leaderboard::LeaderboardBuilder;
@@ -84,4 +85,8 @@ pub trait VertexBuilder: VertexExecute + VertexIndexer {
     get_vertex_builder!(get_trades_builder, TradesParamsBuilder);
     get_vertex_builder!(fee_calculator, FeeCalculator);
     get_vertex_builder!(get_leaderboard_builder, LeaderboardBuilder);
+    get_vertex_builder!(
+        get_foundation_taker_rewards_builder,
+        FoundationTakerRewardsBuilder
+    );
 }

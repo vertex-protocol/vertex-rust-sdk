@@ -3,7 +3,7 @@ use include_dir::{include_dir, Dir};
 use std::fs;
 use std::path::Path;
 
-static CONFIGS: Dir = include_dir!("$CARGO_MANIFEST_DIR/src/vertex_utils/configs");
+pub static CONFIGS: Dir = include_dir!("$CARGO_MANIFEST_DIR/src/vertex_utils/configs");
 #[derive(Clone, PartialEq)]
 pub enum ClientMode {
     Prod,
@@ -13,6 +13,7 @@ pub enum ClientMode {
     BlastTest,
     MantleTest,
     SeiTest,
+    SeiProd,
     Local,
     LocalAlt,
 }
@@ -65,6 +66,7 @@ impl ClientMode {
             Self::Prod => "prod",
             Self::BlastProd => "blast-prod",
             Self::MantleProd => "mantle-prod",
+            Self::SeiProd => "sei-prod",
         }
         .to_string()
     }
@@ -80,6 +82,7 @@ impl ClientMode {
             "blast-prod" => Self::BlastProd,
             "mantle-test" => Self::MantleTest,
             "mantle-prod" => Self::MantleProd,
+            "sei-prod" => Self::SeiProd,
             _ => panic!("Unknown envtag: {}", envtag),
         }
     }

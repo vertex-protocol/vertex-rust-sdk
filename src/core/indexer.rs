@@ -8,13 +8,14 @@ use serde::de::DeserializeOwned;
 use crate::core::base::VertexBase;
 use crate::indexer::Query::FastWithdrawalSignature;
 use crate::indexer::{
-    AccountSnapshotsResponse, ArbRewardsResponse, CandlesticksResponse, EventsResponse,
-    FundingRateResponse, InterestAndFundingTicksResponse, LeaderboardResponse,
-    LinkedSignerRateLimitResponse, LinkedSignerResponse, MakerStatisticsResponse,
-    MarketSnapshotsResponse, MatchesResponse, MerkleProofsResponse, OraclePriceResponse,
-    OrdersResponse, PerpContractResponse, PerpPriceResponse, ProductSnapshot, ProductsResponse,
-    Query, QueryV2, ReferralCodeResponse, RewardsResponse, SubaccountsResponse, SummaryResponse,
-    TickerResponse, TickersParams, TimestampOrTimestamps, TradesResponse, UsdcPriceResponse,
+    AccountSnapshotsResponse, ArbRewardsResponse, CandlesticksResponse,
+    EventsResponse, FoundationTakerRewardsResponse, FundingRateResponse,
+    InterestAndFundingTicksResponse, LeaderboardResponse, LinkedSignerRateLimitResponse,
+    LinkedSignerResponse, MakerStatisticsResponse, MarketSnapshotsResponse, MatchesResponse,
+    MerkleProofsResponse, OraclePriceResponse, OrdersResponse, PerpContractResponse,
+    PerpPriceResponse, ProductSnapshot, ProductsResponse, Query, QueryV2, ReferralCodeResponse,
+    RewardsResponse, SubaccountsResponse, SummaryResponse, TickerResponse, TickersParams,
+    TimestampOrTimestamps, TradesResponse, UsdcPriceResponse,
 };
 use crate::indexer::{FastWithdrawalSignatureResponse, LiquidatableAccount};
 use crate::serialize_utils::{WrappedU32, WrappedU64};
@@ -222,5 +223,12 @@ pub trait VertexIndexer: VertexBase {
             idx: WrappedU64(idx),
         })
         .await
+    }
+
+    async fn get_foundation_taker_rewards(
+        &self,
+        query: Query,
+    ) -> Result<FoundationTakerRewardsResponse> {
+        self.query(query).await
     }
 }

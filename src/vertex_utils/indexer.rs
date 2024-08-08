@@ -14,7 +14,7 @@ use eyre::{eyre, Result};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(untagged)]
 pub enum TimestampOrTimestamps {
     Timestamp(WrappedU64),
@@ -34,7 +34,7 @@ impl TimestampOrTimestamps {
     }
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "snake_case")]
 pub enum Query {
     LiquidationFeed {},
@@ -254,6 +254,12 @@ pub enum Query {
     ActiveUsers {
         start_time: WrappedU64,
         end_time: WrappedU64,
+        api_key: String,
+    },
+
+    Ratelimit {
+        ip: Option<String>,
+        wallet: Option<String>,
         api_key: String,
     },
 }
@@ -659,6 +665,19 @@ pub struct ActiveUsersResponse {
         deserialize_with = "deserialize_vec_bytes20"
     )]
     pub addresses: Vec<[u8; 20]>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct RatelimitResponse {
+    pub description: Option<String>,
+    pub ip: Option<String>,
+    pub wallet: Option<String>,
+    pub gateway_query: Option<[u64; 2]>,
+    pub gateway_execute: Option<[u64; 2]>,
+    pub archive_query: Option<[u64; 2]>,
+    pub subscriptions: Option<u64>,
+    pub authenticated_subscriptions: Option<u64>,
+    pub private_gateway_access: Option<bool>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -1183,7 +1202,7 @@ pub struct AccountSnapshotsResponse {
     pub snapshots: HashMap<WrappedBytes32, HashMap<WrappedU64, Vec<Event>>>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "snake_case")]
 pub struct Interval {
     pub count: u64,
