@@ -7,6 +7,10 @@ pub mod query;
 macro_rules! print_json {
     ($data:expr) => {{
         let label = stringify!($data);
-        println!("{}: {}", label, serde_json::to_string_pretty(&$data)?);
+        println!(
+            "{}: {}",
+            label,
+            serde_json::to_string_pretty(&$data).unwrap()
+        );
     }};
 }

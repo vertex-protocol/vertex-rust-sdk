@@ -48,6 +48,6 @@ async fn request<R: DeserializeOwned + Send>(request: RequestBuilder) -> Result<
 async fn debug_request(request: RequestBuilder) -> Result<()> {
     let response = request.send().await?;
     let response_data = response.text().await?;
-    println!("response_data: {:?}", response_data);
+    println!("response_data: {}", response_data);
     Ok(())
 }
