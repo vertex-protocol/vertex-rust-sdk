@@ -604,6 +604,30 @@ where
     f64::from_str(&s).map_err(|_| D::Error::custom("invalid f64 value"))
 }
 
+#[derive(Clone, Debug, PartialEq, Deserialize, Serialize, Default)]
+pub struct WrappedF64(
+    #[serde(deserialize_with = "deserialize_f64", serialize_with = "serialize_f64")] pub f64,
+);
+
+pub fn serialize_option_f64<S>(value: &Option<f64>, serializer: S) -> Result<S::Ok, S::Error>
+where
+    S: Serializer,
+{
+    if let Some(value) = value {
+        serialize_f64(value, serializer)
+    } else {
+        serializer.serialize_none()
+    }
+}
+
+pub fn deserialize_option_f64<'de, D>(deserializer: D) -> Result<Option<f64>, D::Error>
+where
+    D: Deserializer<'de>,
+{
+    Option::<WrappedF64>::deserialize(deserializer)
+        .map(|opt_wrapped: Option<WrappedF64>| opt_wrapped.map(|wrapped: WrappedF64| wrapped.0))
+}
+
 pub fn str_or_i64<'de, D>(deserializer: D) -> Result<i64, D::Error>
 where
     D: Deserializer<'de>,

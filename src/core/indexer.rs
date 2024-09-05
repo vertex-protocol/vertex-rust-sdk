@@ -104,12 +104,7 @@ pub trait VertexIndexer: VertexBase {
         self.query(matches_query).await
     }
 
-    async fn get_rewards(&self, address: H160) -> Result<RewardsResponse> {
-        let query = Query::Rewards {
-            address,
-            start: None,
-            limit: None,
-        };
+    async fn get_rewards(&self, query: Query) -> Result<RewardsResponse> {
         self.query(query).await
     }
 

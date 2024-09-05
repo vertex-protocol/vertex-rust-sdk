@@ -34,8 +34,6 @@ pub enum TxType {
     UpdateFeeRates = 20,
     BurnLpAndTransfer = 21,
     MatchOrdersRFQ = 22,
-    // TODO: transfer quote is missing some more setup, eg: TxType.
-    // need to confirm expected behavior, handling, etc
     TransferQuote = 23,
     RebalanceXWithdraw = 24,
     UpdateMinDepositRate = 25,

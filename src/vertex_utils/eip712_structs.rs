@@ -561,6 +561,11 @@ pub struct TransferQuote {
         deserialize_with = "deserialize_bytes32"
     )]
     pub recipient: [u8; 32],
+    #[serde(
+        serialize_with = "serialize_u128",
+        deserialize_with = "deserialize_u128"
+    )]
+    // #[ts(type = "BigNumberish")]
     pub amount: u128,
     #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
     pub nonce: u64,

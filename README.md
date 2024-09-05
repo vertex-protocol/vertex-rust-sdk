@@ -7,7 +7,7 @@ This is the Rust SDK for the [Vertex Protocol API](https://vertex-protocol.gitbo
 
 ## Quickstart
 Instantiate a client on the chain you would like to interact with. 
-For example, `ClientMode::Prod` to use Arbitrum and `ClientMode::BlastProd` to use Blast.
+For example, `ClientMode::Prod` to use Arbitrum and `ClientMode::BaseProd` to use Base, etc.
 A signer (private key) is required for executes. 
 A signer is not required for queries.
 For requests with many parameters, use the client to build and send requests.
@@ -60,7 +60,7 @@ async fn main() {
 Add the following line to your Cargo.toml file:
 ```toml
 [dependencies]
-vertex_sdk = "0.2.5"
+vertex_sdk = "0.2.6"
 ```
 
 ## Usage 

@@ -103,4 +103,11 @@ impl Product {
             _ => None,
         }
     }
+
+    pub fn symbol(&self) -> String {
+        match self {
+            Product::Spot { symbol, .. } => symbol.clone(),
+            Product::Perp { symbol, .. } => symbol.clone(),
+        }
+    }
 }

@@ -8,4 +8,5 @@ pub mod liquidate_subaccount;
 pub mod mint_lp;
 pub mod place_order;
 pub mod slow_mode;
+pub mod transfer_quote;
 pub mod withdraw_collateral;

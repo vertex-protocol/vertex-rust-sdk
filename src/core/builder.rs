@@ -8,6 +8,7 @@ use crate::builders::execute::liquidate_subaccount::LiquidateSubaccountBuilder;
 use crate::builders::execute::mint_lp::MintLpBuilder;
 use crate::builders::execute::place_order::PlaceOrderBuilder;
 use crate::builders::execute::slow_mode::SubmitSlowModeTxBuilder;
+use crate::builders::execute::transfer_quote::TransferQuoteBuilder;
 use crate::builders::execute::withdraw_collateral::WithdrawCollateralBuilder;
 use crate::builders::indexer::account_snapshots::AccountSnapshotsBuilder;
 use crate::builders::indexer::candlesticks::CandlesticksBuilder;
@@ -21,6 +22,7 @@ use crate::builders::indexer::market_snapshots::MarketSnapshotsBuilder;
 use crate::builders::indexer::matches::MatchesBuilder;
 use crate::builders::indexer::multi_product_snapshots::MultiProductSnapshotsBuilder;
 use crate::builders::indexer::product_snapshots::ProductSnapshotsBuilder;
+use crate::builders::indexer::rewards::RewardsBuilder;
 use crate::builders::indexer::subaccounts::SubaccountsBuilder;
 use crate::builders::indexer::trades::TradesParamsBuilder;
 use crate::builders::query::max_lp_mintable::MaxLpMintableBuilder;
@@ -58,6 +60,7 @@ pub trait VertexBuilder: VertexExecute + VertexIndexer {
     get_vertex_builder!(mint_lp_builder, MintLpBuilder);
     get_vertex_builder!(burn_lp_builder, BurnLpBuilder);
     get_vertex_builder!(link_signer_builder, LinkSignerBuilder);
+    get_vertex_builder!(transfer_quote_builder, TransferQuoteBuilder);
     get_vertex_builder!(submit_slow_mode_tx_builder, SubmitSlowModeTxBuilder);
     get_vertex_builder!(deposit_insurance_builder, DepositInsuranceBuilder);
 
@@ -85,6 +88,7 @@ pub trait VertexBuilder: VertexExecute + VertexIndexer {
     get_vertex_builder!(get_trades_builder, TradesParamsBuilder);
     get_vertex_builder!(fee_calculator, FeeCalculator);
     get_vertex_builder!(get_leaderboard_builder, LeaderboardBuilder);
+    get_vertex_builder!(get_rewards_builder, RewardsBuilder);
     get_vertex_builder!(
         get_foundation_taker_rewards_builder,
         FoundationTakerRewardsBuilder

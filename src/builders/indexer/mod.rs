@@ -10,5 +10,6 @@ pub mod market_snapshots;
 pub mod matches;
 pub mod multi_product_snapshots;
 pub mod product_snapshots;
+pub mod rewards;
 pub mod subaccounts;
 pub mod trades;
