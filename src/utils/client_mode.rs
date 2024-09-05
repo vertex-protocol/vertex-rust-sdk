@@ -88,6 +88,7 @@ impl ClientMode {
             "mantle-test" => Self::MantleTest,
             "mantle-prod" => Self::MantleProd,
             "sei-prod" => Self::SeiProd,
+            "base-prod" => Self::BaseProd,
             _ => panic!("Unknown envtag: {}", envtag),
         }
     }
