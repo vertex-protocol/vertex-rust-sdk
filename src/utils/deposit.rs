@@ -31,7 +31,12 @@ pub async fn deposit_collateral<V: VertexExecute + Sync>(
 
     if deposit_collateral_params.approves_allowance {
         vertex
-            .approve_endpoint_allowance(product_id, amount)
+            .approve_with_gas_price(
+                vertex.endpoint_addr(),
+                product_id,
+                amount,
+                deposit_collateral_params.gas_price,
+            )
             .await?;
         if let Some(sleep_secs) = deposit_collateral_params.erc20_sleep_secs {
             println!("sleeping for {}s (erc20)", sleep_secs);

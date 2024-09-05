@@ -11,7 +11,7 @@ use crate::builders::execute::slow_mode::SubmitSlowModeTxParams;
 use crate::core::query::VertexQuery;
 use crate::eip712_structs::{
     BurnLp, Cancellation, CancellationProducts, LinkSigner, LiquidateSubaccount, MintLp,
-    WithdrawCollateral,
+    TransferQuote, WithdrawCollateral,
 };
 use crate::engine::{
     CancelOrdersResponse, Execute, ExecuteResponseData, PlaceOrder, PlaceOrderResponse,
@@ -154,6 +154,13 @@ pub trait VertexExecute: VertexQuery {
         Ok(())
     }
 
+    async fn transfer_quote(&self, tx: TransferQuote) -> Result<()> {
+        let signature = self.endpoint_signature(&tx)?;
+        let execute = Execute::TransferQuote { tx, signature };
+        self.execute(execute).await?;
+        Ok(())
+    }
+
     async fn link_signer(&self, tx: LinkSigner) -> Result<()> {
         let signature = self.endpoint_signature(&tx)?;
         let execute = Execute::LinkSigner { tx, signature };
@@ -198,8 +205,22 @@ pub trait VertexExecute: VertexQuery {
         product_id: u32,
         amount: u128,
     ) -> Result<Option<TransactionReceipt>> {
+        self.approve_with_gas_price(spender, product_id, amount, None)
+            .await
+    }
+
+    async fn approve_with_gas_price(
+        &self,
+        spender: Address,
+        product_id: u32,
+        amount: u128,
+        gas_price: Option<u128>,
+    ) -> Result<Option<TransactionReceipt>> {
         let erc20_client = erc20_client(self, product_id).await?;
-        let tx = erc20_client.approve(spender, U256::from(amount));
+        let mut tx = erc20_client.approve(spender, U256::from(amount));
+        if let Some(price) = gas_price {
+            tx = tx.gas_price(price)
+        }
         let tx_receipt = tx.send().await?.await?;
         println!("approved: {amount} of product id: {product_id}");
         Ok(tx_receipt)

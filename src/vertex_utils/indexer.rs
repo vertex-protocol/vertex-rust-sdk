@@ -3,9 +3,9 @@ use crate::bindings::querier::{PerpBalance, PerpProduct, SpotBalance, SpotProduc
 use crate::eip712_structs;
 use crate::serialize_utils::{
     deserialize_bytes20, deserialize_bytes32, deserialize_f64, deserialize_i128, deserialize_i64,
-    deserialize_u64, deserialize_vec_bytes20, serialize_bytes20, serialize_bytes32, serialize_f64,
-    serialize_i128, serialize_i64, serialize_u64, serialize_vec_bytes20, WrappedBytes32,
-    WrappedI128, WrappedU32, WrappedU64,
+    deserialize_option_f64, deserialize_u64, deserialize_vec_bytes20, serialize_bytes20,
+    serialize_bytes32, serialize_f64, serialize_i128, serialize_i64, serialize_option_f64,
+    serialize_u64, serialize_vec_bytes20, WrappedBytes32, WrappedI128, WrappedU32, WrappedU64,
 };
 use crate::tx::{TxType, VertexTx};
 use ethers::types::H160;
@@ -235,7 +235,7 @@ pub enum Query {
     },
 
     LeaderboardRank {
-        contest_id: WrappedU32,
+        contest_ids: Vec<WrappedU32>,
         #[serde(
             deserialize_with = "deserialize_bytes32",
             serialize_with = "serialize_bytes32"
@@ -1244,6 +1244,11 @@ pub struct LeaderboardPosition {
     pub roi_rank: u64,
     #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
     pub account_value: f64,
+    #[serde(
+        serialize_with = "serialize_option_f64",
+        deserialize_with = "deserialize_option_f64"
+    )]
+    pub volume: Option<f64>,
     #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
     pub update_time: u64,
 }
@@ -1261,8 +1266,11 @@ pub struct LeaderboardContest {
     pub count: u64,
     #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
     pub threshold: f64,
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub volume_threshold: f64,
     #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
     pub last_updated: u64,
+    pub product_ids: Vec<u32>,
     pub active: bool,
 }
 
@@ -1273,7 +1281,7 @@ pub struct LeaderboardResponse {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct LeaderboardRankResponse {
-    pub position: Option<LeaderboardPosition>,
+    pub positions: HashMap<String, LeaderboardPosition>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]

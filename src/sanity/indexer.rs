@@ -5,7 +5,6 @@ use crate::serialize_utils::WrappedU32;
 use crate::utils::private_key::private_key;
 use crate::utils::time::timestamp;
 use crate::vertex_client::VertexClient;
-use ethers::prelude::H160;
 use eyre::Result;
 
 pub async fn indexer_sanity_check() -> Result<()> {
@@ -24,7 +23,11 @@ pub async fn indexer_sanity_check() -> Result<()> {
     let oracle_price = client.get_oracle_price(vec![1, 2]).await?;
     print_json!(oracle_price);
 
-    let rewards = client.get_rewards(H160::from([0; 20])).await?;
+    let rewards = client
+        .get_rewards_builder()
+        .address([0; 20])
+        .query()
+        .await?;
     print_json!(rewards);
 
     let subaccount_summary = client.get_subaccount_summary([0; 32], None).await?;
