@@ -9,16 +9,18 @@ pub mod utils;
 macro_rules! vertex_builder {
     ($name:ident, $trait_bounds:ident, $($field:ident: $ftype:ty),*; $($custom_impl:tt)*) => {
         #[derive(Clone)]
-        pub struct $name<'a, V: $trait_bounds> {
+        pub struct $name<'a, S: crate::utils::signer::Signer, V: $trait_bounds<S>> {
             vertex: &'a V,
             $( $field: Option<$ftype>, )*
+            _p: std::marker::PhantomData<S>,
         }
 
-        impl<'a, V: $trait_bounds> $name<'a, V> {
+        impl<'a, S: crate::utils::signer::Signer, V: $trait_bounds<S>> $name<'a, S, V> {
             pub fn new(vertex: &'a V) -> Self {
                 Self {
                     vertex,
                     $( $field: None, )*
+                    _p: std::marker::PhantomData,
                 }
             }
 

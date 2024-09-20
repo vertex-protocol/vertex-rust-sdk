@@ -1,3 +1,5 @@
+use std::str::FromStr;
+use ethers_signers::Wallet;
 use crate::indexer::Limit;
 use crate::prelude::*;
 use crate::print_json;
@@ -8,8 +10,9 @@ use crate::vertex_client::VertexClient;
 use eyre::Result;
 
 pub async fn indexer_sanity_check() -> Result<()> {
+    let signer = Wallet::from_str(&private_key())?;
     let client = VertexClient::new(ClientMode::Local)
-        .with_signer(private_key())
+        .with_signer(signer)
         .await?;
     let funding_rate = client.get_funding_rate(1).await?;
     print_json!(funding_rate);

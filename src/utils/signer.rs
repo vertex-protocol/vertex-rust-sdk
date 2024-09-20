@@ -1,25 +1,36 @@
 use core::fmt::Debug;
 use std::str::FromStr;
-
 use ethers::prelude::k256::ecdsa::SigningKey;
-use ethers::prelude::{H160, U256};
+use ethers::prelude::{H160, H256, U256};
 use ethers::types::Signature;
 use ethers_core::types::transaction::eip712::{EIP712Domain, Eip712};
-use ethers_signers::Signer;
-use ethers_signers::Wallet;
+use ethers_signers::{Signer as EtherSigner, Wallet};
 use eyre::Result;
 
 use crate::tx::{domain, get_eip712_digest};
 
 use crate::core::base::VertexBase;
 
-pub struct VertexSigner<'a, V: VertexBase> {
-    vertex: &'a V,
+pub trait Signer: EtherSigner + Clone + 'static {
+    
+    fn sign_hash(&self, hash: H256) -> std::result::Result<Signature, Self::Error>;
 }
 
-impl<'a, V: VertexBase> VertexSigner<'a, V> {
+impl Signer for Wallet<SigningKey> {
+
+    fn sign_hash(&self, hash: H256) -> std::result::Result<Signature, Self::Error> {
+        Self::sign_hash(self, hash)
+    }
+}
+
+pub struct VertexSigner<'a, S: Signer, V: VertexBase<S>> {
+    vertex: &'a V,
+    _p: std::marker::PhantomData<S>,
+}
+
+impl<'a, S: Signer, V: VertexBase<S>> VertexSigner<'a, S, V> {
     pub fn new(vertex: &'a V) -> Self {
-        Self { vertex }
+        Self { vertex, _p: std::marker::PhantomData }
     }
 
     pub fn endpoint_digest<T: Eip712 + Send + Sync + Debug>(&self, tx: &T) -> Result<[u8; 32]> {

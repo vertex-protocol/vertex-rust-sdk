@@ -1,21 +1,18 @@
 use std::fmt::Debug;
 
 use async_trait::async_trait;
-use ethers::prelude::*;
-use ethers_core::k256::ecdsa::SigningKey;
+use ethers::prelude::{H160, U256};
 use ethers_core::types::transaction::eip712::Eip712;
-use ethers_signers::Signer;
-use ethers_signers::Wallet;
 use eyre::Result;
 
 use crate::eip712_structs::{concat_to_bytes32, to_bytes12};
 
 use crate::utils::client_utils::validate_subaccount_name;
-use crate::utils::signer::VertexSigner;
+use crate::utils::signer::{Signer, VertexSigner};
 
 #[async_trait]
-pub trait VertexBase: Clone + Sync {
-    async fn with_signer(&self, private_key: String) -> Result<Self>;
+pub trait VertexBase<S: Signer>: Clone + Sync {
+    async fn with_signer(&self, signer: S) -> Result<Self>;
 
     fn with_subaccount_name(&self, subaccount_name: &str) -> Self {
         validate_subaccount_name(subaccount_name).unwrap();
@@ -24,7 +21,7 @@ pub trait VertexBase: Clone + Sync {
 
     fn with_subaccount_name_bytes(&self, subaccount_name: [u8; 12]) -> Self;
 
-    fn wallet(&self) -> Result<&Wallet<SigningKey>>;
+    fn wallet(&self) -> Result<&S>;
 
     fn address(&self) -> Result<[u8; 20]> {
         Ok(self.wallet()?.address().into())
@@ -38,7 +35,7 @@ pub trait VertexBase: Clone + Sync {
 
     fn subaccount_name_bytes(&self) -> [u8; 12];
 
-    fn signer(&self) -> VertexSigner<Self> {
+    fn signer(&self) -> VertexSigner<S, Self> {
         VertexSigner::new(self)
     }
 

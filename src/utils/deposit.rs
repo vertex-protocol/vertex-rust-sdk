@@ -13,8 +13,9 @@ use ethers_providers::Provider;
 use eyre::{eyre, Result};
 use std::sync::Arc;
 use std::time::Duration;
+use crate::utils::signer::Signer;
 
-pub async fn deposit_collateral<V: VertexExecute + Sync>(
+pub async fn deposit_collateral<S: Signer, V: VertexExecute<S> + Sync>(
     vertex: &V,
     deposit_collateral_params: DepositCollateralParams,
 ) -> Result<Option<TransactionReceipt>> {
@@ -47,7 +48,7 @@ pub async fn deposit_collateral<V: VertexExecute + Sync>(
     endpoint_deposit_call(vertex, &deposit_collateral_params).await
 }
 
-pub fn provider_with_signer<V: VertexExecute>(vertex: &V) -> Result<Arc<VertexProvider>> {
+pub fn provider_with_signer<S: Signer, V: VertexExecute<S>>(vertex: &V) -> Result<Arc<VertexProvider<S>>> {
     let provider = Provider::new_client(&vertex.node_url(), 15, 500)?;
     let wallet = vertex.wallet()?.clone();
     Ok(Arc::new(SignerMiddleware::new(
@@ -56,17 +57,17 @@ pub fn provider_with_signer<V: VertexExecute>(vertex: &V) -> Result<Arc<VertexPr
     )))
 }
 
-pub async fn erc20_client<V: VertexExecute + Sync>(
+pub async fn erc20_client<S: Signer, V: VertexExecute<S> + Sync>(
     vertex: &V,
     product_id: u32,
-) -> Result<MockERC20<VertexProvider>> {
+) -> Result<MockERC20<VertexProvider<S>>> {
     let token_address = vertex.get_token_address(product_id).await?;
     let client = provider_with_signer(vertex)?;
     let remote_quote = MockERC20::new(token_address, client.clone());
     Ok(remote_quote)
 }
 
-pub async fn endpoint_deposit_call<V: VertexExecute>(
+pub async fn endpoint_deposit_call<S: Signer, V: VertexExecute<S>>(
     vertex: &V,
     deposit_collateral_params: &DepositCollateralParams,
 ) -> Result<Option<TransactionReceipt>> {
@@ -74,7 +75,7 @@ pub async fn endpoint_deposit_call<V: VertexExecute>(
     let amount = deposit_collateral_params.amount;
     let subaccount = deposit_collateral_params.subaccount;
 
-    let endpoint: Endpoint<VertexProvider> = vertex.endpoint()?;
+    let endpoint: Endpoint<VertexProvider<S>> = vertex.endpoint()?;
     let mut tx = if let Some(referral_code) = deposit_collateral_params.referral_code.clone() {
         endpoint.deposit_collateral_with_referral(subaccount, product_id, amount, referral_code)
     } else {
@@ -99,7 +100,7 @@ pub async fn endpoint_deposit_call<V: VertexExecute>(
     match tx_receipt {
         Ok(receipt) => Ok(receipt),
         Err(e) => Err(eyre!(parse_provider_error(
-            ContractError::<VertexProvider>::ProviderError { e }
+            ContractError::<VertexProvider<S>>::ProviderError { e }
         ))),
     }
 }

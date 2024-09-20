@@ -19,10 +19,11 @@ use crate::indexer::{
 };
 use crate::indexer::{FastWithdrawalSignatureResponse, LiquidatableAccount};
 use crate::serialize_utils::{WrappedU32, WrappedU64};
+use crate::utils::signer::Signer;
 use crate::utils::wrapped_option_utils::wrapped_option_u64;
 
 #[async_trait]
-pub trait VertexIndexer: VertexBase {
+pub trait VertexIndexer<S: Signer>: VertexBase<S> {
     async fn query<R: DeserializeOwned + Send>(&self, query: Query) -> Result<R>;
 
     async fn query_v2<R: DeserializeOwned + Send>(&self, path: &str, query: QueryV2) -> Result<R>;

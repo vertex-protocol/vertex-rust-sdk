@@ -1,3 +1,5 @@
+use std::str::FromStr;
+use ethers_signers::Wallet;
 use eyre::Result;
 
 use crate::engine::Direction;
@@ -9,8 +11,9 @@ use crate::utils::private_key::private_key;
 use crate::vertex_client::VertexClient;
 
 pub async fn query_sanity_check() -> Result<()> {
+    let signer = Wallet::from_str(&private_key())?;
     let client = VertexClient::new(ClientMode::Local)
-        .with_signer(private_key())
+        .with_signer(signer)
         .await?;
 
     let all_products = client.get_all_products().await?;

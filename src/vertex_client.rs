@@ -1,8 +1,6 @@
 use async_trait::async_trait;
-use ethers::core::k256::ecdsa::SigningKey;
 use ethers::types::{H160, U256};
 use ethers_core::types::TransactionReceipt;
-use ethers_signers::Wallet;
 use eyre::eyre;
 use eyre::Result;
 use serde::de::DeserializeOwned;
@@ -23,12 +21,12 @@ use crate::utils::constants::SLOW_MODE_FEE;
 use crate::utils::deployment::Deployment;
 use crate::utils::deposit::{deposit_collateral, provider_with_signer};
 use crate::utils::rest::RestClient;
-use crate::utils::signer::wallet_with_chain_id;
 use crate::{engine, indexer, trigger};
 use crate::{extract_response_data, fields_to_vars};
+use crate::utils::signer::Signer;
 
 #[derive(Clone)]
-pub struct VertexClient {
+pub struct VertexClient<S: Signer> {
     pub client_mode: ClientMode,
     pub deployment: Deployment,
     pub client: RestClient,
@@ -37,11 +35,11 @@ pub struct VertexClient {
     pub trigger_url: String,
     pub subaccount_name_bytes: Option<[u8; 12]>,
     pub book_addrs: Option<Vec<H160>>,
-    pub wallet: Option<Wallet<SigningKey>>,
+    pub wallet: Option<S>,
     pub chain_id: Option<U256>,
 }
 
-impl VertexClient {
+impl <S: Signer> VertexClient<S> {
     pub fn new(client_mode: ClientMode) -> Self {
         Self {
             gateway_url: client_mode.default_gateway_url(),
@@ -78,7 +76,7 @@ impl VertexClient {
         }
     }
 
-    pub async fn withdraw_pool(&self) -> Result<WithdrawPool<VertexProvider>> {
+    pub async fn withdraw_pool(&self) -> Result<WithdrawPool<VertexProvider<S>>> {
         let provider = provider_with_signer(self)?;
         let clearinghouse = Clearinghouse::new(self.deployment.clearinghouse, provider.clone());
         let withdraw_pool_address = clearinghouse.get_withdraw_pool().call().await?;
@@ -88,11 +86,11 @@ impl VertexClient {
 }
 
 #[async_trait]
-impl VertexBase for VertexClient {
-    async fn with_signer(&self, private_key: String) -> Result<Self> {
+impl <S: Signer> VertexBase<S> for VertexClient<S> {
+    async fn with_signer(&self, signer: S) -> Result<Self> {
         let contracts_response = self.get_contracts().await?;
         let chain_id = U256::from(contracts_response.chain_id);
-        let wallet = wallet_with_chain_id(&private_key, chain_id)?;
+        let signer = signer.with_chain_id(chain_id.as_u64());
         let book_addrs: Vec<H160> = contracts_response
             .book_addrs
             .iter()
@@ -100,7 +98,7 @@ impl VertexBase for VertexClient {
             .collect();
         Ok(Self {
             chain_id: Some(chain_id),
-            wallet: Some(wallet),
+            wallet: Some(signer),
             book_addrs: Some(book_addrs),
             ..self.clone()
         })
@@ -112,7 +110,7 @@ impl VertexBase for VertexClient {
             ..self.clone()
         }
     }
-    fn wallet(&self) -> Result<&Wallet<SigningKey>> {
+    fn wallet(&self) -> Result<&S> {
         self.wallet.as_ref().ok_or(none_error("wallet"))
     }
 
@@ -150,10 +148,10 @@ impl VertexBase for VertexClient {
     }
 }
 
-impl VertexBuilder for VertexClient {}
+impl <S: Signer> VertexBuilder<S> for VertexClient<S> {}
 
 #[async_trait]
-impl VertexExecute for VertexClient {
+impl <S: Signer> VertexExecute<S> for VertexClient<S> {
     async fn execute(
         &self,
         execute: engine::Execute,
@@ -208,7 +206,7 @@ impl VertexExecute for VertexClient {
 }
 
 #[async_trait]
-impl VertexQuery for VertexClient {
+impl <S: Signer> VertexQuery<S> for VertexClient<S> {
     async fn query(&self, query: engine::Query) -> Result<engine::QueryResponseData> {
         let url = format!("{}/query", self.gateway_url);
         let response: engine::QueryResponse = self.client.post_request(&url, &query).await?;
@@ -233,7 +231,7 @@ impl VertexQuery for VertexClient {
 }
 
 #[async_trait]
-impl VertexIndexer for VertexClient {
+impl <S: Signer> VertexIndexer<S> for VertexClient<S> {
     async fn query<R: DeserializeOwned + Send>(&self, query: indexer::Query) -> Result<R> {
         self.client.post_request(&self.archive_url, &query).await
     }

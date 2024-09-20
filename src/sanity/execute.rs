@@ -1,3 +1,6 @@
+use std::str::FromStr;
+use ethers_core::k256::ecdsa::SigningKey;
+use ethers_signers::Wallet;
 use eyre::Result;
 
 use crate::eip712_structs::OrderType;
@@ -10,8 +13,9 @@ use crate::utils::private_key::private_key;
 
 pub async fn execute_sanity_check() -> Result<()> {
     println!("setting up vertex client...");
+    let signer = Wallet::from_str(&private_key())?;
     let client = VertexClient::new(ClientMode::Local)
-        .with_signer(private_key())
+        .with_signer(signer)
         .await
         .unwrap();
 
@@ -34,7 +38,7 @@ pub async fn execute_sanity_check() -> Result<()> {
     Ok(())
 }
 
-async fn deposit(client: &VertexClient) {
+async fn deposit(client: &VertexClient<Wallet<SigningKey>>) {
     let product_id = 0;
     let amount = 100000;
     client
@@ -47,7 +51,7 @@ async fn deposit(client: &VertexClient) {
         .unwrap();
 }
 
-async fn place_orders(client: &VertexClient) {
+async fn place_orders(client: &VertexClient<Wallet<SigningKey>>) {
     let product_id = 1;
     let place_order_response = client
         .place_order_builder()
@@ -167,7 +171,7 @@ fn orders_contain_digest(digest: [u8; 32], orders: &Vec<OrderResponse>) -> bool 
     orders.iter().any(|order| order.digest == digest)
 }
 
-async fn lp(client: &VertexClient) {
+async fn lp(client: &VertexClient<Wallet<SigningKey>>) {
     let product_id = 3;
 
     let info = client
@@ -221,7 +225,7 @@ async fn lp(client: &VertexClient) {
     assert!(post_burn_balance.lp_balance.amount < post_mint_balance.lp_balance.amount);
 }
 
-async fn trigger(client: &VertexClient) {
+async fn trigger(client: &VertexClient<Wallet<SigningKey>>) {
     let product_id = 1;
     let trigger_order_builder = client
         .place_order_builder()
@@ -273,7 +277,7 @@ async fn trigger(client: &VertexClient) {
     assert!(!trigger_orders.contains_digest(digest));
 }
 
-async fn withdraw_collateral(client: &VertexClient) {
+async fn withdraw_collateral(client: &VertexClient<Wallet<SigningKey>>) {
     let info = client
         .get_subaccount_info(client.subaccount().unwrap())
         .await

@@ -33,23 +33,24 @@ use crate::builders::utils::fee_calculator::FeeCalculator;
 
 use crate::core::execute::VertexExecute;
 use crate::core::indexer::VertexIndexer;
+use crate::utils::signer::Signer;
 
 #[doc(hidden)]
 #[macro_export]
 macro_rules! get_vertex_builder {
     (pub $method_name:ident, $builder_name:ident) => {
-        pub fn $method_name(&self) -> $builder_name<Self> {
+        pub fn $method_name(&self) -> $builder_name<S, Self> {
             $builder_name::new(&self)
         }
     };
     ($method_name:ident, $builder_name:ident) => {
-        fn $method_name(&self) -> $builder_name<Self> {
+        fn $method_name(&self) -> $builder_name<S, Self> {
             $builder_name::new(&self)
         }
     };
 }
 
-pub trait VertexBuilder: VertexExecute + VertexIndexer {
+pub trait VertexBuilder<S: Signer>: VertexExecute<S> + VertexIndexer<S> {
     get_vertex_builder!(deposit_collateral_builder, DepositCollateralBuilder);
     get_vertex_builder!(place_order_builder, PlaceOrderBuilder);
     get_vertex_builder!(list_trigger_orders_builder, ListTriggerOrdersBuilder);

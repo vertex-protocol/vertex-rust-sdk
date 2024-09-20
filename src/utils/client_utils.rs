@@ -2,10 +2,12 @@ use eyre::{eyre, Result};
 
 use crate::prelude::VertexBase;
 use crate::utils::client_error::ClientError;
+use crate::utils::signer::Signer;
 
-pub fn subaccount_matches_wallet<V>(client: &V, subaccount: [u8; 32]) -> Result<()>
+pub fn subaccount_matches_wallet<S, V>(client: &V, subaccount: [u8; 32]) -> Result<()>
 where
-    V: VertexBase,
+    S: Signer,
+    V: VertexBase<S>,
 {
     let wallet_address = &client.address()?[..20];
     if wallet_address == &subaccount[..20] {

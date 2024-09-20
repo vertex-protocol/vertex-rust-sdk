@@ -1,7 +1,6 @@
 use async_trait::async_trait;
 use ethers::prelude::{Address, U256};
 use ethers_core::types::{Bytes, TransactionReceipt};
-use ethers_signers::Signer;
 use eyre::{eyre, Result};
 
 use crate::bindings::endpoint::Endpoint;
@@ -20,6 +19,7 @@ use crate::provider::VertexProvider;
 use crate::trigger;
 use crate::utils::deposit::{erc20_client, provider_with_signer};
 use crate::utils::response::match_cancel_orders_response;
+use crate::utils::signer::Signer;
 
 macro_rules! map_response_type {
     ($response_data:expr, $enum_variant:path => $output_type:ty) => {
@@ -34,7 +34,7 @@ macro_rules! map_response_type {
 }
 
 #[async_trait]
-pub trait VertexExecute: VertexQuery {
+pub trait VertexExecute<S: Signer>: VertexQuery<S> {
     async fn execute(&self, execute: Execute) -> Result<Option<ExecuteResponseData>>;
 
     async fn execute_trigger(
@@ -257,13 +257,13 @@ pub trait VertexExecute: VertexQuery {
         Ok(tx_receipt)
     }
 
-    fn endpoint(&self) -> Result<Endpoint<VertexProvider>> {
+    fn endpoint(&self) -> Result<Endpoint<VertexProvider<S>>> {
         let provider = provider_with_signer(self)?;
         let endpoint = Endpoint::new(self.endpoint_addr(), provider);
         Ok(endpoint)
     }
 
-    fn querier(&self) -> Result<Querier<VertexProvider>> {
+    fn querier(&self) -> Result<Querier<VertexProvider<S>>> {
         let provider = provider_with_signer(self)?;
         let endpoint = Querier::new(self.querier_addr(), provider);
         Ok(endpoint)

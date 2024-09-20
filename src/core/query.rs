@@ -16,9 +16,10 @@ use crate::trigger::ListTriggerOrdersResponse;
 
 use crate::core::base::VertexBase;
 use crate::map_response;
+use crate::utils::signer::Signer;
 
 #[async_trait]
-pub trait VertexQuery: VertexBase + Sync {
+pub trait VertexQuery<S: Signer>: VertexBase<S> + Sync {
     async fn query(&self, query: Query) -> Result<QueryResponseData>;
 
     async fn query_trigger(&self, query: trigger::Query) -> Result<trigger::QueryResponseData>;

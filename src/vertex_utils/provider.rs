@@ -4,22 +4,21 @@ use std::sync::Arc;
 use std::time::Duration;
 
 use async_trait::async_trait;
-use ethers::core::k256;
 use ethers_middleware::SignerMiddleware;
 use ethers_providers::{
     Http, HttpClientError, HttpRateLimitRetryPolicy, JsonRpcClient, JsonRpcError, Middleware,
     Provider, RetryClient,
 };
-use ethers_signers::{LocalWallet, Signer, Wallet};
+use ethers_signers::Signer;
 use eyre::Result;
 use serde::de::DeserializeOwned;
 use serde::Serialize;
 
-pub type VertexProvider =
-    SignerMiddleware<Provider<RetryClient<Http>>, Wallet<k256::ecdsa::SigningKey>>;
+pub type VertexProvider<S> =
+    SignerMiddleware<Provider<RetryClient<Http>>, S>;
 
-pub type VertexEnsembleProvider =
-    SignerMiddleware<Provider<RetryClient<HttpEnsemble>>, Wallet<k256::ecdsa::SigningKey>>;
+pub type VertexEnsembleProvider<S> =
+    SignerMiddleware<Provider<RetryClient<HttpEnsemble>>, S>;
 
 /// Client that uses a different node url on failure
 #[derive(Debug)]
@@ -51,20 +50,16 @@ impl HttpEnsemble {
         )))
     }
 
-    pub async fn new_vertex_provider(
+    pub async fn new_vertex_provider<S: Signer>(
         node_urls: &Vec<String>,
-        private_key: String,
-    ) -> Result<Arc<VertexEnsembleProvider>> {
+        signer: S,
+    ) -> Result<Arc<VertexEnsembleProvider<S>>> {
         let provider = HttpEnsemble::new_retry_provider(node_urls)?;
         let chain_id = provider.get_chainid().await?;
-        let wallet = private_key
-            .clone()
-            .parse::<LocalWallet>()
-            .unwrap()
-            .with_chain_id(chain_id.as_u64());
+        let signer = signer.with_chain_id(chain_id.as_u64());
         Ok(Arc::new(SignerMiddleware::new(
             provider.interval(Duration::from_millis(500)),
-            wallet,
+            signer,
         )))
     }
 }
