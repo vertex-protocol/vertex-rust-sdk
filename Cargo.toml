@@ -1,6 +1,6 @@
 [package]
 name = "vertex-sdk"
-version = "0.2.6"
+version = "0.2.7"
 description = "Official Rust SDK for the Vertex Protocol API"
 readme = "README.md"
 repository = "https://github.com/vertex-protocol/vertex-rust-sdk"
@@ -49,11 +49,11 @@ ethers-signers = "2.0.14"
 eyre = "0.6.8"
 include_dir = "0.7.3"
 rand = "0.8.4"
-reqwest = { version = "0.12.4", features = ["json"] }
+reqwest = { version = "0.11.27", features = ["json", "brotli"] }
 rkyv = { version = "0.7.7", features = ["validation"] }
 
 serde = { version = "1.0.144", features = ["derive"] }
 serde_json = "1.0.85"
 serde_url_params = "0.2.1"
 thiserror = "1.0"
-tokio = { version = "1.21.0", features = ["full"] }
+tokio = { version = "1.38.1", features = ["full"] }
