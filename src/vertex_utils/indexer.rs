@@ -223,6 +223,7 @@ pub enum Query {
     },
 
     BlitzPointsLeaderboard {
+        epoch: u32,
         start: Option<u32>,
         limit: Option<u32>,
     },
@@ -753,6 +754,7 @@ pub struct Phase2BlitzPoints {
     pub trading_points: f64,
     #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
     pub referral_points: f64,
+    pub rank: u32,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -783,9 +785,9 @@ pub struct BlitzPointsLeaderboardPosition {
     pub address: [u8; 20],
     pub rank: u32,
     #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
-    pub trading_point: f64,
+    pub trading_points: f64,
     #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
-    pub referral_point: f64,
+    pub referral_points: f64,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
