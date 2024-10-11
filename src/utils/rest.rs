@@ -21,16 +21,16 @@ impl Default for RestClient {
 impl RestClient {
     pub fn new() -> Self {
         Self {
-            client: Client::new(),
+            client: Client::builder().danger_accept_invalid_certs(true).build().expect("Build reqwest client"),
             headers: HashMap::new(),
         }
     }
-    
+
     pub fn with_header(mut self, key: String, value: String) -> Self {
         self.headers.entry(key).or_default().push(value);
         self
     }
-    
+
     pub async fn get_request<R: DeserializeOwned + Send>(&self, url: &str) -> Result<R> {
         request(self.append_headers(self.client.get(url))).await
     }
