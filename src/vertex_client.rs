@@ -75,6 +75,13 @@ impl <S: Signer> VertexClient<S> {
             ..self.clone()
         }
     }
+    
+    pub fn with_header(&self, key: String, value: String) -> Self {
+        Self {
+            client: self.client.clone().with_header(key, value),
+            ..self.clone()
+        }
+    }
 
     pub async fn withdraw_pool(&self) -> Result<WithdrawPool<VertexProvider<S>>> {
         let provider = provider_with_signer(self)?;

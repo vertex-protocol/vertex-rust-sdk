@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use eyre::Result;
 use reqwest::{Client, RequestBuilder};
 use serde::de::DeserializeOwned;
@@ -8,6 +9,7 @@ use crate::utils::response::VertexRestResponse;
 #[derive(Clone)]
 pub struct RestClient {
     client: Client,
+    headers: HashMap<String, Vec<String>>,
 }
 
 impl Default for RestClient {
@@ -20,10 +22,17 @@ impl RestClient {
     pub fn new() -> Self {
         Self {
             client: Client::new(),
+            headers: HashMap::new(),
         }
     }
+    
+    pub fn with_header(mut self, key: String, value: String) -> Self {
+        self.headers.entry(key).or_default().push(value);
+        self
+    }
+    
     pub async fn get_request<R: DeserializeOwned + Send>(&self, url: &str) -> Result<R> {
-        request(self.client.get(url)).await
+        request(self.append_headers(self.client.get(url))).await
     }
 
     pub async fn post_request<T: Serialize, R: DeserializeOwned + Send>(
@@ -31,11 +40,20 @@ impl RestClient {
         url: &str,
         payload: &T,
     ) -> Result<R> {
-        request(self.client.post(url).json(payload)).await
+        request(self.append_headers(self.client.post(url)).json(payload)).await
     }
 
     pub async fn debug_request<T: Serialize>(&self, url: &str, payload: &T) -> Result<()> {
-        debug_request(self.client.post(url).json(payload)).await
+        debug_request(self.append_headers(self.client.post(url)).json(payload)).await
+    }
+
+    fn append_headers(&self, mut builder: RequestBuilder) -> RequestBuilder {
+        for (key, values) in &self.headers {
+            for value in values {
+                builder = builder.header(key, value);
+            }
+        }
+        builder
     }
 }
 
