@@ -7,6 +7,7 @@ use eyre::Result;
 
 use crate::bindings::endpoint::endpoint;
 use crate::math::to_i128_x18;
+use crate::math::ONE_X6;
 use crate::tx::TxType;
 
 use crate::builders::execute::slow_mode::SubmitSlowModeTxParams;
@@ -14,7 +15,6 @@ use crate::core::execute::VertexExecute;
 use crate::utils::client_error::none_error;
 use crate::{build_and_call, fields_to_vars, vertex_builder};
 
-const ONE_X6: i128 = 1_000_000;
 vertex_builder!(
     DepositInsuranceBuilder,
     VertexExecute,
