@@ -1,4 +1,5 @@
 # Vertex Protocol Rust SDK
+
 [![Crates.io][crates-img]][crates-url]
 
 This is the Rust SDK for the [Vertex Protocol API](https://vertex-protocol.gitbook.io/docs/developer-resources/api).
@@ -6,16 +7,15 @@ This is the Rust SDK for the [Vertex Protocol API](https://vertex-protocol.gitbo
 [Documentation](https://docs.rs/vertex-sdk/latest/vertex_sdk/)
 
 ## Quickstart
-Instantiate a client on the chain you would like to interact with. 
+
+Instantiate a client on the chain you would like to interact with.
 For example, `ClientMode::Prod` to use Arbitrum and `ClientMode::BaseProd` to use Base, etc.
-A signer (private key) is required for executes. 
+A signer (private key) is required for executes.
 A signer is not required for queries.
 For requests with many parameters, use the client to build and send requests.
 For simple queries (1-2 params) like `get_market_price`, call directly from the client.
 
-
-
-See [`basic_usage.rs`](examples/basic_usage.rs) for an E2E example including depositing into Vertex. 
+See [`basic_usage.rs`](examples/basic_usage.rs) for an E2E example including depositing into Vertex.
 
 ```rust
 use vertex_sdk::prelude::*;
@@ -40,7 +40,7 @@ async fn main() {
         .execute()
         .await
         .unwrap();
-    
+
     let digest = place_order_response.unwrap().digest;
 
     // cancel orders
@@ -54,19 +54,21 @@ async fn main() {
 }
 ```
 
-
 ## Installation
 
 Add the following line to your Cargo.toml file:
+
 ```toml
 [dependencies]
-vertex_sdk = "0.2.7"
+vertex_sdk = "0.2.8"
 ```
 
-## Usage 
+## Usage
+
 See the [examples](https://github.com/vertex-protocol/vertex-rust-sdk/tree/main/examples) and [sanity](https://github.com/vertex-protocol/vertex-rust-sdk/tree/main/src/sanity) directories.
 
 ## Running locally
+
 ### Run sanity checks
 
 - `cargo run -- --execute-sanity`: runs sanity checks for executes.
@@ -75,5 +77,3 @@ See the [examples](https://github.com/vertex-protocol/vertex-rust-sdk/tree/main/
 
 [crates-img]: https://img.shields.io/crates/v/vertex-sdk
 [crates-url]: https://crates.io/crates/vertex-sdk
-
-
