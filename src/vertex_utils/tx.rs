@@ -38,6 +38,7 @@ pub enum TxType {
     RebalanceXWithdraw = 24,
     UpdateMinDepositRate = 25,
     AssertCode = 26,
+    WithdrawInsurance = 27,
 }
 
 impl TxType {
@@ -70,6 +71,7 @@ impl TxType {
             24 => Self::RebalanceXWithdraw,
             25 => Self::UpdateMinDepositRate,
             26 => Self::AssertCode,
+            27 => Self::WithdrawInsurance,
             _ => panic!("Invalid TxType"),
         }
     }
@@ -127,6 +129,7 @@ pub enum VertexTx {
     DumpFees,
     ClaimSequencerFees(endpoint::ClaimSequencerFees),
     AssertCode(endpoint::AssertCode),
+    WithdrawInsurance(endpoint::WithdrawInsurance),
     Other,
 }
 
@@ -153,6 +156,7 @@ impl VertexTx {
             VertexTx::RebalanceXWithdraw(_) => TxType::RebalanceXWithdraw,
             VertexTx::UpdateMinDepositRate(_) => TxType::UpdateMinDepositRate,
             VertexTx::AssertCode(_) => TxType::AssertCode,
+            VertexTx::WithdrawInsurance(_) => TxType::WithdrawInsurance,
             VertexTx::DumpFees => TxType::DumpFees,
             VertexTx::ClaimSequencerFees(_) => TxType::ClaimSequencerFees,
             VertexTx::Other => panic!("Other is not a valid tx type"),

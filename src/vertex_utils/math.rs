@@ -2,6 +2,7 @@ use ethers::types::{I256, U256};
 use eyre::{eyre, Result};
 
 pub const ONE_X18: i128 = 1000000000000000000;
+pub const ONE_X6: i128 = 1_000_000;
 const UONE: u128 = 1000000000000000000;
 
 fn signed_to_unsigned(x: i128, y: i128) -> (u128, u128, i128) {

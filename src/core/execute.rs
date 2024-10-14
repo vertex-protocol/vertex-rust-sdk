@@ -245,6 +245,11 @@ pub trait VertexExecute: VertexQuery {
         Ok(balance)
     }
 
+    async fn get_token_decimals(&self, product_id: u32) -> Result<u8> {
+        let erc20_client = erc20_client(self, product_id).await?;
+        Ok(erc20_client.decimals().call().await?)
+    }
+
     async fn mint_mock_erc20(
         &self,
         product_id: u32,
