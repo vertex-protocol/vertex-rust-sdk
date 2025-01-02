@@ -7,8 +7,8 @@ use crate::bindings::querier::{
 };
 use crate::bindings::spot_engine;
 use crate::eip712_structs::{
-    BurnLp, Cancellation, CancellationProducts, LinkSigner, LiquidateSubaccount, MintLp, Order,
-    TransferQuote, WithdrawCollateral,
+    BurnLp, Cancellation, CancellationProducts, IsolatedOrder, LinkSigner, LiquidateSubaccount,
+    MintLp, Order, TransferQuote, WithdrawCollateral,
 };
 use crate::math::f64_to_x18;
 use crate::product::Product;
@@ -100,6 +100,8 @@ pub enum Query {
     },
 
     AllProducts {},
+
+    EdgeAllProducts {},
 
     MarketPrice {
         #[serde(deserialize_with = "str_or_u32")]
@@ -204,6 +206,14 @@ pub enum Query {
         spot_leverage: Option<String>,
     },
 
+    IsolatedPositions {
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
+        sender: [u8; 32],
+    },
+
     HealthGroups {},
 
     Insurance {},
@@ -240,6 +250,43 @@ pub struct PlaceOrder {
     #[serde(default)]
     pub id: Option<u64>,
     pub spot_leverage: Option<bool>,
+}
+
+#[derive(Archive, RkyvDeserialize, RkyvSerialize, Clone, Serialize, Deserialize, Debug)]
+#[archive(check_bytes)]
+#[serde(rename_all = "snake_case")]
+pub struct PlaceIsolatedOrder {
+    pub isolated_order: IsolatedOrder,
+    #[serde(
+        serialize_with = "serialize_vec_u8",
+        deserialize_with = "deserialize_vec_u8"
+    )]
+    pub signature: Vec<u8>,
+    pub product_id: u32,
+    #[serde(
+        serialize_with = "serialize_option_bytes32",
+        deserialize_with = "deserialize_option_bytes32"
+    )]
+    // note that `digest` here should be obtained from `isolated_order.to_order()`!!!
+    #[serde(default)]
+    pub digest: Option<[u8; 32]>,
+    // serde ignore if none
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
+    pub id: Option<u64>,
+}
+
+impl PlaceIsolatedOrder {
+    pub fn to_place_order(&self) -> PlaceOrder {
+        PlaceOrder {
+            order: self.isolated_order.to_order(),
+            signature: self.signature.clone(),
+            product_id: self.product_id,
+            digest: self.digest,
+            id: self.id,
+            spot_leverage: None,
+        }
+    }
 }
 
 #[derive(Archive, RkyvDeserialize, RkyvSerialize, Clone, Serialize, Deserialize, Debug)]
@@ -292,6 +339,7 @@ pub enum Execute {
         signature: Vec<u8>,
     },
     PlaceOrder(PlaceOrder),
+    PlaceIsolatedOrder(PlaceIsolatedOrder),
     CancelOrders {
         tx: Cancellation,
         #[serde(
@@ -483,6 +531,22 @@ impl From<ProductInfo> for AllProductsResponse {
             perp_products: product_info.perp_products,
         }
     }
+}
+#[derive(
+    Archive,
+    RkyvDeserialize,
+    RkyvSerialize,
+    Serialize,
+    Deserialize,
+    Clone,
+    Debug,
+    Default,
+    Eq,
+    PartialEq,
+)]
+#[archive(check_bytes)]
+pub struct EdgeAllProductsResponse {
+    pub edge_all_products: HashMap<u64, AllProductsResponse>,
 }
 
 #[derive(
@@ -1172,6 +1236,42 @@ pub struct MinDepositRatesResponse {
     RkyvDeserialize,
 )]
 #[archive(check_bytes)]
+pub struct IsolatedPosition {
+    pub subaccount: [u8; 32],
+    pub quote_balance: SpotBalance,
+    pub base_balance: PerpBalance,
+}
+
+#[derive(
+    Clone,
+    Debug,
+    Default,
+    Eq,
+    PartialEq,
+    Serialize,
+    Deserialize,
+    Archive,
+    RkyvSerialize,
+    RkyvDeserialize,
+)]
+#[archive(check_bytes)]
+pub struct IsolatedPositionsResponse {
+    pub isolated_positions: Vec<IsolatedPosition>,
+}
+
+#[derive(
+    Clone,
+    Debug,
+    Default,
+    Eq,
+    PartialEq,
+    Serialize,
+    Deserialize,
+    Archive,
+    RkyvSerialize,
+    RkyvDeserialize,
+)]
+#[archive(check_bytes)]
 // #[ts(export)]
 // #[ts(export_to = "tsBindings/msgResponses/")]
 pub struct PriceLevel(
@@ -1307,6 +1407,7 @@ pub enum QueryResponseData {
     SubaccountOrders(SubaccountOrdersResponse),
     MarketLiquidity(MarketLiquidityResponse),
     AllProducts(AllProductsResponse),
+    EdgeAllProducts(EdgeAllProductsResponse),
     MaxOrderSize(MaxOrderSizeResponse),
     MaxWithdrawable(MaxWithdrawableResponse),
     MaxLpMintable(MaxLpMintableResponse),
@@ -1314,6 +1415,7 @@ pub enum QueryResponseData {
     Insurance(InsuranceResponse),
     Symbols(SymbolsResponse),
     MinDepositRates(MinDepositRatesResponse),
+    IsolatedPositions(IsolatedPositionsResponse),
     Error(String),
 }
 
@@ -1374,6 +1476,7 @@ pub enum ExecuteResponseData {
     PlaceOrder(PlaceOrderResponse),
     CancelOrders(CancelOrdersResponse),
     CancelProductOrders(CancelOrdersResponse),
+    PlaceIsolatedOrder(PlaceOrderResponse),
 }
 
 #[derive(

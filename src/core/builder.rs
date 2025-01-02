@@ -6,6 +6,7 @@ use crate::builders::execute::deposit_insurance::DepositInsuranceBuilder;
 use crate::builders::execute::link_signer::LinkSignerBuilder;
 use crate::builders::execute::liquidate_subaccount::LiquidateSubaccountBuilder;
 use crate::builders::execute::mint_lp::MintLpBuilder;
+use crate::builders::execute::place_isolated_order::PlaceIsolatedOrderBuilder;
 use crate::builders::execute::place_order::PlaceOrderBuilder;
 use crate::builders::execute::slow_mode::SubmitSlowModeTxBuilder;
 use crate::builders::execute::transfer_quote::TransferQuoteBuilder;
@@ -52,6 +53,7 @@ macro_rules! get_vertex_builder {
 pub trait VertexBuilder: VertexExecute + VertexIndexer {
     get_vertex_builder!(deposit_collateral_builder, DepositCollateralBuilder);
     get_vertex_builder!(place_order_builder, PlaceOrderBuilder);
+    get_vertex_builder!(place_isolated_order_builder, PlaceIsolatedOrderBuilder);
     get_vertex_builder!(list_trigger_orders_builder, ListTriggerOrdersBuilder);
     get_vertex_builder!(cancellation_builder, CancellationBuilder);
     get_vertex_builder!(cancellation_products_builder, CancellationProductsBuilder);
