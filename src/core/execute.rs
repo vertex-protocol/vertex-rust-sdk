@@ -14,7 +14,8 @@ use crate::eip712_structs::{
     TransferQuote, WithdrawCollateral,
 };
 use crate::engine::{
-    CancelOrdersResponse, Execute, ExecuteResponseData, PlaceOrder, PlaceOrderResponse,
+    CancelOrdersResponse, Execute, ExecuteResponseData, PlaceIsolatedOrder, PlaceOrder,
+    PlaceOrderResponse,
 };
 use crate::provider::VertexProvider;
 use crate::trigger;
@@ -49,6 +50,15 @@ pub trait VertexExecute: VertexQuery {
 
     async fn place_order(&self, place_order: PlaceOrder) -> Result<Option<PlaceOrderResponse>> {
         let execute = Execute::PlaceOrder(place_order);
+        let execute_response_data = self.execute(execute).await?;
+        map_response_type!(execute_response_data, ExecuteResponseData::PlaceOrder => PlaceOrderResponse)
+    }
+
+    async fn place_isolated_order(
+        &self,
+        place_isolated_order: PlaceIsolatedOrder,
+    ) -> Result<Option<PlaceOrderResponse>> {
+        let execute = Execute::PlaceIsolatedOrder(place_isolated_order);
         let execute_response_data = self.execute(execute).await?;
         map_response_type!(execute_response_data, ExecuteResponseData::PlaceOrder => PlaceOrderResponse)
     }

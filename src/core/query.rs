@@ -5,11 +5,11 @@ use serde::de::DeserializeOwned;
 use crate::engine::Query::Order;
 use crate::engine::{
     AllProductsResponse, AssetsResponse, ContractsResponse, EngineStatus, FeeRatesResponse,
-    HealthGroupsResponse, InsuranceResponse, LinkedSignerResponse, MarketLiquidityResponse,
-    MarketPairsParams, MarketPairsResponse, MarketPriceResponse, MarketPricesResponse,
-    MaxLpMintableResponse, MaxOrderSizeResponse, MaxWithdrawableResponse, NoncesResponse,
-    OrderResponse, OrderbookParams, OrderbookResponse, Query, QueryResponseData, QueryV2,
-    SubaccountInfoResponse, SubaccountOrdersResponse, SymbolsResponse, Txn,
+    HealthGroupsResponse, InsuranceResponse, IsolatedPositionsResponse, LinkedSignerResponse,
+    MarketLiquidityResponse, MarketPairsParams, MarketPairsResponse, MarketPriceResponse,
+    MarketPricesResponse, MaxLpMintableResponse, MaxOrderSizeResponse, MaxWithdrawableResponse,
+    NoncesResponse, OrderResponse, OrderbookParams, OrderbookResponse, Query, QueryResponseData,
+    QueryV2, SubaccountInfoResponse, SubaccountOrdersResponse, SymbolsResponse, Txn,
 };
 use crate::trigger;
 use crate::trigger::ListTriggerOrdersResponse;
@@ -201,5 +201,10 @@ pub trait VertexQuery: VertexBase + Sync {
     async fn get_assets(&self) -> Result<AssetsResponse> {
         let query = QueryV2::Assets {};
         self.query_v2("/assets", query).await
+    }
+
+    async fn get_isolated_positions(&self, sender: [u8; 32]) -> Result<IsolatedPositionsResponse> {
+        let query_response = self.query(Query::IsolatedPositions { sender }).await?;
+        map_response!(query_response, QueryResponseData::IsolatedPositions)
     }
 }

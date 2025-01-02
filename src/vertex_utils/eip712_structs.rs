@@ -55,6 +55,72 @@ pub struct Order {
     nonce: u64,
 }
 
+#[derive(
+    Archive,
+    RkyvDeserialize,
+    RkyvSerialize,
+    Serialize,
+    Deserialize,
+    Debug,
+    Clone,
+    Eip712,
+    EthAbiType,
+    Default,
+)]
+#[eip712()]
+#[archive(check_bytes)]
+#[allow(non_snake_case)]
+pub struct IsolatedOrder {
+    // #[ts(type = "string")]
+    #[serde(
+        serialize_with = "serialize_bytes32",
+        deserialize_with = "deserialize_bytes32"
+    )]
+    pub sender: [u8; 32],
+    #[serde(
+        serialize_with = "serialize_i128",
+        deserialize_with = "deserialize_i128"
+    )]
+    // #[ts(type = "BigNumberish")]
+    pub priceX18: i128,
+    #[serde(
+        serialize_with = "serialize_i128",
+        deserialize_with = "deserialize_i128"
+    )]
+    // #[ts(type = "BigNumberish")]
+    pub amount: i128, // positive: bid
+    // its really easy to get this mixed up because of all the bit shifts and custom encodings
+    // so we leave these private and only expose through the interface
+    #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
+    expiration: u64,
+    #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
+    nonce: u64,
+    pub margin: i128,
+}
+
+impl IsolatedOrder {
+    pub fn to_order(&self) -> Order {
+        Order::new(
+            self.sender,
+            self.priceX18,
+            self.amount,
+            self.expiration,
+            self.nonce,
+        )
+    }
+
+    pub fn from_binding(order: &endpoint::IsolatedOrder) -> Self {
+        Self {
+            sender: order.sender,
+            priceX18: order.price_x18,
+            amount: order.amount,
+            margin: order.margin,
+            expiration: order.expiration,
+            nonce: order.nonce,
+        }
+    }
+}
+
 #[allow(dead_code)]
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, Default)]
 pub enum OrderType {
@@ -113,6 +179,17 @@ impl Order {
             amount,
             expiration,
             nonce,
+        }
+    }
+
+    pub fn to_isolated_order_binding(&self, margin: i128) -> endpoint::IsolatedOrder {
+        endpoint::IsolatedOrder {
+            sender: self.sender,
+            price_x18: self.priceX18,
+            amount: self.amount,
+            margin,
+            expiration: self.expiration,
+            nonce: self.nonce,
         }
     }
 
@@ -666,6 +743,30 @@ pub struct TaskAuthentication {
         deserialize_with = "deserialize_bytes20"
     )]
     pub sender: [u8; 20],
+    #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
+    pub expiration: u64,
+}
+
+#[derive(
+    Serialize,
+    Deserialize,
+    Clone,
+    Debug,
+    Default,
+    Eq,
+    PartialEq,
+    Eip712,
+    ethers :: contract :: EthAbiType,
+    ethers :: contract :: EthAbiCodec,
+)]
+#[eip712()]
+#[allow(non_snake_case)]
+pub struct LeaderboardAuthentication {
+    #[serde(
+        serialize_with = "serialize_bytes32",
+        deserialize_with = "deserialize_bytes32"
+    )]
+    pub sender: [u8; 32],
     #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
     pub expiration: u64,
 }

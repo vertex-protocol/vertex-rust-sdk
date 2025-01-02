@@ -1,4 +1,6 @@
-use crate::bindings::endpoint::{endpoint, SwapAMM, SwapAMMReturn, UnsignedMintLpReturn};
+use crate::bindings::endpoint::{
+    endpoint, SwapAMM, SwapAMMReturn, UnsignedBurnLpReturn, UnsignedMintLpReturn,
+};
 use crate::tx::TxType;
 use ethers::types::Bytes;
 use eyre::Result;
@@ -49,6 +51,16 @@ vertex_builder!(
 
     pub fn mint_lp_tx(&self, mint_lp_tx: endpoint::MintLp) -> Self {
         let tx = mint_lp_bytes(mint_lp_tx);
+        self.tx(tx)
+    }
+
+    pub fn burn_lp_tx(&self, burn_lp_tx: endpoint::BurnLp) -> Self {
+        let tx = burn_lp_bytes(burn_lp_tx);
+        self.tx(tx)
+    }
+
+    pub fn liquidate_subaccount_tx(&self, liquidate_subaccount_tx: endpoint::LiquidateSubaccount) -> Self {
+        let tx = liquidate_subaccount_bytes(liquidate_subaccount_tx);
         self.tx(tx)
     }
 
@@ -103,6 +115,31 @@ fn mint_lp_bytes(mint_lp: endpoint::MintLp) -> Bytes {
         [
             vec![TxType::MintLp as u8],
             AbiEncode::encode(mint_lp_return),
+        ]
+        .concat(),
+    )
+}
+
+fn burn_lp_bytes(burn_lp: endpoint::BurnLp) -> Bytes {
+    let burn_lp_return = UnsignedBurnLpReturn(burn_lp);
+
+    Bytes::from(
+        [
+            vec![TxType::BurnLp as u8],
+            AbiEncode::encode(burn_lp_return),
+        ]
+        .concat(),
+    )
+}
+
+fn liquidate_subaccount_bytes(liquidate_subaccount: endpoint::LiquidateSubaccount) -> Bytes {
+    let liquidate_subaccount_return =
+        endpoint::UnsignedLiquidateSubaccountReturn(liquidate_subaccount);
+
+    Bytes::from(
+        [
+            vec![TxType::LiquidateSubaccount as u8],
+            AbiEncode::encode(liquidate_subaccount_return),
         ]
         .concat(),
     )

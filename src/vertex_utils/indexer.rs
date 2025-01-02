@@ -1,11 +1,13 @@
 use crate::bindings::endpoint::WithdrawCollateral;
 use crate::bindings::querier::{PerpBalance, PerpProduct, SpotBalance, SpotProduct};
 use crate::eip712_structs;
+use crate::eip712_structs::LeaderboardAuthentication;
 use crate::serialize_utils::{
     deserialize_bytes20, deserialize_bytes32, deserialize_f64, deserialize_i128, deserialize_i64,
-    deserialize_option_f64, deserialize_u64, deserialize_vec_bytes20, serialize_bytes20,
-    serialize_bytes32, serialize_f64, serialize_i128, serialize_i64, serialize_option_f64,
-    serialize_u64, serialize_vec_bytes20, WrappedBytes32, WrappedI128, WrappedU32, WrappedU64,
+    deserialize_option_f64, deserialize_u64, deserialize_vec_bytes20, deserialize_vec_u8,
+    serialize_bytes20, serialize_bytes32, serialize_f64, serialize_i128, serialize_i64,
+    serialize_option_f64, serialize_u64, serialize_vec_bytes20, serialize_vec_u8, WrappedBytes32,
+    WrappedI128, WrappedU32, WrappedU64,
 };
 use crate::tx::{TxType, VertexTx};
 use ethers::types::H160;
@@ -157,6 +159,17 @@ pub enum Query {
         product_ids: Option<Vec<WrappedU32>>,
     },
 
+    EdgeMarketSnapshots {
+        interval: Interval,
+    },
+
+    EdgeCandlesticks {
+        product_id: WrappedU32,
+        granularity: WrappedU32,
+        max_time: Option<WrappedU64>,
+        limit: Option<WrappedU32>,
+    },
+
     ReferralCode {
         #[serde(
             deserialize_with = "deserialize_bytes32",
@@ -248,6 +261,16 @@ pub enum Query {
         contest_ids: Vec<WrappedU32>,
     },
 
+    LeaderboardRegistration {
+        #[serde(
+            deserialize_with = "deserialize_bytes32",
+            serialize_with = "serialize_bytes32"
+        )]
+        subaccount: [u8; 32],
+        contest_id: WrappedU32,
+        update_registration: Option<UpdateLeaderboardRegistration>,
+    },
+
     FastWithdrawalSignature {
         idx: WrappedU64,
     },
@@ -262,6 +285,15 @@ pub enum Query {
         ip: Option<String>,
         wallet: Option<String>,
         api_key: String,
+    },
+
+    SonicPoints {
+        address: H160,
+    },
+
+    SonicPointsLeaderboard {
+        start: Option<u32>,
+        limit: Option<u32>,
     },
 }
 
@@ -690,6 +722,8 @@ pub struct FoundationGlobalReward {
     pub taker_fees: f64,
     #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
     pub taker_tokens: f64,
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub maker_fees: f64,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -701,6 +735,8 @@ pub struct FoundationAddressReward {
     pub taker_fee: f64,
     #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
     pub taker_tokens: f64,
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub maker_fee: f64,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -754,6 +790,10 @@ pub struct Phase2BlitzPoints {
     pub trading_points: f64,
     #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
     pub referral_points: f64,
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub taker_volumes: f64,
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub maker_volumes: f64,
     pub rank: u32,
 }
 
@@ -765,7 +805,26 @@ pub struct BlitzPointsResponse {
     pub trading_points: f64,
     #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
     pub referral_points: f64,
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub taker_volumes: f64,
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub maker_volumes: f64,
+    pub users_referred: u64,
     pub phase2_points: Vec<Phase2BlitzPoints>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct SonicPointsResponse {
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub trading_points: f64,
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub referral_points: f64,
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub taker_volumes: f64,
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub maker_volumes: f64,
+    pub users_referred: u64,
+    pub rank: u32,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -777,7 +836,7 @@ pub struct BlastPointsResponse {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct BlitzPointsLeaderboardPosition {
+pub struct PointsLeaderboardPosition {
     #[serde(
         serialize_with = "serialize_bytes20",
         deserialize_with = "deserialize_bytes20"
@@ -788,11 +847,15 @@ pub struct BlitzPointsLeaderboardPosition {
     pub trading_points: f64,
     #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
     pub referral_points: f64,
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub taker_volumes: f64,
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub maker_volumes: f64,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct BlitzPointsLeaderboardResponse {
-    pub positions: Vec<BlitzPointsLeaderboardPosition>,
+pub struct PointsLeaderboardResponse {
+    pub positions: Vec<PointsLeaderboardPosition>,
     pub total: u32,
 }
 
@@ -1003,6 +1066,11 @@ pub struct MarketSnapshotsResponse {
     pub snapshots: Vec<MarketSnapshotData>,
 }
 
+#[derive(Serialize, Deserialize, Debug, Default)]
+pub struct EdgeMarketSnapshotsResponse {
+    pub snapshots: HashMap<u64, Vec<MarketSnapshotData>>,
+}
+
 #[derive(Serialize, Deserialize, Clone, Debug, Default)]
 pub struct MarketSnapshotData {
     pub timestamp: i64,
@@ -1023,6 +1091,7 @@ pub struct MarketSnapshotData {
     pub borrow_rates: HashMap<i32, WrappedI128>,
     pub cumulative_inflows: HashMap<i32, WrappedI128>,
     pub cumulative_outflows: HashMap<i32, WrappedI128>,
+    pub oracle_prices: HashMap<i32, WrappedI128>,
     pub tvl: WrappedI128,
 }
 
@@ -1251,6 +1320,11 @@ pub struct LeaderboardPosition {
         deserialize_with = "deserialize_option_f64"
     )]
     pub volume: Option<f64>,
+    #[serde(
+        serialize_with = "serialize_option_f64",
+        deserialize_with = "deserialize_option_f64"
+    )]
+    pub staked_vrtx: Option<f64>,
     #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
     pub update_time: u64,
 }
@@ -1270,6 +1344,8 @@ pub struct LeaderboardContest {
     pub threshold: f64,
     #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
     pub volume_threshold: f64,
+    #[serde(serialize_with = "serialize_f64", deserialize_with = "deserialize_f64")]
+    pub staking_threshold: f64,
     #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
     pub last_updated: u64,
     pub product_ids: Vec<u32>,
@@ -1289,6 +1365,33 @@ pub struct LeaderboardRankResponse {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct LeaderboardContestsResponse {
     pub contests: Vec<LeaderboardContest>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct LeaderboardRegistration {
+    #[serde(
+        serialize_with = "serialize_bytes32",
+        deserialize_with = "deserialize_bytes32"
+    )]
+    pub subaccount: [u8; 32],
+    pub contest_id: u32,
+    #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
+    pub update_time: u64,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct LeaderboardRegistrationResponse {
+    pub registration: Option<LeaderboardRegistration>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct UpdateLeaderboardRegistration {
+    pub tx: LeaderboardAuthentication,
+    #[serde(
+        serialize_with = "serialize_vec_u8",
+        deserialize_with = "deserialize_vec_u8"
+    )]
+    pub signature: Vec<u8>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
