@@ -24,7 +24,8 @@ vertex_builder!(
     nonce: u64,
     recv_time: u64,
     mock_digest_and_signature: bool,
-    id: u64;
+    id: u64,
+    borrow_margin: bool;
 
 
     build_and_call!(self, execute, place_isolated_order => Option<PlaceOrderResponse>);
@@ -34,6 +35,7 @@ vertex_builder!(
         let id = self.id;
         let signature = self.get_signature(self.get_product_id()?, &isolated_order)?;
         let digest = self.get_digest(&isolated_order)?;
+        let borrow_margin = self.borrow_margin;
 
         Ok(PlaceIsolatedOrder {
             isolated_order,
@@ -41,6 +43,7 @@ vertex_builder!(
             product_id: self.get_product_id()?,
             digest: Some(digest),
             id,
+            borrow_margin,
         })
     }
 

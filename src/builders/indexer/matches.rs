@@ -16,7 +16,8 @@ vertex_builder!(
     product_ids: Vec<u32>,
     max_time: u64,
     limit: u32,
-    idx: u64;
+    idx: u64,
+    isolated: bool;
 
     build_and_call!(self, query, get_matches => MatchesResponse);
 
@@ -29,6 +30,7 @@ vertex_builder!(
             max_time: wrapped_option_u64(self.max_time),
             limit: self.limit.map(WrappedU32),
             idx: wrapped_option_u64(self.idx),
+            isolated: self.isolated,
         })
     }
 );

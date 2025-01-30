@@ -13,6 +13,7 @@ pub enum CancelReason {
     LinkedSignerChanged,
     Expired,
     AccountHealth,
+    IsolatedSubaccountClosed,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq, Serialize, Deserialize)]

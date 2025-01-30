@@ -19,6 +19,8 @@ pub enum ClientMode {
     BeraTest,
     SonicTest,
     SonicProd,
+    AbstractTest,
+    AbstractProd,
     Local,
     LocalAlt,
 }
@@ -71,12 +73,14 @@ impl ClientMode {
             Self::BaseTest => "base-test",
             Self::BeraTest => "bera-test",
             Self::SonicTest => "sonic-test",
+            Self::AbstractTest => "abstract-test",
             Self::Prod => "prod",
             Self::BlastProd => "blast-prod",
             Self::MantleProd => "mantle-prod",
             Self::SeiProd => "sei-prod",
             Self::BaseProd => "base-prod",
             Self::SonicProd => "sonic-prod",
+            Self::AbstractProd => "abstract-prod",
         }
         .to_string()
     }
@@ -91,6 +95,7 @@ impl ClientMode {
             "base-test" => Self::BaseTest,
             "bera-test" => Self::BeraTest,
             "sonic-test" => Self::SonicTest,
+            "abstract-test" => Self::AbstractTest,
             "prod" => Self::Prod,
             "blast-prod" => Self::BlastProd,
             "mantle-test" => Self::MantleTest,
@@ -98,6 +103,7 @@ impl ClientMode {
             "sei-prod" => Self::SeiProd,
             "base-prod" => Self::BaseProd,
             "sonic-prod" => Self::SonicProd,
+            "abstract-prod" => Self::AbstractProd,
             _ => panic!("Unknown envtag: {}", envtag),
         }
     }

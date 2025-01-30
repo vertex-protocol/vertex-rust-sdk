@@ -17,7 +17,8 @@ vertex_builder!(
     max_time: u64,
     limit: u32,
     idx: u64,
-    digests: Vec<[u8; 32]>;
+    digests: Vec<[u8; 32]>,
+    isolated: bool;
 
     build_and_call!(self, query, get_historical_orders => OrdersResponse);
 
@@ -32,6 +33,7 @@ vertex_builder!(
             max_time: wrapped_option_u64(self.max_time),
             limit: self.limit.map(WrappedU32),
             idx: wrapped_option_u64(self.idx),
+            isolated: self.isolated,
         })
     }
 

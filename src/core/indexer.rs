@@ -8,14 +8,14 @@ use serde::de::DeserializeOwned;
 use crate::core::base::VertexBase;
 use crate::indexer::Query::FastWithdrawalSignature;
 use crate::indexer::{
-    AccountSnapshotsResponse, ArbRewardsResponse, CandlesticksResponse, EventsResponse,
-    FoundationTakerRewardsResponse, FundingRateResponse, InterestAndFundingTicksResponse,
-    LeaderboardResponse, LinkedSignerRateLimitResponse, LinkedSignerResponse,
-    MakerStatisticsResponse, MarketSnapshotsResponse, MatchesResponse, MerkleProofsResponse,
-    OraclePriceResponse, OrdersResponse, PerpContractResponse, PerpPriceResponse, ProductSnapshot,
-    ProductsResponse, Query, QueryV2, ReferralCodeResponse, RewardsResponse, SubaccountsResponse,
-    SummaryResponse, TickerResponse, TickersParams, TimestampOrTimestamps, TradesResponse,
-    UsdcPriceResponse,
+    AccountSnapshotsResponse, ArbRewardsResponse, CandlesticksResponse, ContractsParams,
+    EventsResponse, FoundationTakerRewardsResponse, FundingRateResponse,
+    InterestAndFundingTicksResponse, IsolatedSubaccountsResponse, LeaderboardResponse,
+    LinkedSignerRateLimitResponse, LinkedSignerResponse, MakerStatisticsResponse,
+    MarketSnapshotsResponse, MatchesResponse, MerkleProofsResponse, OraclePriceResponse,
+    OrdersResponse, PerpContractResponse, PerpPriceResponse, ProductSnapshot, ProductsResponse,
+    Query, QueryV2, ReferralCodeResponse, RewardsResponse, SubaccountsResponse, SummaryResponse,
+    TickerResponse, TickersParams, TimestampOrTimestamps, TradesResponse, UsdcPriceResponse,
 };
 use crate::indexer::{FastWithdrawalSignatureResponse, LiquidatableAccount};
 use crate::serialize_utils::{WrappedU32, WrappedU64};
@@ -159,6 +159,20 @@ pub trait VertexIndexer: VertexBase {
         self.query(query).await
     }
 
+    async fn get_isolated_subaccounts(
+        &self,
+        subaccount: Option<[u8; 32]>,
+        start_idx: Option<u64>,
+        limit: Option<u32>,
+    ) -> Result<IsolatedSubaccountsResponse> {
+        let query = Query::IsolatedSubaccounts {
+            subaccount,
+            start_idx: wrapped_option_u64(start_idx),
+            limit: limit.map(WrappedU32),
+        };
+        self.query(query).await
+    }
+
     async fn get_market_snapshots(
         &self,
         market_snapshots_query: Query,
@@ -193,8 +207,12 @@ pub trait VertexIndexer: VertexBase {
         self.query(query).await
     }
 
-    async fn get_tickers(&self, market: Option<String>) -> Result<HashMap<String, TickerResponse>> {
-        self.query_v2("/tickers", QueryV2::Tickers(TickersParams { market }))
+    async fn get_tickers(
+        &self,
+        market: Option<String>,
+        edge: Option<bool>,
+    ) -> Result<HashMap<String, TickerResponse>> {
+        self.query_v2("/tickers", QueryV2::Tickers(TickersParams { market, edge }))
             .await
     }
 
@@ -202,8 +220,12 @@ pub trait VertexIndexer: VertexBase {
         self.query_v2("/trades", trades_query).await
     }
 
-    async fn get_contracts_v2(&self) -> Result<HashMap<String, PerpContractResponse>> {
-        self.query_v2("/contracts", QueryV2::Contracts {}).await
+    async fn get_contracts_v2(
+        &self,
+        edge: Option<bool>,
+    ) -> Result<HashMap<String, PerpContractResponse>> {
+        self.query_v2("/contracts", QueryV2::Contracts(ContractsParams { edge }))
+            .await
     }
 
     async fn get_leaderboard(&self, query: Query) -> Result<LeaderboardResponse> {
