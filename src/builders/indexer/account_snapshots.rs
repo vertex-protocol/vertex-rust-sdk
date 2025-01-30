@@ -11,7 +11,8 @@ vertex_builder!(
     AccountSnapshotsBuilder,
     VertexIndexer,
     subaccounts: Vec<[u8; 32]>,
-    timestamps: Vec<u64>;
+    timestamps: Vec<u64>,
+    isolated: bool;
 
     build_and_call!(self, query, get_account_snapshots => AccountSnapshotsResponse);
 
@@ -21,7 +22,8 @@ vertex_builder!(
         let timestamps = timestamps.into_iter().map(WrappedU64).collect();
         Ok(indexer::Query::AccountSnapshots{
             subaccounts,
-            timestamps
+            timestamps,
+            isolated: self.isolated,
         })
     }
 

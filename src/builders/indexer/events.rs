@@ -18,7 +18,8 @@ vertex_builder!(
     max_time: u64,
     limit: Limit,
     idx: u64,
-    desc: bool;
+    desc: bool,
+    isolated: bool;
 
     build_and_call!(self, query, get_events => EventsResponse);
 
@@ -33,6 +34,7 @@ vertex_builder!(
             idx: wrapped_option_u64(self.idx),
             event_types: self.event_types.clone(),
             desc: self.desc,
+            isolated: self.isolated,
         })
     }
 );

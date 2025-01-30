@@ -54,10 +54,10 @@ pub async fn indexer_sanity_check() -> Result<()> {
         .await?;
     print_json!(trades);
 
-    let tickers = client.get_tickers(None).await?;
+    let tickers = client.get_tickers(None, None).await?;
     print_json!(tickers);
 
-    let contracts = client.get_contracts_v2().await?;
+    let contracts = client.get_contracts_v2(None).await?;
     print_json!(contracts);
 
     let candlesticks = client

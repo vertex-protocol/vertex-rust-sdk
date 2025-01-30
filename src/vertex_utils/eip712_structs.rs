@@ -95,6 +95,10 @@ pub struct IsolatedOrder {
     expiration: u64,
     #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
     nonce: u64,
+    #[serde(
+        serialize_with = "serialize_i128",
+        deserialize_with = "deserialize_i128"
+    )]
     pub margin: i128,
 }
 

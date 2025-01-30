@@ -76,6 +76,7 @@ pub enum Query {
         limit: Option<Limit>,
         idx: Option<WrappedU64>,
         desc: Option<bool>,
+        isolated: Option<bool>,
     },
 
     Orders {
@@ -85,6 +86,7 @@ pub enum Query {
         max_time: Option<WrappedU64>,
         limit: Option<WrappedU32>,
         idx: Option<WrappedU64>,
+        isolated: Option<bool>,
     },
 
     Summary {
@@ -99,6 +101,7 @@ pub enum Query {
     AccountSnapshots {
         subaccounts: Vec<WrappedBytes32>,
         timestamps: Vec<WrappedU64>,
+        isolated: Option<bool>,
     },
 
     Matches {
@@ -107,6 +110,7 @@ pub enum Query {
         max_time: Option<WrappedU64>,
         limit: Option<WrappedU32>,
         idx: Option<WrappedU64>,
+        isolated: Option<bool>,
     },
 
     Rewards {
@@ -150,6 +154,12 @@ pub enum Query {
     },
 
     LinkedSigners {
+        start_idx: Option<WrappedU64>,
+        limit: Option<WrappedU32>,
+    },
+
+    IsolatedSubaccounts {
+        subaccount: Option<[u8; 32]>,
         start_idx: Option<WrappedU64>,
         limit: Option<WrappedU32>,
     },
@@ -359,6 +369,8 @@ pub struct Event {
     #[serde(serialize_with = "serialize_i64", deserialize_with = "deserialize_i64")]
     pub submission_idx: i64,
     pub event_type: TxType,
+    pub isolated: bool,
+    pub isolated_product_id: Option<u32>,
     pub pre_balance: Balance,
     pub post_balance: Balance,
     pub product: Product,
@@ -493,6 +505,7 @@ pub struct Order {
     pub expiration: u64,
     #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
     pub nonce: u64,
+    pub isolated: bool,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -928,6 +941,7 @@ pub struct Match {
     pub net_entry_cumulative: i128,
     #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
     pub submission_idx: u64,
+    pub isolated: bool,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
@@ -1050,6 +1064,10 @@ pub struct LinkedSignerRateLimitResponse {
 
 #[derive(Serialize, Deserialize, Debug, Clone, Eq, PartialEq)]
 pub struct LinkedSigner {
+    #[serde(
+        serialize_with = "serialize_bytes32",
+        deserialize_with = "deserialize_bytes32"
+    )]
     pub subaccount: [u8; 32],
     pub linked: [u8; 20],
     pub submission_idx: i64,
@@ -1059,6 +1077,29 @@ pub struct LinkedSigner {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct LinkedSignerResponse {
     pub events: Vec<LinkedSigner>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct IsolatedSubaccount {
+    #[serde(
+        serialize_with = "serialize_bytes32",
+        deserialize_with = "deserialize_bytes32"
+    )]
+    pub subaccount: [u8; 32],
+    pub product_id: i32,
+    pub submission_idx: i64,
+    pub update_time: i64,
+    #[serde(
+        serialize_with = "serialize_bytes32",
+        deserialize_with = "deserialize_bytes32"
+    )]
+    pub isolated_subaccount: [u8; 32],
+    pub status: i32,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct IsolatedSubaccountsResponse {
+    pub isolated_subaccounts: Vec<IsolatedSubaccount>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Default)]
@@ -1184,7 +1225,7 @@ pub struct InterestAndFundingTicksResponse {
 #[serde(rename_all = "snake_case")]
 pub enum QueryV2 {
     Tickers(TickersParams),
-    Contracts {},
+    Contracts(ContractsParams),
     Trades(TradesParams),
     Vrtx(VrtxParams),
 }
@@ -1192,6 +1233,12 @@ pub enum QueryV2 {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct TickersParams {
     pub market: Option<String>,
+    pub edge: Option<bool>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ContractsParams {
+    pub edge: Option<bool>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]

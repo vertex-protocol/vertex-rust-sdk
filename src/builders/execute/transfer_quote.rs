@@ -1,3 +1,4 @@
+use ethers::types::H160;
 use eyre::Result;
 
 use crate::eip712_structs::TransferQuote;
@@ -10,14 +11,17 @@ vertex_builder!(
     TransferQuoteBuilder,
     VertexExecute,
     recipient: [u8; 32],
+    linked_sender: [u8; 32],
     amount: u128,
     nonce: u64;
 
     build_and_call!(self, execute, transfer_quote => (), async_build);
 
     pub async fn build(&self) -> Result<TransferQuote> {
-        let sender = self.vertex.subaccount()?;
-        let address = self.vertex.address()?;
+        let default_sender = self.vertex.subaccount()?;
+        let sender = self.linked_sender.unwrap_or(default_sender);
+
+        let address = H160::from_slice(&sender[0..20]).0;
         let nonce = self
             .nonce
             .unwrap_or(self.vertex.next_tx_nonce(address).await?);

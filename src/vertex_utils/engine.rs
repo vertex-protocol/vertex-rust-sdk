@@ -211,7 +211,7 @@ pub enum Query {
             serialize_with = "serialize_bytes32",
             deserialize_with = "deserialize_bytes32"
         )]
-        sender: [u8; 32],
+        subaccount: [u8; 32],
     },
 
     HealthGroups {},
@@ -274,6 +274,7 @@ pub struct PlaceIsolatedOrder {
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(default)]
     pub id: Option<u64>,
+    pub borrow_margin: Option<bool>,
 }
 
 impl PlaceIsolatedOrder {
@@ -775,6 +776,9 @@ pub struct OrderResponse {
     )]
     pub digest: [u8; 32],
     pub placed_at: u64,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub margin: Option<WrappedI128>,
 }
 
 #[derive(
@@ -1237,9 +1241,26 @@ pub struct MinDepositRatesResponse {
 )]
 #[archive(check_bytes)]
 pub struct IsolatedPosition {
+    #[serde(
+        serialize_with = "serialize_bytes32",
+        deserialize_with = "deserialize_bytes32"
+    )]
     pub subaccount: [u8; 32],
     pub quote_balance: SpotBalance,
     pub base_balance: PerpBalance,
+    pub quote_product: SpotProduct,
+    pub base_product: PerpProduct,
+    #[serde(
+        serialize_with = "serialize_vec_i128",
+        deserialize_with = "deserialize_vec_i128"
+    )]
+    pub quote_healths: Vec<i128>,
+    #[serde(
+        serialize_with = "serialize_vec_i128",
+        deserialize_with = "deserialize_vec_i128"
+    )]
+    pub base_healths: Vec<i128>,
+    pub healths: Vec<HealthInfo>,
 }
 
 #[derive(

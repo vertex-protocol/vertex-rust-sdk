@@ -203,8 +203,11 @@ pub trait VertexQuery: VertexBase + Sync {
         self.query_v2("/assets", query).await
     }
 
-    async fn get_isolated_positions(&self, sender: [u8; 32]) -> Result<IsolatedPositionsResponse> {
-        let query_response = self.query(Query::IsolatedPositions { sender }).await?;
+    async fn get_isolated_positions(
+        &self,
+        subaccount: [u8; 32],
+    ) -> Result<IsolatedPositionsResponse> {
+        let query_response = self.query(Query::IsolatedPositions { subaccount }).await?;
         map_response!(query_response, QueryResponseData::IsolatedPositions)
     }
 }
