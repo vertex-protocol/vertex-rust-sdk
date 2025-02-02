@@ -59,7 +59,13 @@ impl RestClient {
 
 async fn request<R: DeserializeOwned + Send>(request: RequestBuilder) -> Result<R> {
     let response = request.send().await?;
-    let response_data: VertexRestResponse<R> = response.json().await?;
+    let bytes = response.bytes().await?;
+    let result = serde_json::from_slice(&bytes);
+    if result.is_err() {
+        let text = String::from_utf8_lossy(&bytes);
+        println!("failed to deserialize response data, text: {}", text);
+    }
+    let response_data: VertexRestResponse<R> = result?;
     response_data.extract_response()
 }
 
