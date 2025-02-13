@@ -40,6 +40,7 @@ pub enum TxType {
     AssertCode = 26,
     WithdrawInsurance = 27,
     CreateIsolatedSubaccount = 28,
+    DelistProduct = 29,
 }
 
 impl TxType {
@@ -74,6 +75,7 @@ impl TxType {
             26 => Self::AssertCode,
             27 => Self::WithdrawInsurance,
             28 => Self::CreateIsolatedSubaccount,
+            29 => Self::DelistProduct,
             _ => panic!("Invalid TxType"),
         }
     }
@@ -133,6 +135,7 @@ pub enum VertexTx {
     AssertCode(endpoint::AssertCode),
     WithdrawInsurance(endpoint::WithdrawInsurance),
     CreateIsolatedSubaccount(endpoint::CreateIsolatedSubaccount),
+    DelistProduct(endpoint::DelistProduct),
     Other,
 }
 
@@ -160,6 +163,7 @@ impl VertexTx {
             VertexTx::UpdateMinDepositRate(_) => TxType::UpdateMinDepositRate,
             VertexTx::AssertCode(_) => TxType::AssertCode,
             VertexTx::WithdrawInsurance(_) => TxType::WithdrawInsurance,
+            VertexTx::DelistProduct(_) => TxType::DelistProduct,
             VertexTx::DumpFees => TxType::DumpFees,
             VertexTx::ClaimSequencerFees(_) => TxType::ClaimSequencerFees,
             VertexTx::CreateIsolatedSubaccount(_) => TxType::CreateIsolatedSubaccount,
