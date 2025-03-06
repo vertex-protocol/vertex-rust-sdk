@@ -1212,6 +1212,8 @@ pub struct Payment {
         deserialize_with = "deserialize_i128"
     )]
     pub oracle_price_x18: i128,
+    pub isolated: bool,
+    pub isolated_product_id: Option<u32>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]

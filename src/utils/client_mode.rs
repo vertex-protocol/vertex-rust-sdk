@@ -20,8 +20,8 @@ pub enum ClientMode {
     SonicProd,
     AbstractTest,
     AbstractProd,
-    BeraTest,
     BeraProd,
+    AvaxTest,
     Local,
     LocalAlt,
 }
@@ -63,6 +63,18 @@ impl ClientMode {
         }
     }
 
+    pub fn default_gateway_ws_url(&self) -> String {
+        let envtag = self.vertex_envtag();
+        match self {
+            Self::Local | Self::LocalAlt => {
+                format!("ws://gateway.{envtag}.vertexprotocol.com:80/ws")
+            }
+            _ => {
+                format!("wss://gateway.{envtag}.vertexprotocol.com/ws")
+            }
+        }
+    }
+
     pub fn vertex_envtag(&self) -> String {
         match self {
             Self::Local => "local",
@@ -72,7 +84,6 @@ impl ClientMode {
             Self::BlastTest => "blast-test",
             Self::SeiTest => "sei-test",
             Self::BaseTest => "base-test",
-            Self::BeraTest => "bera-test",
             Self::SonicTest => "sonic-test",
             Self::AbstractTest => "abstract-test",
             Self::Prod => "prod",
@@ -83,6 +94,7 @@ impl ClientMode {
             Self::SonicProd => "sonic-prod",
             Self::AbstractProd => "abstract-prod",
             Self::BeraProd => "bera-prod",
+            Self::AvaxTest => "avax-test",
         }
         .to_string()
     }
@@ -95,9 +107,9 @@ impl ClientMode {
             "blast-test" => Self::BlastTest,
             "sei-test" => Self::SeiTest,
             "base-test" => Self::BaseTest,
-            "bera-test" => Self::BeraTest,
             "sonic-test" => Self::SonicTest,
             "abstract-test" => Self::AbstractTest,
+            "avax-test" => Self::AvaxTest,
             "prod" => Self::Prod,
             "blast-prod" => Self::BlastProd,
             "mantle-test" => Self::MantleTest,
