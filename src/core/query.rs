@@ -7,9 +7,10 @@ use crate::engine::{
     AllProductsResponse, AssetsResponse, ContractsResponse, EngineStatus, FeeRatesResponse,
     HealthGroupsResponse, InsuranceResponse, IsolatedPositionsResponse, LinkedSignerResponse,
     MarketLiquidityResponse, MarketPairsParams, MarketPairsResponse, MarketPriceResponse,
-    MarketPricesResponse, MaxLpMintableResponse, MaxOrderSizeResponse, MaxWithdrawableResponse,
-    NoncesResponse, OrderResponse, OrderbookParams, OrderbookResponse, Query, QueryResponseData,
-    QueryV2, SubaccountInfoResponse, SubaccountOrdersResponse, SymbolsResponse, Txn,
+    MarketPricesResponse, MaxLpMintableResponse, MaxOrderSizeResponse, MaxVlpMintableResponse,
+    MaxWithdrawableResponse, NoncesResponse, OrderResponse, OrderbookParams, OrderbookResponse,
+    Query, QueryResponseData, QueryV2, SubaccountInfoResponse, SubaccountOrdersResponse,
+    SymbolsResponse, Txn,
 };
 use crate::trigger;
 use crate::trigger::ListTriggerOrdersResponse;
@@ -151,6 +152,14 @@ pub trait VertexQuery: VertexBase + Sync {
     ) -> Result<MaxLpMintableResponse> {
         let query_response = self.query(max_lp_mintable_query).await?;
         map_response!(query_response, QueryResponseData::MaxLpMintable)
+    }
+
+    async fn get_max_vlp_mintable(
+        &self,
+        max_vlp_mintable_query: Query,
+    ) -> Result<MaxVlpMintableResponse> {
+        let query_response = self.query(max_vlp_mintable_query).await?;
+        map_response!(query_response, QueryResponseData::MaxVlpMintable)
     }
 
     async fn get_health_groups(&self) -> Result<HealthGroupsResponse> {

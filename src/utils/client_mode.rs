@@ -22,6 +22,7 @@ pub enum ClientMode {
     AbstractProd,
     BeraProd,
     AvaxTest,
+    AvaxProd,
     Local,
     LocalAlt,
 }
@@ -75,6 +76,42 @@ impl ClientMode {
         }
     }
 
+    pub fn private_gateway_ws_url(&self) -> String {
+        let envtag = self.vertex_envtag();
+        match self {
+            Self::Local | Self::LocalAlt => {
+                format!("ws://{envtag}-mm.vertexprotocol-backend.com:80/ws")
+            }
+            _ => {
+                format!("wss://{envtag}-mm.vertexprotocol-backend.com/ws")
+            }
+        }
+    }
+
+    pub fn private_gateway_subscription_url(&self) -> String {
+        let envtag = self.vertex_envtag();
+        match self {
+            Self::Local | Self::LocalAlt => {
+                format!("ws://{envtag}-mm.vertexprotocol-backend.com:80/subscribe")
+            }
+            _ => {
+                format!("wss://{envtag}-mm.vertexprotocol-backend.com/subscribe")
+            }
+        }
+    }
+
+    pub fn private_gateway_url(&self) -> String {
+        let envtag = self.vertex_envtag();
+        match self {
+            Self::Local | Self::LocalAlt => {
+                format!("http://{envtag}-mm.vertexprotocol-backend.com:80")
+            }
+            _ => {
+                format!("https://{envtag}-mm.vertexprotocol-backend.com")
+            }
+        }
+    }
+
     pub fn vertex_envtag(&self) -> String {
         match self {
             Self::Local => "local",
@@ -95,6 +132,7 @@ impl ClientMode {
             Self::AbstractProd => "abstract-prod",
             Self::BeraProd => "bera-prod",
             Self::AvaxTest => "avax-test",
+            Self::AvaxProd => "avax-prod",
         }
         .to_string()
     }
@@ -119,6 +157,7 @@ impl ClientMode {
             "sonic-prod" => Self::SonicProd,
             "abstract-prod" => Self::AbstractProd,
             "bera-prod" => Self::BeraProd,
+            "avax-prod" => Self::AvaxProd,
             _ => panic!("Unknown envtag: {}", envtag),
         }
     }

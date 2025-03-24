@@ -3,13 +3,13 @@
     "explorerUrl": "",
     "startBlock": 0,
     "quote": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-    "querier": "0x67d269191c92Caf3cD7723F116c85e6E9bf55933",
-    "clearinghouse": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
-    "endpoint": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
-    "spotEngine": "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
-    "perpEngine": "0x0B306BF915C4d645ff596e518fAf3F9669b97016",
-    "foundationRewardsAirdrop": "0xa82fF9aFd8f496c3d6ac40E2a0F282E47488CFc9",
-    "offchainExchange": "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e",
-    "verifier": "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE",
-    "withdrawPool": "0x3Aa5ebB10DC797CAC828524e59A333d0A371443c"
+    "querier": "0xE6E340D132b5f46d1e472DebcD681B2aBc16e57E",
+    "clearinghouse": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+    "endpoint": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+    "spotEngine": "0x9A676e781A523b5d0C0e43731313A708CB607508",
+    "perpEngine": "0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1",
+    "foundationRewardsAirdrop": "0x1613beB3B2C4f22Ee086B2b38C1476A3cE7f78E8",
+    "offchainExchange": "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0",
+    "verifier": "0x68B1D87F95878fE05B998F19b66F4baba5De1aed",
+    "withdrawPool": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d"
 }

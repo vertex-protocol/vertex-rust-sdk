@@ -10,8 +10,8 @@ use crate::builders::execute::deposit_collateral::DepositCollateralParams;
 use crate::builders::execute::slow_mode::SubmitSlowModeTxParams;
 use crate::core::query::VertexQuery;
 use crate::eip712_structs::{
-    BurnLp, Cancellation, CancellationProducts, LinkSigner, LiquidateSubaccount, MintLp,
-    TransferQuote, WithdrawCollateral,
+    BurnLp, BurnVlp, Cancellation, CancellationProducts, LinkSigner, LiquidateSubaccount, MintLp,
+    MintVlp, TransferQuote, WithdrawCollateral,
 };
 use crate::engine::{
     CancelOrdersResponse, Execute, ExecuteResponseData, PlaceIsolatedOrder, PlaceOrder,
@@ -142,6 +142,24 @@ pub trait VertexExecute: VertexQuery {
             spot_leverage,
             sequencer_risk_check: None,
         };
+        self.execute(execute).await?;
+        Ok(())
+    }
+
+    async fn mint_vlp(&self, tx: MintVlp, spot_leverage: Option<bool>) -> Result<()> {
+        let signature = self.endpoint_signature(&tx)?;
+        let execute = Execute::MintVlp {
+            tx,
+            signature,
+            spot_leverage,
+        };
+        self.execute(execute).await?;
+        Ok(())
+    }
+
+    async fn burn_vlp(&self, tx: BurnVlp) -> Result<()> {
+        let signature = self.endpoint_signature(&tx)?;
+        let execute = Execute::BurnVlp { tx, signature };
         self.execute(execute).await?;
         Ok(())
     }

@@ -41,6 +41,9 @@ pub enum TxType {
     WithdrawInsurance = 27,
     CreateIsolatedSubaccount = 28,
     DelistProduct = 29,
+    MintVlp = 30,
+    BurnVlp = 31,
+    RebalanceVlp = 32,
 }
 
 impl TxType {
@@ -76,6 +79,9 @@ impl TxType {
             27 => Self::WithdrawInsurance,
             28 => Self::CreateIsolatedSubaccount,
             29 => Self::DelistProduct,
+            30 => Self::MintVlp,
+            31 => Self::BurnVlp,
+            32 => Self::RebalanceVlp,
             _ => panic!("Invalid TxType"),
         }
     }
@@ -136,6 +142,9 @@ pub enum VertexTx {
     WithdrawInsurance(endpoint::WithdrawInsurance),
     CreateIsolatedSubaccount(endpoint::CreateIsolatedSubaccount),
     DelistProduct(endpoint::DelistProduct),
+    MintVlp(endpoint::MintVlp),
+    BurnVlp(endpoint::BurnVlp),
+    RebalanceVlp(endpoint::RebalanceVlp),
     Other,
 }
 
@@ -167,6 +176,9 @@ impl VertexTx {
             VertexTx::DumpFees => TxType::DumpFees,
             VertexTx::ClaimSequencerFees(_) => TxType::ClaimSequencerFees,
             VertexTx::CreateIsolatedSubaccount(_) => TxType::CreateIsolatedSubaccount,
+            VertexTx::MintVlp(_) => TxType::MintVlp,
+            VertexTx::BurnVlp(_) => TxType::BurnVlp,
+            VertexTx::RebalanceVlp(_) => TxType::RebalanceVlp,
             VertexTx::Other => panic!("Other is not a valid tx type"),
         }
     }
