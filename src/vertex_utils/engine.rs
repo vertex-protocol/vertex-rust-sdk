@@ -7,8 +7,8 @@ use crate::bindings::querier::{
 };
 use crate::bindings::spot_engine;
 use crate::eip712_structs::{
-    BurnLp, Cancellation, CancellationProducts, IsolatedOrder, LinkSigner, LiquidateSubaccount,
-    MintLp, Order, TransferQuote, WithdrawCollateral,
+    BurnLp, BurnVlp, Cancellation, CancellationProducts, IsolatedOrder, LinkSigner,
+    LiquidateSubaccount, MintLp, MintVlp, Order, TransferQuote, WithdrawCollateral,
 };
 use crate::math::f64_to_x18;
 use crate::product::Product;
@@ -17,9 +17,7 @@ use crate::serialize_utils::{
     deserialize_option_bytes32, deserialize_option_vec_u8, deserialize_u64,
     deserialize_vec_bytes20, deserialize_vec_i128, deserialize_vec_u8,
     serialize_bytes20, serialize_bytes32, serialize_i128, serialize_nested_vec_i128,
-    serialize_option_bytes32, serialize_option_vec_u8, serialize_u64,
-    serialize_vec_bytes20, serialize_vec_i128, serialize_vec_u8, str_or_u32,
-    WrappedI128,
+    serialize_option_bytes32, serialize_option_vec_u8, serialize_u64, serialize_vec_bytes20, serialize_vec_i128, serialize_vec_u8, str_or_u32, WrappedI128,
 };
 use rkyv::{Archive, Deserialize as RkyvDeserialize, Serialize as RkyvSerialize};
 use serde::{Deserialize, Serialize};
@@ -206,6 +204,15 @@ pub enum Query {
         spot_leverage: Option<String>,
     },
 
+    MaxVlpMintable {
+        #[serde(
+            serialize_with = "serialize_bytes32",
+            deserialize_with = "deserialize_bytes32"
+        )]
+        sender: [u8; 32],
+        spot_leverage: Option<String>,
+    },
+
     IsolatedPositions {
         #[serde(
             serialize_with = "serialize_bytes32",
@@ -386,6 +393,24 @@ pub enum Execute {
 
     TransferQuote {
         tx: TransferQuote,
+        #[serde(
+            serialize_with = "serialize_vec_u8",
+            deserialize_with = "deserialize_vec_u8"
+        )]
+        signature: Vec<u8>,
+    },
+
+    MintVlp {
+        tx: MintVlp,
+        #[serde(
+            serialize_with = "serialize_vec_u8",
+            deserialize_with = "deserialize_vec_u8"
+        )]
+        signature: Vec<u8>,
+        spot_leverage: Option<bool>,
+    },
+    BurnVlp {
+        tx: BurnVlp,
         #[serde(
             serialize_with = "serialize_vec_u8",
             deserialize_with = "deserialize_vec_u8"
@@ -1015,6 +1040,35 @@ pub struct MaxLpMintableResponse {
 #[archive(check_bytes)]
 // #[ts(export)]
 // #[ts(export_to = "tsBindings/msgResponses/")]
+pub struct MaxVlpMintableResponse {
+    // #[ts(type = "string")]
+    #[serde(
+        serialize_with = "serialize_i128",
+        deserialize_with = "deserialize_i128"
+    )]
+    pub max_base_amount: i128,
+    #[serde(
+        serialize_with = "serialize_i128",
+        deserialize_with = "deserialize_i128"
+    )]
+    pub max_quote_amount: i128,
+}
+
+#[derive(
+    Clone,
+    Debug,
+    Default,
+    Eq,
+    PartialEq,
+    Serialize,
+    Deserialize,
+    Archive,
+    RkyvSerialize,
+    RkyvDeserialize,
+)]
+#[archive(check_bytes)]
+// #[ts(export)]
+// #[ts(export_to = "tsBindings/msgResponses/")]
 pub struct HealthGroupsResponse {
     // #[ts(type = "string")]
     pub health_groups: Vec<(u32, u32)>,
@@ -1432,6 +1486,7 @@ pub enum QueryResponseData {
     MaxOrderSize(MaxOrderSizeResponse),
     MaxWithdrawable(MaxWithdrawableResponse),
     MaxLpMintable(MaxLpMintableResponse),
+    MaxVlpMintable(MaxVlpMintableResponse),
     HealthGroups(HealthGroupsResponse),
     Insurance(InsuranceResponse),
     Symbols(SymbolsResponse),

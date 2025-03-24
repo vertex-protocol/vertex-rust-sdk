@@ -630,6 +630,88 @@ impl BurnLp {
 #[eip712()]
 #[archive(check_bytes)]
 #[allow(non_snake_case)]
+pub struct MintVlp {
+    // #[ts(type = "typestring")]
+    #[serde(
+        serialize_with = "serialize_bytes32",
+        deserialize_with = "deserialize_bytes32"
+    )]
+    pub sender: [u8; 32],
+    #[serde(
+        serialize_with = "serialize_u128",
+        deserialize_with = "deserialize_u128"
+    )]
+    // #[ts(type = "BigNumberish")]
+    pub quoteAmount: u128,
+    #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
+    pub nonce: u64,
+}
+
+impl MintVlp {
+    pub fn to_binding(&self) -> endpoint::MintVlp {
+        endpoint::MintVlp {
+            sender: self.sender,
+            quote_amount: self.quoteAmount,
+            nonce: self.nonce,
+        }
+    }
+}
+
+#[derive(
+    Archive,
+    RkyvDeserialize,
+    RkyvSerialize,
+    Serialize,
+    Deserialize,
+    Debug,
+    Clone,
+    Eip712,
+    EthAbiType,
+)]
+#[eip712()]
+#[archive(check_bytes)]
+#[allow(non_snake_case)]
+pub struct BurnVlp {
+    // #[ts(type = "typestring")]
+    #[serde(
+        serialize_with = "serialize_bytes32",
+        deserialize_with = "deserialize_bytes32"
+    )]
+    pub sender: [u8; 32],
+    #[serde(
+        serialize_with = "serialize_u128",
+        deserialize_with = "deserialize_u128"
+    )]
+    // #[ts(type = "BigNumberish")]
+    pub vlpAmount: u128,
+    #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
+    pub nonce: u64,
+}
+
+impl BurnVlp {
+    pub fn to_binding(&self) -> endpoint::BurnVlp {
+        endpoint::BurnVlp {
+            sender: self.sender,
+            vlp_amount: self.vlpAmount,
+            nonce: self.nonce,
+        }
+    }
+}
+
+#[derive(
+    Archive,
+    RkyvDeserialize,
+    RkyvSerialize,
+    Serialize,
+    Deserialize,
+    Debug,
+    Clone,
+    Eip712,
+    EthAbiType,
+)]
+#[eip712()]
+#[archive(check_bytes)]
+#[allow(non_snake_case)]
 pub struct TransferQuote {
     // #[ts(type = "string")]
     #[serde(

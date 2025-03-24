@@ -1,4 +1,5 @@
 use crate::builders::execute::burn_lp::BurnLpBuilder;
+use crate::builders::execute::burn_vlp::BurnVlpBuilder;
 use crate::builders::execute::cancellation::CancellationBuilder;
 use crate::builders::execute::cancellation_products::CancellationProductsBuilder;
 use crate::builders::execute::deposit_collateral::DepositCollateralBuilder;
@@ -6,6 +7,7 @@ use crate::builders::execute::deposit_insurance::DepositInsuranceBuilder;
 use crate::builders::execute::link_signer::LinkSignerBuilder;
 use crate::builders::execute::liquidate_subaccount::LiquidateSubaccountBuilder;
 use crate::builders::execute::mint_lp::MintLpBuilder;
+use crate::builders::execute::mint_vlp::MintVlpBuilder;
 use crate::builders::execute::place_isolated_order::PlaceIsolatedOrderBuilder;
 use crate::builders::execute::place_order::PlaceOrderBuilder;
 use crate::builders::execute::slow_mode::SubmitSlowModeTxBuilder;
@@ -28,6 +30,7 @@ use crate::builders::indexer::subaccounts::SubaccountsBuilder;
 use crate::builders::indexer::trades::TradesParamsBuilder;
 use crate::builders::query::max_lp_mintable::MaxLpMintableBuilder;
 use crate::builders::query::max_order_size::MaxOrderSizeBuilder;
+use crate::builders::query::max_vlp_mintable::MaxVlpMintableBuilder;
 use crate::builders::query::max_withdrawable::MaxWithdrawableBuilder;
 use crate::builders::trigger::list_trigger_orders::ListTriggerOrdersBuilder;
 use crate::builders::utils::fee_calculator::FeeCalculator;
@@ -61,6 +64,8 @@ pub trait VertexBuilder: VertexExecute + VertexIndexer {
     get_vertex_builder!(withdraw_collateral_builder, WithdrawCollateralBuilder);
     get_vertex_builder!(mint_lp_builder, MintLpBuilder);
     get_vertex_builder!(burn_lp_builder, BurnLpBuilder);
+    get_vertex_builder!(mint_vlp_builder, MintVlpBuilder);
+    get_vertex_builder!(burn_vlp_builder, BurnVlpBuilder);
     get_vertex_builder!(link_signer_builder, LinkSignerBuilder);
     get_vertex_builder!(transfer_quote_builder, TransferQuoteBuilder);
     get_vertex_builder!(submit_slow_mode_tx_builder, SubmitSlowModeTxBuilder);
@@ -69,6 +74,7 @@ pub trait VertexBuilder: VertexExecute + VertexIndexer {
     get_vertex_builder!(get_max_order_size_builder, MaxOrderSizeBuilder);
     get_vertex_builder!(get_max_withdrawable_builder, MaxWithdrawableBuilder);
     get_vertex_builder!(get_max_lp_mintable_builder, MaxLpMintableBuilder);
+    get_vertex_builder!(get_max_vlp_mintable_builder, MaxVlpMintableBuilder);
 
     get_vertex_builder!(get_candlesticks_builder, CandlesticksBuilder);
     get_vertex_builder!(get_historical_orders_builder, HistoricalOrdersBuilder);
