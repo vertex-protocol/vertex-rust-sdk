@@ -15,6 +15,7 @@ vertex_builder!(
     subaccount: [u8; 32],
     product_ids: Vec<u32>,
     max_idx: u64,
+    max_time: u64,
     limit: u32;
 
     build_and_call!(self, query, get_interest_and_funding => InterestAndFundingTicksResponse);
@@ -25,6 +26,7 @@ vertex_builder!(
             subaccount,
             product_ids: WrappedU32::wrap_vec_u32(&product_ids),
             max_idx: wrapped_option_u64(self.max_idx),
+            max_time: wrapped_option_u64(self.max_time),
             limit: WrappedU32(limit),
         })
     }

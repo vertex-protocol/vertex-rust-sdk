@@ -1046,11 +1046,6 @@ pub struct MaxVlpMintableResponse {
         serialize_with = "serialize_i128",
         deserialize_with = "deserialize_i128"
     )]
-    pub max_base_amount: i128,
-    #[serde(
-        serialize_with = "serialize_i128",
-        deserialize_with = "deserialize_i128"
-    )]
     pub max_quote_amount: i128,
 }
 

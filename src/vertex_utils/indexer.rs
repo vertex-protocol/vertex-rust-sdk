@@ -196,6 +196,7 @@ pub enum Query {
         subaccount: [u8; 32],
         product_ids: Vec<WrappedU32>,
         max_idx: Option<WrappedU64>,
+        max_time: Option<WrappedU64>,
         limit: WrappedU32,
     },
 
@@ -305,6 +306,149 @@ pub enum Query {
         start: Option<u32>,
         limit: Option<u32>,
     },
+
+    StakingV2ModifyStake {},
+
+    StakingV2PoolSnapshots {
+        interval: Interval,
+    },
+
+    StakingV2TopStakers {
+        limit: Option<u32>,
+    },
+
+    FoundationTokenIncentivesSnapshots {
+        interval: Interval,
+    },
+
+    VrtxSupplySnapshots {
+        interval: Interval,
+    },
+
+    VlpSnapshots {
+        interval: Interval,
+    },
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct VlpSnapshot {
+    #[serde(serialize_with = "serialize_i64", deserialize_with = "deserialize_i64")]
+    pub submission_idx: i64,
+    #[serde(serialize_with = "serialize_i64", deserialize_with = "deserialize_i64")]
+    pub timestamp: i64,
+    #[serde(
+        serialize_with = "serialize_i128",
+        deserialize_with = "deserialize_i128"
+    )]
+    pub cumulative_volume: i128,
+    #[serde(serialize_with = "serialize_i64", deserialize_with = "deserialize_i64")]
+    pub cumulative_trades: i64,
+    #[serde(
+        serialize_with = "serialize_i128",
+        deserialize_with = "deserialize_i128"
+    )]
+    pub cumulative_mint_usdc: i128,
+    #[serde(
+        serialize_with = "serialize_i128",
+        deserialize_with = "deserialize_i128"
+    )]
+    pub cumulative_burn_usdc: i128,
+    #[serde(
+        serialize_with = "serialize_i128",
+        deserialize_with = "deserialize_i128"
+    )]
+    pub cumulative_pnl: i128,
+    #[serde(
+        serialize_with = "serialize_i128",
+        deserialize_with = "deserialize_i128"
+    )]
+    pub oracle_price_x18: i128,
+    #[serde(serialize_with = "serialize_i64", deserialize_with = "deserialize_i64")]
+    pub depositors: i64,
+    #[serde(
+        serialize_with = "serialize_i128",
+        deserialize_with = "deserialize_i128"
+    )]
+    pub tvl: i128,
+}
+#[derive(Serialize, Deserialize, Debug)]
+pub struct VlpSnapshotsResponse {
+    pub snapshots: Vec<VlpSnapshot>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct VrtxSupplySnapshot {
+    pub timestamp: u64,
+    #[serde(
+        serialize_with = "serialize_i128",
+        deserialize_with = "deserialize_i128"
+    )]
+    pub vrtx_oracle_price: i128,
+    pub cumulative_incentives: f64,
+    pub cumulative_lba: f64,
+    pub cumulative_ecosystem_supply: f64,
+    pub cumulative_treasury_supply: f64,
+    pub cumulative_investors_supply: f64,
+    pub cumulative_team_supply: f64,
+}
+#[derive(Serialize, Deserialize, Debug)]
+pub struct VrtxSupplySnapshotsResponse {
+    pub snapshots: Vec<VrtxSupplySnapshot>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct FoundationTokenIncentivesSnapshot {
+    pub timestamp: u64,
+    #[serde(
+        serialize_with = "serialize_i128",
+        deserialize_with = "deserialize_i128"
+    )]
+    pub cumulative_foundation_token_incentives: i128,
+    #[serde(
+        serialize_with = "serialize_i128",
+        deserialize_with = "deserialize_i128"
+    )]
+    pub foundation_token_oracle_price: i128,
+    pub foundation_token_product_id: u32,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct FoundationTokenIncentivesSnapshotsResponse {
+    pub snapshots: HashMap<u64, Vec<FoundationTokenIncentivesSnapshot>>,
+}
+#[derive(Serialize, Deserialize, Debug)]
+pub struct StakingV2PoolSnapshot {
+    pub timestamp: u64,
+    #[serde(
+        serialize_with = "serialize_i128",
+        deserialize_with = "deserialize_i128"
+    )]
+    pub cumulative_staked: i128,
+    #[serde(
+        serialize_with = "serialize_i128",
+        deserialize_with = "deserialize_i128"
+    )]
+    pub cumulative_unstaked: i128,
+    pub number_of_stakers: i32,
+}
+#[derive(Serialize, Deserialize, Debug)]
+pub struct StakingV2PoolSnapshotsResponse {
+    pub snapshots: Vec<StakingV2PoolSnapshot>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Staker {
+    pub address: H160,
+    #[serde(
+        serialize_with = "serialize_i128",
+        deserialize_with = "deserialize_i128"
+    )]
+    pub stake_amount: i128,
+    pub pool_share: f64,
+}
+#[derive(Serialize, Deserialize, Debug)]
+pub struct StakingV2TopTradersResponse {
+    pub stakers: Vec<Staker>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
