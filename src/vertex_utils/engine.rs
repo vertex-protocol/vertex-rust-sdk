@@ -1377,6 +1377,7 @@ pub struct PriceLevel(
 pub struct MarketLiquidityResponse {
     pub bids: Vec<PriceLevel>,
     pub asks: Vec<PriceLevel>,
+    pub product_id: u32,
     #[serde(serialize_with = "serialize_u64", deserialize_with = "deserialize_u64")]
     pub timestamp: u64,
 }
