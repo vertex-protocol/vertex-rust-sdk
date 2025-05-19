@@ -24,6 +24,7 @@ pub enum ClientMode {
     AvaxTest,
     AvaxProd,
     XrplTest,
+    KatanaTest,
     Local,
     LocalAlt,
 }
@@ -135,6 +136,7 @@ impl ClientMode {
             Self::AvaxTest => "avax-test",
             Self::AvaxProd => "avax-prod",
             Self::XrplTest => "xrpl-test",
+            Self::KatanaTest => "katana-test",
         }
         .to_string()
     }
@@ -151,6 +153,7 @@ impl ClientMode {
             "abstract-test" => Self::AbstractTest,
             "avax-test" => Self::AvaxTest,
             "xrpl-test" => Self::XrplTest,
+            "katana-test" => Self::KatanaTest,
             "prod" => Self::Prod,
             "blast-prod" => Self::BlastProd,
             "mantle-test" => Self::MantleTest,

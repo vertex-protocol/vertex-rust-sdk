@@ -326,7 +326,10 @@ pub enum Query {
     },
 
     VlpSnapshots {
-        interval: Interval,
+        interval: Option<Interval>,
+        idx: Option<WrappedU64>,
+        max_time: Option<WrappedU64>,
+        limit: Option<WrappedU32>,
     },
 }
 

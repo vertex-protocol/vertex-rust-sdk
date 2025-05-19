@@ -241,3 +241,7 @@ pub fn lp_value(balance: i128, x: i128, y: i128, supply: i128, price: i128) -> i
         mul_div_x18(balance, pool_total_value, supply)
     }
 }
+
+pub fn round(value: i128, increment: i128) -> i128 {
+    return value - value % increment;
+}
