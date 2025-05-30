@@ -60,7 +60,7 @@ Add the following line to your Cargo.toml file:
 
 ```toml
 [dependencies]
-vertex_sdk = "0.3.6"
+vertex_sdk = "0.3.7"
 ```
 
 ## Usage
