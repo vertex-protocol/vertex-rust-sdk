@@ -331,6 +331,27 @@ pub enum Query {
         max_time: Option<WrappedU64>,
         limit: Option<WrappedU32>,
     },
+
+    TxHashes {
+        idxs: Vec<WrappedU64>,
+    },
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct TxHash {
+    #[serde(serialize_with = "serialize_i64", deserialize_with = "deserialize_i64")]
+    pub submission_idx: i64,
+    #[serde(serialize_with = "serialize_i64", deserialize_with = "deserialize_i64")]
+    pub length: i64,
+    #[serde(
+        serialize_with = "serialize_bytes32",
+        deserialize_with = "deserialize_bytes32"
+    )]
+    pub tx_hash: [u8; 32],
+}
+#[derive(Serialize, Deserialize, Debug)]
+pub struct TxHashesResponse {
+    pub tx_hashes: Vec<Option<TxHash>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]

@@ -39,6 +39,7 @@ pub struct VertexClient {
     pub book_addrs: Option<Vec<H160>>,
     pub wallet: Option<Wallet<SigningKey>>,
     pub chain_id: Option<U256>,
+    pub custom_node_url: Option<String>,
 }
 
 impl VertexClient {
@@ -53,6 +54,7 @@ impl VertexClient {
             chain_id: None,
             wallet: None,
             subaccount_name_bytes: None,
+            custom_node_url: None,
             client_mode,
         }
     }
@@ -67,6 +69,13 @@ impl VertexClient {
     pub fn with_archive_url(&self, archive_url: String) -> Self {
         Self {
             archive_url,
+            ..self.clone()
+        }
+    }
+
+    pub fn with_custom_node_url(&self, node_url: String) -> Self {
+        Self {
+            custom_node_url: Some(node_url),
             ..self.clone()
         }
     }
@@ -121,7 +130,9 @@ impl VertexBase for VertexClient {
     }
 
     fn node_url(&self) -> String {
-        self.deployment.node_url.clone()
+        self.custom_node_url
+            .clone()
+            .unwrap_or(self.deployment.node_url.clone())
     }
 
     fn endpoint_addr(&self) -> H160 {
